@@ -13,6 +13,7 @@ import { MypapersComponent } from './mypapers/mypapers.component';
 import { OverviewComponent } from './overview/overview.component';
 import { AccountComponent } from './account/account.component';
 import { GraphviewComponent } from './graphview/graphview.component';
+import { PaperitemComponent } from './paperitem/paperitem.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { GraphviewComponent } from './graphview/graphview.component';
     MypapersComponent,
     OverviewComponent,
     AccountComponent,
-    GraphviewComponent
+    GraphviewComponent,
+    PaperitemComponent
   ],
   imports: [
     BrowserModule,
