@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AccountComponent } from './account/account.component';
-import { MypapersComponent } from './mypapers/mypapers.component';
-import { OverviewComponent } from './overview/overview.component';
+import { AccountComponent } from './pages/account/account.component';
+import { MypapersComponent } from './pages/mypapers/mypapers.component';
+import { OverviewComponent } from './pages/overview/overview.component';
 
 const routes: Routes = [
   { path: "", component: MypapersComponent },
