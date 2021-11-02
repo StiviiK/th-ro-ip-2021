@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MypapersComponent } from './mypapers/mypapers.component';
 import { OverviewComponent } from './overview/overview.component';
 import { AccountComponent } from './account/account.component';
+import { GraphviewComponent } from './graphview/graphview.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AccountComponent } from './account/account.component';
     NavbarComponent,
     MypapersComponent,
     OverviewComponent,
-    AccountComponent
+    AccountComponent,
+    GraphviewComponent
   ],
   imports: [
     BrowserModule,
