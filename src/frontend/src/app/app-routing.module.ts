@@ -5,6 +5,7 @@ import { MypapersComponent } from './mypapers/mypapers.component';
 import { OverviewComponent } from './overview/overview.component';
 
 const routes: Routes = [
+  { path: "", component: MypapersComponent },
   { path: "mypapers", component: MypapersComponent },
   { path: "overview", component: OverviewComponent },
   { path: "account", component: AccountComponent },
