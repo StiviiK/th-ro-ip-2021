@@ -1,0 +1,19 @@
+#mainview {
+    display: flex;
+    flex-grow: grow;
+}
+
+#paperlist {
+    width: 20%;
+    float: left;
+    border: 2px solid cornflowerblue;
+    border-top: 0px;
+}
+
+#graphview {
+    width: 80%;
+    float: left;
+    border: 2px solid cornflowerblue;
+    border-top: 0px;
+    border-left: 0px;
+}
