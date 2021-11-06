@@ -1,0 +1,23 @@
+<div id="dialog-content-wrapper">
+    <header id="dialog-header">
+        <h1 id="dialog-title">Add New Paper</h1>
+    </header>
+    <section id="dialog-body">
+        <input class="input-text" placeholder="Add Paper URL" [value]="data.paperURL">
+        <div id="radio-button-key" >
+            <input type="checkbox" [value]="data.genKeywords"/>
+            <label>Generate Keywords automatically</label>
+        </div>
+        <input class="input-text" [value]="data.userKeywords" placeholder="Add additional Keywords and seperate them with a ,">
+        <textarea placeholder="Add bibtex manually or let it be extracted automatically" [value]="data.bibtex"></textarea>
+    </section>
+    
+    <footer id="dialog-footer">
+        <button mat-raised-button id="dialog-action-button" (click)="confirm()">
+            Do it
+        </button>
+        <button mat-raised-button id="dialog-cancel-button" (click)="closedialog()">
+            Go back
+        </button>
+    </footer>
+</div>

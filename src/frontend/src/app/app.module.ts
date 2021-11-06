@@ -9,11 +9,17 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 import { MypapersComponent } from './pages/mypapers/mypapers.component';
 import { OverviewComponent } from './pages/overview/overview.component';
 import { AccountComponent } from './pages/account/account.component';
 import { GraphviewComponent } from './components/graphview/graphview.component';
 import { PaperitemComponent } from './components/paperitem/paperitem.component';
+import { AddpapersdialogComponent } from './components/addpapersdialog/addpapersdialog.component';
+import {MatRadioModule} from '@angular/material/radio';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +29,8 @@ import { PaperitemComponent } from './components/paperitem/paperitem.component';
     OverviewComponent,
     AccountComponent,
     GraphviewComponent,
-    PaperitemComponent
+    PaperitemComponent,
+    AddpapersdialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,9 +38,13 @@ import { PaperitemComponent } from './components/paperitem/paperitem.component';
     NgxGraphModule,
     BrowserAnimationsModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    MatRadioModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AddpapersdialogComponent]
 })
 export class AppModule { }
