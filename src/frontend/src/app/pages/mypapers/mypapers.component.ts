@@ -10,6 +10,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 export class MypapersComponent implements OnInit {
 
   constructor(public matDialog: MatDialog) { }
+  
 
   ngOnInit(): void {
   }

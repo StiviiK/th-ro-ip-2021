@@ -3,13 +3,13 @@
         <h1 id="dialog-title">Add New Paper</h1>
     </header>
     <section id="dialog-body">
-        <input class="input-text" placeholder="Add Paper URL" [value]="data.paperURL">
+        <input class="input-text" placeholder="Add Paper URL" [(ngModel)]="data.paperURL">
         <div id="radio-button-key" >
-            <input type="checkbox" [value]="data.genKeywords"/>
+            <input type="checkbox" [(ngModel)]="data.genKeywords"/>
             <label>Generate Keywords automatically</label>
         </div>
-        <input class="input-text" [value]="data.userKeywords" placeholder="Add additional Keywords and seperate them with a ,">
-        <textarea placeholder="Add bibtex manually or let it be extracted automatically" [value]="data.bibtex"></textarea>
+        <input class="input-text" [(ngModel)]="data.userKeywords" placeholder="Add additional Keywords and seperate them with a ,">
+        <textarea placeholder="Add bibtex manually or let it be extracted automatically" [(ngModel)]="data.bibtex"></textarea>
     </section>
     
     <footer id="dialog-footer">
