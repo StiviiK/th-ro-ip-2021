@@ -20,6 +20,8 @@ import { GraphviewComponent } from './components/graphview/graphview.component';
 import { PaperitemComponent } from './components/paperitem/paperitem.component';
 import { AddpapersdialogComponent } from './components/addpapersdialog/addpapersdialog.component';
 import {MatRadioModule} from '@angular/material/radio';
+import { BibtexService } from './core/services/bibtex/bibtex.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -43,9 +45,12 @@ import {MatRadioModule} from '@angular/material/radio';
     MatDialogModule,
     MatCheckboxModule,
     MatRadioModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    BibtexService
+  ],
   bootstrap: [AppComponent],
   entryComponents: [AddpapersdialogComponent]
 })
