@@ -37,8 +37,7 @@ public class JWTUtil {
         return extractExpiration(token).before(new Date());
     }
 
-    public String generateToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
+    public String generateToken(UserDetails userDetails, Map<String, Object> claims) {
         return createToken(claims, userDetails.getUsername());
     }
 
@@ -47,6 +46,7 @@ public class JWTUtil {
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setNotBefore(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10h
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
     }

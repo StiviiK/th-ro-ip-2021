@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 public class AuthenticationController {
 
@@ -38,8 +42,11 @@ public class AuthenticationController {
             throw new Exception("Incorrect username or password", e);
         }
 
+        final Map<String, Object> claims = new HashMap<>() {{
+            put("test", "a");
+        }};
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-        final String jwt = jwtTokenUtil.generateToken(userDetails);
+        final String jwt = jwtTokenUtil.generateToken(userDetails, claims);
 
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
