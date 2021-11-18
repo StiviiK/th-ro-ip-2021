@@ -1,3 +1,2 @@
-python-kafka
-pydantic
-lipsum
+flask
+yake

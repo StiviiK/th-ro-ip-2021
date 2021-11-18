@@ -1,6 +1,6 @@
 import yake
 
-class KeywordExtactor:
+class KeywordExtractor:
     def __init__(self) -> None:
         language = "en"
         max_ngram_size = 3
@@ -19,5 +19,5 @@ class KeywordExtactor:
             features=None
         )
 
-    def extact_keywords(self, text: str):
+    def extract_keywords(self, text: str):
         return self.custom_kw_extractor.extract_keywords(text)
