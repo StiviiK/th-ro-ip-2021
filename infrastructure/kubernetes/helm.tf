@@ -14,6 +14,11 @@ resource "helm_release" "nginx-ingress" {
     value = "1"
   }
 
+  set {
+    name = "service.spec.externalTrafficPolicy"
+    value = "Local"
+  }
+
   # set {
   #   name  = "controller.nodeSelector"
   #   value = jsonencode({
