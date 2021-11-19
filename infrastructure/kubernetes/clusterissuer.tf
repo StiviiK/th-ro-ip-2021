@@ -4,27 +4,27 @@ resource "kubernetes_manifest" "clusterissuer" {
   ]
 
   manifest = {
-    "apiVersion": "cert-manager.io/v1"
-    "kind": "ClusterIssuer"
-    "metadata": {
-      "name": "letsencrypt"
+    "apiVersion" : "cert-manager.io/v1"
+    "kind" : "ClusterIssuer"
+    "metadata" : {
+      "name" : "letsencrypt"
     }
-    "spec": {
-      "acme": {
-        "server": "https://acme-v02.api.letsencrypt.org/directory"
-        "email": "stefan.kuerzeder@stud.th-rosenheim.de"
-        "privateKeySecretRef": {
-          "name": "letsencrypt"
+    "spec" : {
+      "acme" : {
+        "server" : "https://acme-v02.api.letsencrypt.org/directory"
+        "email" : "stefan.kuerzeder@stud.th-rosenheim.de"
+        "privateKeySecretRef" : {
+          "name" : "letsencrypt"
         }
-        "solvers": [
+        "solvers" : [
           {
-            "http01": {
-              "ingress": {
-                "class": "nginx"
-                "podTemplate": {
-                  "spec": {
-                    "nodeSelector": {
-                      "kubernetes.io/os": "linux"
+            "http01" : {
+              "ingress" : {
+                "class" : "nginx"
+                "podTemplate" : {
+                  "spec" : {
+                    "nodeSelector" : {
+                      "kubernetes.io/os" : "linux"
                     }
                   }
                 }

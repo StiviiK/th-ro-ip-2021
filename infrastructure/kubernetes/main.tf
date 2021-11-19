@@ -30,10 +30,10 @@ provider "kubernetes" {
 
 provider "helm" {
   kubernetes {
-      host = data.terraform_remote_state.azure.outputs.kubernetes_host
+    host = data.terraform_remote_state.azure.outputs.kubernetes_host
 
-  client_certificate     = base64decode(data.terraform_remote_state.azure.outputs.kubernetes_client_certificate)
-  client_key             = base64decode(data.terraform_remote_state.azure.outputs.kubernetes_client_key)
-  cluster_ca_certificate = base64decode(data.terraform_remote_state.azure.outputs.kubernetes_ca_certificate)
+    client_certificate     = base64decode(data.terraform_remote_state.azure.outputs.kubernetes_client_certificate)
+    client_key             = base64decode(data.terraform_remote_state.azure.outputs.kubernetes_client_key)
+    cluster_ca_certificate = base64decode(data.terraform_remote_state.azure.outputs.kubernetes_ca_certificate)
   }
 }

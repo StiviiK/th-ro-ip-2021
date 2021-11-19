@@ -4,13 +4,13 @@ resource "helm_release" "nginx-ingress" {
   namespace  = "nginx-ingress"
   repository = "https://kubernetes.github.io/ingress-nginx"
 
-  atomic = true
-  reuse_values = true
-  cleanup_on_fail = true
+  atomic           = true
+  reuse_values     = true
+  cleanup_on_fail  = true
   create_namespace = true
 
   set {
-    name = "controller.replicaCount"
+    name  = "controller.replicaCount"
     value = "1"
   }
 
@@ -40,15 +40,19 @@ resource "helm_release" "nginx-ingress" {
 }
 
 resource "helm_release" "cert-manager" {
+  depends_on = [
+    helm_release.nginx-ingress
+  ]
+
   name       = "cert-manager"
   chart      = "cert-manager"
   namespace  = "cert-manager"
   version    = "v1.5.4"
   repository = "https://charts.jetstack.io"
 
-  atomic = true
-  reuse_values = true
-  cleanup_on_fail = true
+  atomic           = true
+  reuse_values     = true
+  cleanup_on_fail  = true
   create_namespace = true
 
   set {
