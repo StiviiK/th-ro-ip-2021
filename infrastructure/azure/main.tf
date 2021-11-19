@@ -4,16 +4,23 @@ terraform {
   required_providers {
     random = {
       source  = "hashicorp/random"
-      version = "3.1.0"
+      version = ">=3.1.0"
     }
     azuread = {
       source  = "hashicorp/azuread"
-      version = "2.6.0"
+      version = ">=2.6.0"
     }
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "2.80.0"
+      version = ">=2.80.0"
     }
+  }
+
+  backend "azurerm" {
+    resource_group_name = "rg-tfstate-throip2021-de"
+    storage_account_name = "tfstate0throip20210de"
+    container_name = "tfstate-dev"
+    key = "terraform.tfstate.azure"
   }
 }
 

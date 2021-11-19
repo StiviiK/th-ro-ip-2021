@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+ARM_ACCESS_KEY=$(az storage account keys list --resource-group rg-tfstate-throip2021-de --account-name tfstate0throip20210de --query '[0].value' -o tsv)
+
 echo "Planning Helm releases..."
 terraform plan -out ./tfplan.out -target "helm_release.cert-manager"
 

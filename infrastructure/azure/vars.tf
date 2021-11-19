@@ -14,11 +14,11 @@ variable "kubernetes_version" {
 }
 
 variable "kubernetes_node_count" {
-  type = number
+  type    = number
   default = 1
 }
 
 variable "kubernetes_node_type" {
-  type = string
+  type    = string
   default = "Standard_B2ms"
 }
