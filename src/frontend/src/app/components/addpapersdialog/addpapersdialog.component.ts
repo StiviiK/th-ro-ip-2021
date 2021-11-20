@@ -1,13 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogData } from 'src/app/core/models/dialog-data-model';
 
-export interface DialogData {
-  paperURL: string;
-  genKeywords: boolean;
-  userKeywords: string;
-  bibtex: string;
-  confirm: boolean;
-}
+
 
 @Component({
   selector: 'app-addpapersdialog',

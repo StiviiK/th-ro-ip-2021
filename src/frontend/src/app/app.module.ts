@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { NgxGraphModule } from '@swimlane/ngx-graph';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './components/navbar/navbar.component';
-
+import { HttpClientModule} from '@angular/common/http';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -43,7 +43,8 @@ import {MatRadioModule} from '@angular/material/radio';
     MatDialogModule,
     MatCheckboxModule,
     MatRadioModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],
