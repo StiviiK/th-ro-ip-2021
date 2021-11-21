@@ -15,11 +15,11 @@ export class PaperService {
   constructor(private http: HttpClient) { }
 
   public getPapers(): Observable<Paper[]> {
-    return this.http.get<Paper[]>('/api/v1/papers')
-}
+    return this.http.get<Paper[]>('papers')
+  }
 
   public addPaper(paperToAdd: DialogData): void {
     console.log(paperToAdd);
-    this.http.put<DialogData>('/api/v1/paper/addPapers/' + paperToAdd, '').subscribe();
+    this.http.put<DialogData>('papers/addPapers/' + paperToAdd, '').subscribe();
   }
 }
