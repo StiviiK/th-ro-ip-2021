@@ -1,3 +1,4 @@
+import json
 import requests
 
 TEXT = "Sources tell us that Google is acquiring Kaggle, a platform that hosts data science and machine learning "\
@@ -27,7 +28,7 @@ def main():
     url = "http://127.0.0.1:5000/extract"
     builded_url = url + "?text=" + TEXT
     response = requests.get(builded_url)
-    print(response.text)
+    print(json.dumps(response.json(), indent=2))
 
 if __name__ == "__main__":
     main()
