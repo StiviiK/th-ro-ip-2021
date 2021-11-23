@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
+import { environment } from "src/environments/environment";
 
 export class User {
     username: string;
@@ -23,7 +24,7 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string): Observable<User> {
-        return this.http.post<User>(`http://localhost:8080/authenticate`, { username, password })
+        return this.http.post<User>(`${environment.apiUrl}/authenticate`, { username, password })
             .pipe(
                 map(user => {
                     // login successful if there's a jwt token in the response

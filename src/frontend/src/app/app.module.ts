@@ -17,8 +17,8 @@ import { GraphviewComponent } from './components/graphview/graphview.component';
 import { PaperitemComponent } from './components/paperitem/paperitem.component';
 import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { JwtInterceptor } from './interceptor/jwt-interceptor.interceptor';
-import { ErrorInterceptor } from './interceptor/error-interceptor.interceptor';
+import { JwtInterceptor } from './core/interceptor/jwt-interceptor.interceptor';
+import { ErrorInterceptor } from './core/interceptor/error-interceptor.interceptor';
 
 @NgModule({
   declarations: [

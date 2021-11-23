@@ -1,1 +1,2 @@
-<p>account works!</p>
+<p *ngIf="!error">{{ response | async }}</p>
+<p *ngIf="error">{{ error }}</p>
