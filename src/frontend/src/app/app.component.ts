@@ -9,17 +9,4 @@ import { AuthenticationService, User } from './services/authentication-service.s
 })
 export class AppComponent {
   title = 'frontend';
-  currentUser: User;
-
-  constructor(
-      private router: Router,
-      private authenticationService: AuthenticationService
-  ) {
-      this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-  }
-
-  logout() {
-      this.authenticationService.logout();
-      this.router.navigate(['/login']);
-  }
 }
