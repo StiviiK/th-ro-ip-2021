@@ -8,13 +8,17 @@ import { OverviewComponent } from './pages/overview/overview.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
-
   { path: "", redirectTo: "mypapers", pathMatch: "full" },
-  { path: "mypapers", component: MypapersComponent, canActivate: [AuthGuard] },
-  { path: "overview", component: OverviewComponent, canActivate: [AuthGuard] },
-  { path: "account", component: AccountComponent, canActivate: [AuthGuard] },
-  
-  { path: "**", redirectTo: "mypapers" }
+  {
+    path: "",
+    children: [
+      { path: "mypapers", component: MypapersComponent },
+      { path: "overview", component: OverviewComponent },
+      { path: "account", component: AccountComponent },
+      { path: "**", redirectTo: "mypapers" }
+    ],
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({
