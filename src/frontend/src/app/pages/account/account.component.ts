@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { JwtHelperService } from 'src/app/core/helper/jwt.helper';
+import { JwtHelperService } from 'src/app/core/services/jwt-helper.service';
 import { AuthenticationService, User } from 'src/app/core/services/authentication-service.service';
 
 @Component({

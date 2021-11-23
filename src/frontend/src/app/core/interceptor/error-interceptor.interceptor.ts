@@ -20,7 +20,10 @@ export class ErrorInterceptor implements HttpInterceptor {
         return next.handle(req)
             .pipe(
                 catchError((err: HttpErrorResponse & { error?: BackendErrorResponse }) => {
-                    if (req.url.startsWith(environment.apiUrl) && err.status === 401) {
+                    if (req.url.startsWith(environment.apiUrl) && // Only intercept errors from the API
+                        !req.url.endsWith('/authenticate') && // don't intercept authenticate requests
+                        err.status === 403) // API currently returns 403 instead of 401
+                    {
                         // auto logout if 401 response returned from api
                         this.authenticationService.logout();
                         location.reload();
