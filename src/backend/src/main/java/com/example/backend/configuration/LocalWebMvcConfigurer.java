@@ -1,15 +1,8 @@
 package com.example.backend.configuration;
 
-import org.apache.catalina.filters.CorsFilter;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
-import java.util.Arrays;
-import java.util.Collections;
 
 @Configuration
 public class LocalWebMvcConfigurer implements WebMvcConfigurer {
@@ -18,6 +11,6 @@ public class LocalWebMvcConfigurer implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("*")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD")
-                .allowCredentials(true);
+                .allowedHeaders("*");
     }
 }
