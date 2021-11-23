@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: "overview", component: OverviewComponent, canActivate: [AuthGuard] },
   { path: "account", component: AccountComponent, canActivate: [AuthGuard] },
   
-  { path: "**", redirectTo: "" }
+  { path: "**", redirectTo: "mypapers" }
 ];
 
 @NgModule({
