@@ -1,2 +1,5 @@
-<p *ngIf="!error">{{ response | async }}</p>
-<p *ngIf="error">{{ error }}</p>
+<div *ngIf="user | async as u">
+    <p>Username: <span>{{ u.username }}</span>
+    <p>Token: <span>{{ u.token }}</span></p>
+    <p>Parsed Token: <span>{{ parseJwt(u.token) }}</span></p>
+</div>

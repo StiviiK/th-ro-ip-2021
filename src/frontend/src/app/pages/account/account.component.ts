@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { AuthenticationService, User } from 'src/app/core/services/authentication-service.service';
 
 @Component({
   selector: 'app-account',
@@ -10,17 +11,18 @@ import { catchError } from 'rxjs/operators';
 })
 export class AccountComponent implements OnInit {
 
-  response: Observable<any>;
-  error: string;
+  user: Observable<User>;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
-    this.response = this.httpClient.get<{ message: string }>('http://localhost:8080/hello')
-    .pipe(catchError(err => {
-      this.error = err;
-      return err;
-    }));
+    this.user = this.authenticationService.currentUser;
+  }
+
+  parseJwt(token: string) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace('-', '+').replace('_', '/');
+    return window.atob(base64);
   }
 
 }
