@@ -4,9 +4,13 @@ import lombok.Getter;
 
 public class AuthenticationResponse {
     @Getter
-    private final String jwt;
+    private final String username;
 
-    public AuthenticationResponse(String jwt) {
-        this.jwt = jwt;
+    @Getter
+    private final String token;
+
+    public AuthenticationResponse(String username, String jwt) {
+        this.username = username;
+        this.token = jwt;
     }
 }
