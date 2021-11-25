@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@EnableAsync
 public class PaperController {
     @Autowired
     private PaperService paperService;
@@ -31,7 +30,8 @@ public class PaperController {
     @RequestMapping(value = "/papers", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
     public ResponseEntity<Paper> addPaper(Authentication authentication, @RequestBody Paper paper) {
         var principal = (UserDetails)authentication.getPrincipal();
-        System.out.println(principal.getUsername());
-        return ResponseEntity.ok(paper);
+        var username = principal.getUsername();
+        var saved_paper = paperService.addPaper(paper, username);
+        return ResponseEntity.ok(saved_paper);
     }
 }

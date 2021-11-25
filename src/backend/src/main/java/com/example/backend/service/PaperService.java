@@ -14,6 +14,8 @@ public class PaperService {
 
     @Autowired
     private PaperRepository paperRepository;
+    @Autowired
+    private MyUserDetailsService myUserDetailsService;
 
     public List<Paper> getPapers() {
         return paperRepository.findAll();
@@ -28,8 +30,8 @@ public class PaperService {
 
     }
 
-    @Async
-    public Paper addPaper(Paper paper) throws NullPointerException {
+    public Paper addPaper(Paper paper, String username) throws NullPointerException {
+        var user = myUserDetailsService.loadUserByUsername(username);
         if (paper == null) {
             throw new NullPointerException("Paper was null");
         }

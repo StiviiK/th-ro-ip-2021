@@ -4,6 +4,7 @@ import com.example.backend.models.AuthenticationRequest;
 import com.example.backend.models.AuthenticationResponse;
 import com.example.backend.service.MyUserDetailsService;
 import com.example.backend.util.JWTUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -18,15 +19,12 @@ import java.util.Map;
 @RestController
 public class AuthenticationController {
 
-    private final AuthenticationManager authenticationManager;
-    private final UserDetailsService userDetailsService;
-    private final JWTUtil jwtTokenUtil;
-
-    public AuthenticationController(AuthenticationManager authenticationManager, MyUserDetailsService userDetailsService, JWTUtil jwtTokenUtil) {
-        this.authenticationManager = authenticationManager;
-        this.userDetailsService = userDetailsService;
-        this.jwtTokenUtil = jwtTokenUtil;
-    }
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private MyUserDetailsService userDetailsService;
+    @Autowired
+    private JWTUtil jwtTokenUtil;
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
