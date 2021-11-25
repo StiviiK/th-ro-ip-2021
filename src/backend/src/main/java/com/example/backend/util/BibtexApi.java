@@ -1,7 +1,4 @@
-package com.example.backend.service;
-
-import org.springframework.stereotype.Service;
-import org.springframework.web.util.UriBuilder;
+package com.example.backend.util;
 
 import java.io.IOException;
 import java.net.URI;
@@ -10,11 +7,10 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-@Service
-public class BibtexService {
+public class BibtexApi {
     private static String BaseURL = "https://arxiv.org/bibtex/";
 
-    public String getBibtexById(String id) throws URISyntaxException, IOException, InterruptedException {
+    public static String getBibtexById(String id) throws URISyntaxException, IOException, InterruptedException {
         String url = new StringBuilder()
                 .append(BaseURL)
                 .append(id)
