@@ -10,6 +10,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 import { MypapersComponent } from './pages/mypapers/mypapers.component';
 import { OverviewComponent } from './pages/overview/overview.component';
 import { AccountComponent } from './pages/account/account.component';
@@ -19,6 +22,10 @@ import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './core/interceptor/jwt-interceptor.interceptor';
 import { ErrorInterceptor } from './core/interceptor/error-interceptor.interceptor';
+import { AddpapersdialogComponent } from './components/addpapersdialog/addpapersdialog.component';
+import {MatRadioModule} from '@angular/material/radio';
+import { BibtexService } from './core/services/bibtex/bibtex.service';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +36,8 @@ import { ErrorInterceptor } from './core/interceptor/error-interceptor.intercept
     AccountComponent,
     GraphviewComponent,
     PaperitemComponent,
-    LoginComponent
+    LoginComponent,
+    AddpapersdialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,12 +48,19 @@ import { ErrorInterceptor } from './core/interceptor/error-interceptor.intercept
     NgxGraphModule,
     BrowserAnimationsModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [
+    { provide: BibtexService, useClass: BibtexService, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AddpapersdialogComponent]
 })
 export class AppModule { }
