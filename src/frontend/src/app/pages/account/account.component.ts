@@ -1,4 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { JwtHelperService } from 'src/app/core/services/jwt-helper.service';
+import { AuthenticationService, User } from 'src/app/core/services/authentication-service.service';
 
 @Component({
   selector: 'app-account',
@@ -7,9 +11,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountComponent implements OnInit {
 
-  constructor() { }
+  user: Observable<User>;
+
+  constructor(private authenticationService: AuthenticationService, public jwtHelperService: JwtHelperService) { }
 
   ngOnInit(): void {
+    this.user = this.authenticationService.currentUser;
   }
 
 }
