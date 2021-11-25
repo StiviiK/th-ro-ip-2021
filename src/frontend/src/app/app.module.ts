@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { NgxGraphModule } from '@swimlane/ngx-graph';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './components/navbar/navbar.component';
-
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -18,6 +17,9 @@ import { OverviewComponent } from './pages/overview/overview.component';
 import { AccountComponent } from './pages/account/account.component';
 import { GraphviewComponent } from './components/graphview/graphview.component';
 import { PaperitemComponent } from './components/paperitem/paperitem.component';
+import { AddpapersdialogComponent } from './components/addpapersdialog/addpapersdialog.component';
+import {MatRadioModule} from '@angular/material/radio';
+
 import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './core/interceptor/jwt-interceptor.interceptor';
@@ -36,6 +38,7 @@ import { BibtexService } from './core/services/bibtex/bibtex.service';
     AccountComponent,
     GraphviewComponent,
     PaperitemComponent,
+    AddpapersdialogComponent,
     LoginComponent,
     AddpapersdialogComponent,
   ],
@@ -53,7 +56,7 @@ import { BibtexService } from './core/services/bibtex/bibtex.service';
     MatCheckboxModule,
     MatRadioModule,
     FormsModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   providers: [
     { provide: BibtexService, useClass: BibtexService, multi: true },

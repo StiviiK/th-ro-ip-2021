@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogData } from 'src/app/core/models/dialog-data-model';
 import { BibtexService } from 'src/app/core/services/bibtex/bibtex.service';
 
 export interface DialogData {
@@ -35,7 +36,7 @@ export class AddpapersdialogComponent implements OnInit {
     this.data.confirm = false;
     this.dialogRef.close(this.data);
   }
-
+  
   onEntered() {
     this.data.bibtex = this.bibservice.getBibtex(this.data.paperURL);
   }
