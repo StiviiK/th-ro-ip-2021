@@ -12,11 +12,11 @@ import { Observable } from 'rxjs';
 })
 export class MypapersComponent implements OnInit {
 
+
   papers: Paper[] = [];
 
   constructor(public matDialog: MatDialog, private papersRestService: PaperService) { }
-  
-
+ 
   ngOnInit(): void {
     this.getPapers();
   }
