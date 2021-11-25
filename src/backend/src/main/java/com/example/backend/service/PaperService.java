@@ -4,6 +4,7 @@ import com.example.backend.exceptions.PaperNotFoundException;
 import com.example.backend.models.Paper;
 import com.example.backend.repository.PaperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -25,5 +26,15 @@ public class PaperService {
         }
         return optionalPaper.get();
 
+    }
+
+    @Async
+    public Paper addPaper(Paper paper) throws NullPointerException {
+        if (paper == null) {
+            throw new NullPointerException("Paper was null");
+        }
+        paper = paperRepository.save(paper);
+        //TODO add paper to user
+        return paper;
     }
 }

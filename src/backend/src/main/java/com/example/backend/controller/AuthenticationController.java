@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import com.example.backend.models.AuthenticationRequest;
 import com.example.backend.models.AuthenticationResponse;
+import com.example.backend.service.MyUserDetailsService;
 import com.example.backend.util.JWTUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,7 +25,7 @@ public class AuthenticationController {
     private final UserDetailsService userDetailsService;
     private final JWTUtil jwtTokenUtil;
 
-    public AuthenticationController(AuthenticationManager authenticationManager, UserDetailsService userDetailsService, JWTUtil jwtTokenUtil) {
+    public AuthenticationController(AuthenticationManager authenticationManager, MyUserDetailsService userDetailsService, JWTUtil jwtTokenUtil) {
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
         this.jwtTokenUtil = jwtTokenUtil;
