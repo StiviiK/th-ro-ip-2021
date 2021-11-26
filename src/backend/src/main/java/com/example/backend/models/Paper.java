@@ -2,6 +2,7 @@ package com.example.backend.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Setter
@@ -28,11 +29,20 @@ public class Paper {
     @Column(name = "bibtex")
     private String bibtex;
 
-    public Paper(String url, String title, String author, String bibtex){
+    @Column(name = "text")
+    private String text;
+
+    @Column(name = "keywords")
+    @OneToMany
+    private List<Keyword> keywords;
+
+    public Paper(String url, String title, String author, String bibtex, String text, List<Keyword keywords>){
         this.url = url;
         this.title = title;
         this.author = author;
         this.bibtex = bibtex;
+        this.text = text;
+        this.keywords = keywords;
     }
 
 
