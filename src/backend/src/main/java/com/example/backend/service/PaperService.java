@@ -1,5 +1,7 @@
 package com.example.backend.service;
 
+import com.example.backend.exceptions.ArxivNotAvailableException;
+import com.example.backend.exceptions.KeywordServiceNotAvailableException;
 import com.example.backend.exceptions.PaperNotFoundException;
 import com.example.backend.models.ArxivInformationResponse;
 import com.example.backend.models.Author;
@@ -10,13 +12,9 @@ import com.example.backend.util.ArxivApi;
 import com.example.backend.util.KeywordsApi;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.*;
 
 @Service
@@ -44,21 +42,23 @@ public class PaperService {
 
     }
 
-    public Paper addPaper(Paper paper, String username) throws NullPointerException, InterruptedException, IOException, URISyntaxException, ParserConfigurationException, SAXException {
-        var user = myUserDetailsService.loadUserByUsername(username);
+    public Paper addPaper(Paper paper, String username) throws KeywordServiceNotAvailableException, ArxivNotAvailableException {
+        UserDetails user = myUserDetailsService.loadUserByUsername(username);
         if (paper == null) {
             throw new NullPointerException("Paper was null");
         }
-        // Store for relation purpose
-        paper = paperRepository.save(paper);
 
         // Retrieve paper information
-        ArxivInformationResponse arxivInformation = ArxivApi.getArxivInformation(paper.getId());
+        ArxivInformationResponse arxivInformation = null;
+        try {
+            arxivInformation = ArxivApi.getArxivInformation(paper.getId());
+        } catch (Exception exception) {
+            throw new ArxivNotAvailableException("Arxiv.org API could not be reached.");
+        }
+
 
         // Authors
         List<Author> authors = arxivInformation.getAuthors();
-        authors = authorService.saveMultiple(authors);
-        paper.setAuthors(authors);
 
         // Title
         paper.setTitle(arxivInformation.getTitle());
@@ -68,8 +68,20 @@ public class PaperService {
         paper.setText(arxivInformation.getSummary());
 
         // Extract Keywords
-        JSONObject keywordsResponse = KeywordsApi.getKeywords(paper.getText());
-        List<Keyword> keywords = KeywordsApi.extractKeywords(keywordsResponse);
+        List<Keyword> keywords = new ArrayList<>();
+        try {
+            JSONObject keywordsResponse = KeywordsApi.getKeywords(paper.getText());
+            keywords = KeywordsApi.extractKeywords(keywordsResponse);
+        } catch (Exception exception) {
+            throw new KeywordServiceNotAvailableException("Keyword service could not be reached.");
+        }
+
+        // Store for relation purpose
+        paper = paperRepository.save(paper);
+
+        authors = authorService.saveMultiple(authors);
+        paper.setAuthors(authors);
+
         keywords = keywordService.saveMultiple(keywords);
         paper.setKeywords(keywords);
 
