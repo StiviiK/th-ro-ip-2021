@@ -68,10 +68,15 @@ public class PaperService {
         paper.setText(arxivInformation.getSummary());
 
         // Extract Keywords
+        // If keywords entered by user
         List<Keyword> keywords = new ArrayList<>();
+        if (paper.getKeywords().size() > 0)
+            keywords.addAll(paper.getKeywords());
+
+        // Automatic keyword extraction
         try {
             JSONObject keywordsResponse = KeywordsApi.getKeywords(paper.getText());
-            keywords = KeywordsApi.extractKeywords(keywordsResponse);
+            keywords.addAll(KeywordsApi.extractKeywords(keywordsResponse));
         } catch (Exception exception) {
             throw new KeywordServiceNotAvailableException("Keyword service could not be reached.");
         }
