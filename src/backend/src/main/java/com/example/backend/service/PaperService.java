@@ -70,7 +70,7 @@ public class PaperService {
         // Extract Keywords
         // If keywords entered by user
         List<Keyword> keywords = new ArrayList<>();
-        if (paper.getKeywords().size() > 0)
+        if (paper.getKeywords() != null && paper.getKeywords().size() > 0)
             keywords.addAll(paper.getKeywords());
 
         // Automatic keyword extraction

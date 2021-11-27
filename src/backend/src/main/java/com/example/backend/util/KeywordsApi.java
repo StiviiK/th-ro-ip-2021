@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KeywordsApi {
-    private static String BaseURL = "http://localhost:5000/extract?text=";
+    private static String BaseURL = "http://localhost:5002/extract?text=";
 
     public static JSONObject getKeywords(String text) throws URISyntaxException, IOException, InterruptedException {
         String url = new StringBuilder()
