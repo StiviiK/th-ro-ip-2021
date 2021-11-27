@@ -42,6 +42,6 @@ public class KeywordsApi {
             var keyword = keywordObject.getString(0);
             keywords.add(new Keyword(keyword));
         }
-        return keywords
+        return keywords;
     }
 }

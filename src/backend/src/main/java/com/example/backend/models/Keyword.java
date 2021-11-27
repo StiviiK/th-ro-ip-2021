@@ -5,21 +5,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Setter
 @Getter
 @ToString
 @NoArgsConstructor
 @Entity
-@Table(name = "keyword")
+@Table(name = "keywords")
 public class Keyword {
 
     @Id
-    @Column(name = "keyword")
+    @Column(name = "keyword_id")
     private String keyword;
 
     public Keyword(String keyword) {

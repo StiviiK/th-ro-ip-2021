@@ -1,6 +1,5 @@
 package com.example.backend.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import static com.example.backend.util.BibtexApi.getBibtexById;
+import static com.example.backend.util.ArxivApi.getBibtexById;
 
 @RestController
 public class BibtexController {

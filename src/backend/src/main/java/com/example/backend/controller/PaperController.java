@@ -8,7 +8,11 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,7 +32,7 @@ public class PaperController {
     }
 
     @RequestMapping(value = "/papers", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
-    public ResponseEntity<Paper> addPaper(Authentication authentication, @RequestBody Paper paper) {
+    public ResponseEntity<Paper> addPaper(Authentication authentication, @RequestBody Paper paper) throws InterruptedException, IOException, URISyntaxException, ParserConfigurationException, SAXException {
         var principal = (UserDetails)authentication.getPrincipal();
         var username = principal.getUsername();
         var saved_paper = paperService.addPaper(paper, username);

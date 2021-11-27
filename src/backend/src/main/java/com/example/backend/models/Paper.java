@@ -3,19 +3,17 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.UUID;
 
 @Setter
 @Getter
 @ToString
 @NoArgsConstructor
 @Entity
-@Table(name = "paper")
+@Table(name = "papers")
 public class Paper {
     @Id
-    @GeneratedValue
-    @Column(name = "id")
-    private UUID id;
+    @Column(name = "paper_id")
+    private String id;
 
     @Column(name = "url")
     private String url;
@@ -24,22 +22,42 @@ public class Paper {
     private String title;
 
     @Column(name = "author")
-    private String author;
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "papers_authors",
+            joinColumns = {
+                    @JoinColumn(name = "paper_id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "author_id")
+            }
+    )
+    private List<Author> authors;
 
     @Column(name = "bibtex")
     private String bibtex;
 
-    @Column(name = "text")
+    // https://arxiv.org/help/prep -> "abstracts longer than 1920 characters will not be accepted;"
+    @Column(name = "text", length = 1920)
     private String text;
 
     @Column(name = "keywords")
-    @OneToMany
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+        name = "papers_kewyords",
+        joinColumns = {
+            @JoinColumn(name = "paper_id")
+        },
+        inverseJoinColumns = {
+            @JoinColumn(name = "keyword_id")
+        }
+    )
     private List<Keyword> keywords;
 
-    public Paper(String url, String title, String author, String bibtex, String text, List<Keyword keywords>){
+    public Paper(String url, String title, List<Author> authors, String bibtex, String text, List<Keyword> keywords){
         this.url = url;
         this.title = title;
-        this.author = author;
+        this.authors = authors;
         this.bibtex = bibtex;
         this.text = text;
         this.keywords = keywords;
