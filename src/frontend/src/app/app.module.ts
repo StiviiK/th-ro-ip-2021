@@ -24,8 +24,6 @@ import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './core/interceptor/jwt-interceptor.interceptor';
 import { ErrorInterceptor } from './core/interceptor/error-interceptor.interceptor';
-import { AddpapersdialogComponent } from './components/addpapersdialog/addpapersdialog.component';
-import {MatRadioModule} from '@angular/material/radio';
 import { BibtexService } from './core/services/bibtex/bibtex.service';
 
 
