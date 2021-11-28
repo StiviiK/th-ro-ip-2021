@@ -63,9 +63,8 @@ public class PaperService {
         // Title
         paper.setTitle(arxivInformation.getTitle());
 
-        // Text
-        // TODO change text to actual text not just summary
-        paper.setText(arxivInformation.getSummary());
+        // Abstract
+        paper.setAbstract_(arxivInformation.getSummary());
 
         // Extract Keywords
         // If keywords entered by user
@@ -75,7 +74,7 @@ public class PaperService {
 
         // Automatic keyword extraction
         try {
-            JSONObject keywordsResponse = KeywordsApi.getKeywords(paper.getText());
+            JSONObject keywordsResponse = KeywordsApi.getKeywords(paper.getAbstract_());
             keywords.addAll(KeywordsApi.extractKeywords(keywordsResponse));
         } catch (Exception exception) {
             throw new KeywordServiceNotAvailableException("Keyword service could not be reached.");

@@ -38,8 +38,8 @@ public class Paper {
     private String bibtex;
 
     // https://arxiv.org/help/prep -> "abstracts longer than 1920 characters will not be accepted;"
-    @Column(name = "text", length = 1920)
-    private String text;
+    @Column(name = "abstract_", length = 1920)
+    private String abstract_;
 
     @Column(name = "keywords")
     @ManyToMany(cascade = { CascadeType.ALL })
@@ -54,12 +54,12 @@ public class Paper {
     )
     private List<Keyword> keywords;
 
-    public Paper(String url, String title, List<Author> authors, String bibtex, String text, List<Keyword> keywords){
+    public Paper(String url, String title, List<Author> authors, String bibtex, String abstract_, List<Keyword> keywords){
         this.url = url;
         this.title = title;
         this.authors = authors;
         this.bibtex = bibtex;
-        this.text = text;
+        this.abstract_ = abstract_;
         this.keywords = keywords;
     }
 
