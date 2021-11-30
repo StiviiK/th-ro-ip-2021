@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: ghcr.io/stiviik/th-ro-ip-2021/backend
+  repository: acr0dev0throip20210de.azurecr.io/backend
   pullPolicy: IfNotPresent
 
 imagePullSecrets:
