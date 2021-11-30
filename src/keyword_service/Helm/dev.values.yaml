@@ -3,21 +3,6 @@ replicaCount: 1
 image:
   tag: "master"
 
-ingress:
-  enabled: true
-  className: "nginx"
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
-  hosts:
-    - host: keywords.ip.mirix.io
-      paths:
-        - path: /
-          pathType: Prefix
-  tls:
-    - secretName: keywords.ip.mirix.io
-      hosts:
-        - keywords.ip.mirix.io
-
 resources:
   limits:
     cpu: 100m
