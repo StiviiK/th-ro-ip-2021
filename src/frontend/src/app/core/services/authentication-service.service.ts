@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
-import { environment } from "src/environments/environment";
+import { ConfigService } from "./config.service";
 
 export class User {
     username: string;
@@ -14,7 +14,7 @@ export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private config: ConfigService) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
     }
@@ -24,7 +24,7 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string): Observable<User> {
-        return this.http.post<User>(`${environment.apiUrl}/authenticate`, { username, password })
+        return this.http.post<User>(`${this.config.getConfig('api_endpoint')}/authenticate`, { username, password })
             .pipe(
                 map(user => {
                     // login successful if there's a jwt token in the response

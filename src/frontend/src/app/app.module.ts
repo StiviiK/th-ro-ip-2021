@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +19,7 @@ import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './core/interceptor/jwt-interceptor.interceptor';
 import { ErrorInterceptor } from './core/interceptor/error-interceptor.interceptor';
+import { ConfigService } from './core/services/config.service';
 
 @NgModule({
   declarations: [
@@ -40,11 +41,17 @@ import { ErrorInterceptor } from './core/interceptor/error-interceptor.intercept
     NgxGraphModule,
     BrowserAnimationsModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (config: ConfigService) => () => config.load(),
+      deps: [ConfigService],
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })
