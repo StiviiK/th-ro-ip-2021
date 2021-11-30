@@ -1,14 +1,20 @@
 package com.example.backend;
 
+import com.example.backend.service.BibtexApiService;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import static com.example.backend.util.BibtexApi.getBibtexById;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BibtexApiTest {
+
+    private final BibtexApiService bibtexApiService;
+
+    public BibtexApiTest(BibtexApiService bibtexApiService) {
+        this.bibtexApiService = bibtexApiService;
+    }
 
     @Test
     public void testGetBibtex() throws InterruptedException, IOException, URISyntaxException {
@@ -21,7 +27,7 @@ public class BibtexApiTest {
                 "      archivePrefix={arXiv},\n" +
                 "      primaryClass={cs.CL}\n" +
                 "}";
-        var bibtex = getBibtexById(arxivId);
+        var bibtex = this.bibtexApiService.getBibtexById(arxivId);
         assertEquals(expected_bibtex, bibtex);
     }
 }
