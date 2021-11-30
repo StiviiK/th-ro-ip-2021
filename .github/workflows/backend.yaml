@@ -1,4 +1,4 @@
-name: Frontend
+name: Backend
 
 on:
   schedule:
@@ -6,8 +6,6 @@ on:
   push:
     branches:
       - master
-    tags:
-      - '*'
     paths:
       - '.github/workflows/backend.yaml'
       - 'src/backend/**/*'
