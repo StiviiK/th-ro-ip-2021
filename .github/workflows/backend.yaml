@@ -42,3 +42,7 @@ jobs:
           platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
+      - uses: WyriHaximus/github-action-helm3@v2
+        with:
+          exec: helm upgrade --namespace default --install -f src/backend/Helm/values.yaml -f src/backend/Helm/dev.values.yaml --set "image.tag=sha-${GITHUB_SHA::7}" throip-backend src/backend/Helm
+          kubeconfig: '${{ secrets.KUBE_CONFIG }}'
