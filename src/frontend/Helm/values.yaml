@@ -4,8 +4,7 @@ image:
   repository: acr0dev0throip20210de.azurecr.io/frontend
   pullPolicy: IfNotPresent
 
-imagePullSecrets:
-  - name: "regcred"
+imagePullSecrets: []
 nameOverride: "throip-frontend"
 fullnameOverride: "throip-frontend"
 
