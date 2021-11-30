@@ -1,11 +1,10 @@
-FROM python:3.9-slim AS build-env
-COPY . /app
+FROM python:3.9-slim
+RUN mkdir /app
 WORKDIR /app
-RUN pip install -r requirements.txt
 
-FROM gcr.io/distroless/python3
-COPY --from=build-env /app /app
-COPY --from=build-env /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
-ENV PYTHONPATH=/usr/local/lib/python3.9/site-packages
-WORKDIR /app
-CMD ["app.py"]
+ADD requirements.txt /app
+RUN pip3 install -r requirements.txt
+
+ADD . /app
+
+CMD ["gunicorn", "-w 4", "-b", "0.0.0.0:8000", "main:app"]
