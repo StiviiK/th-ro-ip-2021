@@ -8,7 +8,7 @@ WORKDIR /home/gradle/src/output
 ARG JAR_NAME=/home/gradle/src/build/libs/backend-0.0.1-SNAPSHOT.jar
 RUN java -Djarmode=layertools -jar ${JAR_NAME} extract
 
-FROM amazoncorretto:17-alpine
+FROM amazoncorretto:16-alpine
 WORKDIR /home/spring/application
 
 RUN addgroup -S spring \
