@@ -37,12 +37,12 @@ public class AuthenticationController {
             throw new Exception("Incorrect username or password", e);
         }
 
-        final Map<String, Object> claims = new HashMap<>() {{
-            put("test", "a");
-        }};
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-        final String jwt = jwtTokenUtil.generateToken(userDetails, claims);
+        final Map<String, Object> claims = new HashMap<>() {{
+            put("username", userDetails.getUsername());
+        }};
 
+        final String jwt = jwtTokenUtil.generateToken(userDetails, claims);
         return ResponseEntity.ok(new AuthenticationResponse(userDetails.getUsername(), jwt));
     }
 }
