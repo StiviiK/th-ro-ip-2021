@@ -1,0 +1,34 @@
+replicaCount: 1
+
+image:
+  repository: acr0dev0throip20210de.azurecr.io/keyword-service
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: "throip-keyword-service"
+fullnameOverride: "throip-keyword-service"
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+#  capabilities:
+#    drop:
+#      - ALL
+#  readOnlyRootFilesystem: true
+#  runAsNonRoot: true
+#  runAsUser: 65532
+
+service:
+  type: ClusterIP
+  port: 8080
+
+nodeSelector:
+  kubernetes.io/os: linux
+  kubernetes.io/arch: amd64
+
+tolerations: []
+
+affinity: {}
