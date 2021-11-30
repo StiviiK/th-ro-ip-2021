@@ -9,7 +9,7 @@ on:
 #    tags:
 #      - '*'
     paths:
-      - '.github/workflows/release.yaml'
+      - '.github/workflows/frontend.yaml'
       - 'src/frontend/**/*'
 
 jobs:
