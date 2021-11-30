@@ -3,14 +3,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData } from 'src/app/core/models/dialog-data-model';
 import { BibtexService } from 'src/app/core/services/bibtex/bibtex.service';
 
-export interface DialogData {
-  paperURL: string;
-  genKeywords: boolean;
-  userKeywords: string;
-  bibtex: string;
-  confirm: boolean;
-}
-
 @Component({
   selector: 'app-addpapersdialog',
   templateUrl: './addpapersdialog.component.html',
