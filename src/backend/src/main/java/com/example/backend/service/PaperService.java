@@ -4,7 +4,6 @@ import com.example.backend.exceptions.PaperNotFoundException;
 import com.example.backend.models.Paper;
 import com.example.backend.repository.PaperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -15,7 +14,7 @@ public class PaperService {
     @Autowired
     private PaperRepository paperRepository;
     @Autowired
-    private MyUserDetailsService myUserDetailsService;
+    private LocalUserDetailsService myUserDetailsService;
 
     public List<Paper> getPapers() {
         return paperRepository.findAll();
