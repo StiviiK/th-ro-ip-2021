@@ -17,8 +17,8 @@ public class DemoData {
 
     @PostConstruct
     public void InitData() {
-        var userCheck = userRepository.count();
-        if (userCheck == 0L) {
+        var userCheck = userRepository.getByUsername("foo");
+        if (userCheck == null) {
             var user = new User("foo", "$2a$12$oHiElt236IvY9s3O3acC9eFplNwQ62HyJ6paFjeYSsN/MRkIY9r3i");
             userRepository.save(user);
         }

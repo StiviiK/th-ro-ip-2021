@@ -12,8 +12,8 @@ public class BibtexApiTest {
 
     private final BibtexApiService bibtexApiService;
 
-    public BibtexApiTest(BibtexApiService bibtexApiService) {
-        this.bibtexApiService = bibtexApiService;
+    public BibtexApiTest() {
+        this.bibtexApiService = new BibtexApiService();
     }
 
     @Test
