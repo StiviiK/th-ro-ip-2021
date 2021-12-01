@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 public class PaperController {
@@ -23,8 +22,8 @@ public class PaperController {
         return ResponseEntity.ok(paperService.getPapers());
     }
 
-    @RequestMapping(value = "/paper/{paperId}", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
-    public ResponseEntity<Paper> getPaper(@RequestBody @PathVariable("paperId") UUID paperId) {
+    @RequestMapping(value = "/papers/{paperId}", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+    public ResponseEntity<Paper> getPaper(@RequestBody @PathVariable("paperId") String paperId) {
         return ResponseEntity.ok(paperService.getPaper(paperId));
     }
 

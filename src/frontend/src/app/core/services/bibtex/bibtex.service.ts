@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 export class BibtexService {
   private baseUrl: string = 'https://arxiv.org/bibtex/';
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
   }
 
   getBibtex(url: string): string {

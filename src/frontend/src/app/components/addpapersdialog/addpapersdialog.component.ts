@@ -2,14 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData } from 'src/app/core/models/dialog-data-model';
 import { BibtexService } from 'src/app/core/services/bibtex/bibtex.service';
-
-export interface DialogData {
-  paperURL: string;
-  genKeywords: boolean;
-  userKeywords: string;
-  bibtex: string;
-  confirm: boolean;
-}
+import { PaperService } from 'src/app/core/services/paper/paper.service';
 
 @Component({
   selector: 'app-addpapersdialog',
@@ -22,6 +15,7 @@ export class AddpapersdialogComponent implements OnInit {
     public dialogRef: MatDialogRef<AddpapersdialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private bibservice: BibtexService,
+    private paperservice: PaperService
   ) { }
 
   ngOnInit(): void {
@@ -36,8 +30,9 @@ export class AddpapersdialogComponent implements OnInit {
     this.data.confirm = false;
     this.dialogRef.close(this.data);
   }
-  
+
   onEntered() {
-    this.data.bibtex = this.bibservice.getBibtex(this.data.paperURL);
+    this.data.id = this.paperservice.paperIdFromURL(this.data.url);
+    this.data.bibtex = this.bibservice.getBibtex(this.data.url);
   }
 }

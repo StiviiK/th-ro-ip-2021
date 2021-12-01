@@ -33,7 +33,7 @@ public class PaperService {
         return paperRepository.findAll();
     }
 
-    public Paper getPaper(UUID paperId) {
+    public Paper getPaper(String paperId) {
         Optional<Paper> optionalPaper = paperRepository.findById(paperId);
         if (optionalPaper.isEmpty()) {
             throw new PaperNotFoundException(String.format("User with id: '%s' not found", paperId));

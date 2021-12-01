@@ -1,5 +1,6 @@
 export interface Paper {
-    paperURL: string;
+    id: string;
+    url: string;
     keywords: string;
     author: string;
     title: string;
