@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import { Paper } from '../models/paper-model';
 import { Observable } from 'rxjs';
 import {tap} from 'rxjs/operators';
+import { likedPaper } from '../models/liked-paper-model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,9 @@ export class PaperService {
   public addPaper(paperToAdd: DialogData): void {
     console.log(paperToAdd);
     this.http.put<DialogData>('papers/addPapers/' + paperToAdd, '').subscribe();
+  }
+
+  public getLikedPapers(): Observable<likedPaper[]> {
+    return this.http.get<likedPaper[]>('likedPapers')
   }
 }

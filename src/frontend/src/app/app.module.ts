@@ -19,12 +19,15 @@ import { GraphviewComponent } from './components/graphview/graphview.component';
 import { PaperitemComponent } from './components/paperitem/paperitem.component';
 import { AddpapersdialogComponent } from './components/addpapersdialog/addpapersdialog.component';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatListModule} from '@angular/material/list';
+
 
 import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './core/interceptor/jwt-interceptor.interceptor';
 import { ErrorInterceptor } from './core/interceptor/error-interceptor.interceptor';
 import { BibtexService } from './core/services/bibtex/bibtex.service';
+import { MyOverviewComponent } from './pages/my-overview/my-overview/my-overview.component';
 
 
 @NgModule({
@@ -39,6 +42,7 @@ import { BibtexService } from './core/services/bibtex/bibtex.service';
     AddpapersdialogComponent,
     LoginComponent,
     AddpapersdialogComponent,
+    MyOverviewComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +58,8 @@ import { BibtexService } from './core/services/bibtex/bibtex.service';
     MatCheckboxModule,
     MatRadioModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatListModule
   ],
   providers: [
     { provide: BibtexService, useClass: BibtexService, multi: true },

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './core/guards/auth-guard';
 import { AccountComponent } from './pages/account/account.component';
+import { MyOverviewComponent } from './pages/my-overview/my-overview/my-overview.component';
 import { MypapersComponent } from './pages/mypapers/mypapers.component';
 import { OverviewComponent } from './pages/overview/overview.component';
 
@@ -15,6 +16,7 @@ const routes: Routes = [
       { path: "mypapers", component: MypapersComponent },
       { path: "overview", component: OverviewComponent },
       { path: "account", component: AccountComponent },
+      { path: "my-overview", component: MyOverviewComponent },
       { path: "**", redirectTo: "mypapers" }
     ],
     canActivate: [AuthGuard],

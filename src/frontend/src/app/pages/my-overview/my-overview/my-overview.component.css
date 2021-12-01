@@ -1,0 +1,11 @@
+#list-option {
+  color: black;
+  margin-bottom: 5px;
+  height: fit-content;
+}
+
+.flex-box-2 {
+  display: flex;
+  justify-content: flex-end;
+  outline: 2px deeppink dashed;
+}

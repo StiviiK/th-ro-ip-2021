@@ -14,3 +14,13 @@ mat-dialog-container#new-paper-component {
   border-radius: 11px;
   background-color: white;
 }
+
+.mat-pseudo-checkbox {
+  background: cornflowerblue;
+  border-color: cornflowerblue;
+  border: 1cm;
+}
+
+.mat-list-option:hover {
+  background: rgb(169, 169, 169);
+}
