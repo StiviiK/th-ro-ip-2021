@@ -1,0 +1,29 @@
+replicaCount: 1
+
+image:
+  tag: "master"
+
+apiEndpoint: "https://api.ip.mirix.io"
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+  hosts:
+    - host: ip.mirix.io
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: ip.mirix.io
+      hosts:
+        - ip.mirix.io
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi

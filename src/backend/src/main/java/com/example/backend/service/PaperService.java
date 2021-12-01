@@ -23,7 +23,7 @@ public class PaperService {
     @Autowired
     private PaperRepository paperRepository;
     @Autowired
-    private MyUserDetailsService myUserDetailsService;
+    private LocalUserDetailsService myUserDetailsService;
     @Autowired
     private KeywordService keywordService;
     @Autowired
@@ -42,7 +42,8 @@ public class PaperService {
 
     }
 
-    public Paper addPaper(Paper paper, String username) throws KeywordServiceNotAvailableException, ArxivNotAvailableException {
+    public Paper addPaper(Paper paper, String username)
+            throws KeywordServiceNotAvailableException, ArxivNotAvailableException {
         UserDetails user = myUserDetailsService.loadUserByUsername(username);
         if (paper == null) {
             throw new NullPointerException("Paper was null");
@@ -55,7 +56,6 @@ public class PaperService {
         } catch (Exception exception) {
             throw new ArxivNotAvailableException("Arxiv.org API could not be reached.");
         }
-
 
         // Authors
         List<Author> authors = arxivInformation.getAuthors();
@@ -89,7 +89,7 @@ public class PaperService {
         keywords = keywordService.saveMultiple(keywords);
         paper.setKeywords(keywords);
 
-        //TODO add paper to user
+        // TODO add paper to user
         paper = paperRepository.save(paper);
 
         return paper;

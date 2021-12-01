@@ -34,7 +34,7 @@ public class Paper {
     )
     private List<Author> authors;
 
-    @Column(name = "bibtex")
+    @Column(name = "bibtex", length = 10000)
     private String bibtex;
 
     // https://arxiv.org/help/prep -> "abstracts longer than 1920 characters will not be accepted;"

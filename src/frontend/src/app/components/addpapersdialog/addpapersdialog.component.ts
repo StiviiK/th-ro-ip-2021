@@ -33,6 +33,6 @@ export class AddpapersdialogComponent implements OnInit {
 
   onEntered() {
     this.data.id = this.paperservice.paperIdFromURL(this.data.url);
-    this.data.bibtex = this.bibservice.getBibtex(this.data.url);
+    this.bibservice.getBibtex(this.data.url).subscribe(e => this.data.bibtex = e['bibtex']);
   }
 }

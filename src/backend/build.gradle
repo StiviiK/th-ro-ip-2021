@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+sourceCompatibility = '16'
 
 configurations {
 	compileOnly {
@@ -16,12 +16,15 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven {
+		url "https://clojars.org/repo/"
+	}
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.6'
+	implementation 'org.springframework.boot:spring-boot-starter-security:2.5.6'
+	implementation 'org.springframework.boot:spring-boot-starter-web:2.5.6'
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 	implementation group: 'org.json', name: 'json', version: '20201115'
 	implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.1.1'

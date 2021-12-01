@@ -1,7 +1,7 @@
 package com.example.backend.configuration;
 
 import com.example.backend.filter.JwtRequestFilter;
-import com.example.backend.service.MyUserDetailsService;
+import com.example.backend.service.LocalUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,17 +10,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecrurityConfigurer extends WebSecurityConfigurerAdapter {
-    private final MyUserDetailsService myUserDetailsService;
+    private final LocalUserDetailsService myUserDetailsService;
     private final JwtRequestFilter jwtRequestFilter;
 
-    public SecrurityConfigurer(MyUserDetailsService myUserDetailsService, JwtRequestFilter jwtRequestFilter) {
+    public SecrurityConfigurer(LocalUserDetailsService myUserDetailsService, JwtRequestFilter jwtRequestFilter) {
         this.myUserDetailsService = myUserDetailsService;
         this.jwtRequestFilter = jwtRequestFilter;
     }
@@ -40,15 +40,14 @@ public class SecrurityConfigurer extends WebSecurityConfigurerAdapter {
                 .antMatchers("/authenticate").permitAll()
                 .anyRequest().authenticated()
             .and()
-            .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder(BCryptPasswordEncoder.BCryptVersion.$2A);
     }
 
     @Bean

@@ -1,10 +1,10 @@
-FROM python:3.9.9
+FROM python:3.9-slim
+RUN mkdir /app
+WORKDIR /app
 
-WORKDIR /usr/src/app
+ADD requirements.txt /app
+RUN pip3 install -r requirements.txt
 
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+ADD . /app
 
-COPY . .
-
-CMD [ "python", "./app.py" ]
+CMD ["gunicorn", "-w 2", "-b", "0.0.0.0:8000", "main:app"]
