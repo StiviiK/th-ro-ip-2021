@@ -1,20 +1,20 @@
 package com.example.backend.util;
 
+import com.example.backend.service.UserPrincipal;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.function.Function;
 
 @Configuration
 public class JWTUtil {
-    private String SECRET_KEY = "secret";
+    private final String SECRET_KEY = UUID.randomUUID().toString();
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -37,14 +37,14 @@ public class JWTUtil {
         return extractExpiration(token).before(new Date());
     }
 
-    public String generateToken(UserDetails userDetails, Map<String, Object> claims) {
-        return createToken(claims, userDetails.getUsername());
+    public String generateToken(UserPrincipal userDetails, Map<String, Object> claims) {
+        return createToken(claims, userDetails);
     }
 
-    private String createToken(Map<String, Object> claims, String subject) {
+    private String createToken(Map<String, Object> claims, UserPrincipal subject) {
         return Jwts.builder()
                 .setClaims(claims)
-                .setSubject(subject)
+                .setSubject(subject.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setNotBefore(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10h
