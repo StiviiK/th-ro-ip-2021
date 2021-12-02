@@ -22,7 +22,7 @@ export class MypapersComponent implements OnInit {
 
   getPapers(): void {
     console.log('Getting Papers')
-    this.papersRestService.getPapers().subscribe(e => this.papers = e);;
+    this.papersRestService.getPapers().subscribe(e => this.papers = e);
   }
 
   openNewPapersDialog(): void {

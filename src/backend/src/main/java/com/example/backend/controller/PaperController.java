@@ -10,6 +10,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -35,6 +37,15 @@ public class PaperController {
             paper = paperService.addPaper(paper, username);
         } catch (ArxivNotAvailableException | KeywordServiceNotAvailableException exception) {
             System.out.println("Keyword service could not be reached.");
+            return ResponseEntity.internalServerError();
+        } catch (InterruptedException e) {
+            System.out.println("Arxiv.org could not be reached.");
+            return ResponseEntity.internalServerError();
+        } catch (IOException e) {
+            System.out.println("Arxiv.org could not be reached.");
+            return ResponseEntity.internalServerError();
+        } catch (URISyntaxException e) {
+            System.out.println("Arxiv.org could not be reached.");
             return ResponseEntity.internalServerError();
         }
         return ResponseEntity.ok(paper);

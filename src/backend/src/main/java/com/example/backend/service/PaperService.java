@@ -15,7 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.*;
+
+import static com.example.backend.util.ArxivApi.getBibtexById;
 
 @Service
 public class PaperService {
@@ -43,10 +47,14 @@ public class PaperService {
     }
 
     public Paper addPaper(Paper paper, String username)
-            throws KeywordServiceNotAvailableException, ArxivNotAvailableException {
+            throws KeywordServiceNotAvailableException, ArxivNotAvailableException, InterruptedException, IOException, URISyntaxException {
         UserDetails user = myUserDetailsService.loadUserByUsername(username);
         if (paper == null) {
             throw new NullPointerException("Paper was null");
+        }
+
+        if (paper.getBibtex() == null || paper.getBibtex().isEmpty()) {
+            paper.setBibtex(getBibtexById(paper.getId()));
         }
 
         // Retrieve paper information
