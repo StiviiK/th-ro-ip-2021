@@ -1,18 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Subject } from 'rxjs';
 import { GraphLink } from 'src/app/core/models/graph-links';
 import { GraphNode } from 'src/app/core/models/graph-node';
 import { Paper } from 'src/app/core/models/paper-model';
-import { PaperService } from 'src/app/core/services/paper/paper.service';
 
 @Component({
   selector: 'app-graphview',
   templateUrl: './graphview.component.html',
   styleUrls: ['./graphview.component.css']
 })
-export class GraphviewComponent implements OnInit {
-
-  papers: Paper[] = [];
+export class GraphviewComponent implements OnInit, OnChanges {
+  @Input() allPapers: Paper[] = [];
 
   links: GraphLink[] = [];
   nodes: GraphNode[] = [];
@@ -22,23 +20,28 @@ export class GraphviewComponent implements OnInit {
   zoomToFit$: Subject<boolean> = new Subject();
 
   constructor(
-    private papersRestService: PaperService
   ) { }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('im Recalculating the graph!!')
+      this.calculateGraph();
+  }
+
   ngOnInit(): void {
-    this.papersRestService.getPapers().subscribe(e => {
-      this.papers = e;
+    this.calculateGraph();
+  }
+
+  calculateGraph(): void {
       this.calculateNodes();
       this.calculateLinks();
-      
+
       this.center$.next(true);
       this.zoomToFit$.next(true);
       this.update$.next(true);
-    });
   }
 
   calculateNodes(): void {
-    this.papers.forEach(p => {
+    this.allPapers.forEach(p => {
       let node: GraphNode = {} as GraphNode;
       node.id = p.id.replace(".", "");
       node.label = p.title;

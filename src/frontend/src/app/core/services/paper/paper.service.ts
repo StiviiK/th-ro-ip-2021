@@ -18,9 +18,9 @@ export class PaperService {
     return this.http.get<Paper[]>(`${environment.apiUrl}/papers`);
   }
 
-  public addPaper(paperToAdd: DialogData): void {
+  public addPaper(paperToAdd: DialogData): Observable<Paper> {
     console.log(paperToAdd);
-    this.http.put<DialogData>(`${environment.apiUrl}/papers`, paperToAdd).subscribe();
+    return this.http.put<Paper>(`${environment.apiUrl}/papers`, paperToAdd);
   }
 
   public paperIdFromURL(url: string): string {

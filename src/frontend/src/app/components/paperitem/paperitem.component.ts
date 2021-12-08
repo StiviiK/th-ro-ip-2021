@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Paper } from 'src/app/core/models/paper-model';
 
 @Component({
@@ -9,13 +9,10 @@ import { Paper } from 'src/app/core/models/paper-model';
 
 export class PaperitemComponent implements OnInit {
 
-  paper: Paper = {} as Paper;
-
+  @Input() onePaper!: Paper;
   constructor() { }
 
   ngOnInit(): void {
-    this.paper.author = 'Test1';
-    this.paper.title = 'Test2';
   }
 
 }
