@@ -9,7 +9,7 @@ import { Paper } from 'src/app/core/models/paper-model';
 
 export class PaperitemComponent implements OnInit {
 
-  @Input() onePaper!: Paper;
+  @Input() onePaper: Paper;
   constructor() { }
 
   ngOnInit(): void {

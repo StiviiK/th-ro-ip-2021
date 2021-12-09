@@ -4,6 +4,7 @@ import { GraphLink } from 'src/app/core/models/graph-links';
 import { GraphNode } from 'src/app/core/models/graph-node';
 import { Keyword } from 'src/app/core/models/keyword';
 import { Paper } from 'src/app/core/models/paper-model';
+import {MatSliderModule} from '@angular/material/slider';
 
 @Component({
   selector: 'app-graphview',
@@ -11,7 +12,19 @@ import { Paper } from 'src/app/core/models/paper-model';
   styleUrls: ['./graphview.component.css']
 })
 export class GraphviewComponent implements OnInit, OnChanges {
-  @Input() allPapers: Paper[] = [];
+  //@Input() allPapers: Paper[] = [];
+
+  private _allPapers: Paper[] = [];
+
+  @Input()
+  set allPapers(papers: Paper[]) {
+    this._allPapers = papers;
+    this.calculateGraph();
+  }
+
+  get allPapers(): Paper[] {
+    return this._allPapers;
+  }
 
   links: GraphLink[] = [];
   nodes: GraphNode[] = [];
@@ -24,8 +37,7 @@ export class GraphviewComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('im Recalculating the graph!!')
-    this.calculateGraph();
+    this._allPapers = changes.allPapers.currentValue;
   }
 
   ngOnInit(): void {
@@ -42,6 +54,7 @@ export class GraphviewComponent implements OnInit, OnChanges {
   }
 
   calculateNodes(): void {
+    this.nodes = [];
     this.allPapers.forEach(p => {
       let node: GraphNode = {} as GraphNode;
       node.id = p.id.replace(".", "");
@@ -49,6 +62,7 @@ export class GraphviewComponent implements OnInit, OnChanges {
       node.keywords = p.keywords;
       this.nodes.push(node);
     })
+    this.nodes = [...this.nodes];
   }
 
   extractKeywords(node: GraphNode): string[] {
@@ -60,7 +74,7 @@ export class GraphviewComponent implements OnInit, OnChanges {
   }
 
   calculateLinks(): void {
-    let count: number = 0;
+    this.links = [];
     this.nodes.forEach(n => {
       this.nodes.forEach(nt => {
         if (n.id != nt.id) {
@@ -73,15 +87,12 @@ export class GraphviewComponent implements OnInit, OnChanges {
             clink.label = "";
             clink.source = n.id;
             clink.target = nt.id;
-            if (this.links.every(link => link.id != clink.id)) {
-              this.links.push(clink);
-              count++;
-            }
+            this.links.push(clink);
           }
         }
       })
     })
-    console.log(this.links.length);
+    this.links = [...this.links];
   }
 
   makeLinkId(k1: Keyword[], k2: Keyword[]): string {
