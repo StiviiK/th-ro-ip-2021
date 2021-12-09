@@ -1,5 +1,5 @@
 export interface GraphLink {
-    id: number,
+    id: string,
     source: string,
     target: string,
     label: string

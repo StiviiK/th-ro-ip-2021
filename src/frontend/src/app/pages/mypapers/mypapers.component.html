@@ -2,10 +2,12 @@
     <div id="paperlist">
         <button style="margin-left: 10px; margin-top: 10px;" mat-button (click)="openNewPapersDialog()">Add Paper</button>
 
-        <app-paperitem
-        *ngFor="let onePaper of allPapers"
-        [onePaper]="onePaper"
-        ></app-paperitem>
+        <mat-list id="mat-paperlist">
+            <app-paperitem
+            *ngFor="let onePaper of allPapers"
+            [onePaper]="onePaper"
+            ></app-paperitem>
+        </mat-list>
     </div>
     <div id="graphview">
         <app-graphview [allPapers]="allPapers"></app-graphview>

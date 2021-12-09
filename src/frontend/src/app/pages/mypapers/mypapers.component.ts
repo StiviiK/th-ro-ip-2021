@@ -3,6 +3,8 @@ import { AddpapersdialogComponent } from 'src/app/components/addpapersdialog/add
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { PaperService } from 'src/app/core/services/paper/paper.service';
 import { Paper } from 'src/app/core/models/paper-model';
+import {MatListModule} from '@angular/material/list'
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-mypapers',

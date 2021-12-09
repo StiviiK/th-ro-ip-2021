@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { Subject } from 'rxjs';
 import { GraphLink } from 'src/app/core/models/graph-links';
 import { GraphNode } from 'src/app/core/models/graph-node';
+import { Keyword } from 'src/app/core/models/keyword';
 import { Paper } from 'src/app/core/models/paper-model';
 
 @Component({
@@ -24,7 +25,7 @@ export class GraphviewComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log('im Recalculating the graph!!')
-      this.calculateGraph();
+    this.calculateGraph();
   }
 
   ngOnInit(): void {
@@ -68,16 +69,26 @@ export class GraphviewComponent implements OnInit, OnChanges {
           let common = keywordsn.some(k => keywordsnt.includes(k));
           if (common) {
             let clink: GraphLink = {} as GraphLink;
-            clink.id = count;
+            clink.id = this.makeLinkId(n.keywords, nt.keywords);
             clink.label = "";
             clink.source = n.id;
             clink.target = nt.id;
-            this.links.push(clink);
-            count++;
+            if (this.links.every(link => link.id != clink.id)) {
+              this.links.push(clink);
+              count++;
+            }
           }
         }
       })
     })
+    console.log(this.links.length);
+  }
+
+  makeLinkId(k1: Keyword[], k2: Keyword[]): string {
+    let kStr: string[] = [];
+    k1.forEach(k => kStr.push(k.keyword));
+    k2.forEach(k => kStr.push(k.keyword))
+    return kStr.join("");
   }
 
   makeString(): string {

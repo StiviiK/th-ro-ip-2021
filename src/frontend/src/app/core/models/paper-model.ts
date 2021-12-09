@@ -1,7 +1,9 @@
+import { Keyword } from "./keyword";
+
 export interface Paper {
     id: string;
     url: string;
-    keywords: string[];
+    keywords: Keyword[];
     author: string;
     title: string;
   }

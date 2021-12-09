@@ -16,6 +16,7 @@
   border: 2px solid cornflowerblue;
   border-top: 0px;
   border-left: 0px;
+  display: flex;
 }
 
 .mat-button {
