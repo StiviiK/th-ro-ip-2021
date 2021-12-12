@@ -3,3 +3,14 @@
   margin-bottom: 5px;
   height: fit-content;
 }
+
+.trim-info {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 15px;
+  position: relative;
+  margin-top: 15px;
+  margin-left: 5px;
+}

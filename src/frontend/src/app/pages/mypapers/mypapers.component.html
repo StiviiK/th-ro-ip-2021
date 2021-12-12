@@ -1,12 +1,13 @@
 <div id="mainview" class="container-fluid">
-    <div id="paperlist">
+    <div id="paperlist" >
         <button style="margin-left: 10px; margin-top: 10px;" mat-button (click)="openNewPapersDialog()">Add Paper</button>
-
-
-        <app-paperitem
-        *ngFor="let onePaper of allPapers"
-        [onePaper]="onePaper"
-        ></app-paperitem>
+        <div style="max-height: 800px;
+        overflow: auto;">
+          <app-paperitem
+          *ngFor="let onePaper of allPapers"
+          [onePaper]="onePaper"
+          ></app-paperitem>
+        </div>
     </div>
     <div id="graphview">
         <app-graphview [allPapers]="allPapers"></app-graphview>
