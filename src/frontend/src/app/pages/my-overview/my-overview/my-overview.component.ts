@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
 import { likedPaper } from 'src/app/core/models/liked-paper-model';
-import { PaperService } from 'src/app/core/services/paper.service';
+import { PaperService } from 'src/app/core/services/paper/paper.service';
 
 
 @Component({
