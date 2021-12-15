@@ -27,8 +27,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './core/interceptor/jwt-interceptor.interceptor';
 import { ErrorInterceptor } from './core/interceptor/error-interceptor.interceptor';
 import { ConfigService } from './core/services/config.service';
-import { BibtexService } from './core/services/bibtex/bibtex.service';
 import { MyOverviewComponent } from './pages/my-overview/my-overview/my-overview.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -59,10 +59,10 @@ import { MyOverviewComponent } from './pages/my-overview/my-overview/my-overview
     MatRadioModule,
     FormsModule,
     HttpClientModule,
-    MatListModule
+    MatListModule,
+    MatTooltipModule,
   ],
   providers: [
-    { provide: BibtexService, useClass: BibtexService, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     {

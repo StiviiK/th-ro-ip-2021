@@ -24,3 +24,12 @@ mat-dialog-container#new-paper-component {
 .mat-list-option:hover {
   background: rgb(169, 169, 169);
 }
+
+.list-tooltip {
+  font-size: 16px !important;
+  width: 300px;
+}
+
+.mat-icon {
+  vertical-align: middle;
+}
