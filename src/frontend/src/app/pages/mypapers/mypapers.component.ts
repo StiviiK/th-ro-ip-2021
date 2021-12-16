@@ -3,14 +3,19 @@ import { AddpapersdialogComponent } from 'src/app/components/addpapersdialog/add
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { PaperService } from 'src/app/core/services/paper/paper.service';
 import { Paper } from 'src/app/core/models/paper-model';
+import { ElementRef, ViewChild, AfterViewInit} from '@angular/core';
+
+
 
 @Component({
   selector: 'app-mypapers',
   templateUrl: './mypapers.component.html',
   styleUrls: ['./mypapers.component.css'],
 })
-export class MypapersComponent implements OnInit {
+export class MypapersComponent implements OnInit, AfterViewInit {
 
+  @ViewChild('graphview') graphview: ElementRef;
+  
   currentPapers: Paper[] = [];
   allPapers: Paper[] = [];
   query: string = "";
@@ -22,6 +27,10 @@ export class MypapersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPapers();
+  }
+
+  ngAfterViewInit() {
+    console.log(this.graphview.nativeElement.offsetHeight);
   }
 
   filterList(): void {

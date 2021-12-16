@@ -1,11 +1,23 @@
 <ngx-graph
   class="chart-container"
-  layout="colaForceDirected"
-  [view]="[800, 800]"
+  layout="dagre"
+  [view]="[1000, 1000]"
   [links]="links"
   [nodes]="nodes"
   [update$]="update$"
   [center$]="center$"
   [zoomToFit$]="zoomToFit$"
 >
+<ng-template #nodeTemplate let-node>
+  <svg:g class="node">
+    <svg:rect
+      [attr.width]="node.dimension.width"
+      [attr.height]="node.dimension.height"
+      [attr.fill]="node.data.color"
+    />
+    <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.dimension.height / 2">
+      {{node.label}}
+    </svg:text>
+  </svg:g>
+</ng-template>
 </ngx-graph>
