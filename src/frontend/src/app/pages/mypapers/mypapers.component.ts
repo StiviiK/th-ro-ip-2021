@@ -11,7 +11,9 @@ import { Paper } from 'src/app/core/models/paper-model';
 })
 export class MypapersComponent implements OnInit {
 
+  currentPapers: Paper[] = [];
   allPapers: Paper[] = [];
+  query: string = "";
 
   constructor(
     public matDialog: MatDialog,
@@ -22,9 +24,22 @@ export class MypapersComponent implements OnInit {
     this.getPapers();
   }
 
+  filterList(): void {
+    console.log(this.query);
+    this.currentPapers = [];
+    this.allPapers.forEach(p => {
+      if (p.title.toLowerCase().includes(this.query.toLowerCase())) {
+        this.currentPapers.push(p);
+      }
+    })
+  }
+
   getPapers(): void {
     console.log('Getting Papers')
-    this.papersRestService.getPapers().subscribe(e => this.allPapers = e);
+    this.papersRestService.getPapers().subscribe(e => {
+      this.allPapers = e;
+      this.currentPapers = this.allPapers;
+    });
   }
 
   openNewPapersDialog(): void {

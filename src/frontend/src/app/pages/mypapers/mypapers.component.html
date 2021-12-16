@@ -3,10 +3,11 @@
         <button style="margin-left: 10px; margin-top: 10px;" mat-button (click)="openNewPapersDialog()">Add Paper</button>
         <div style="max-height: 800px;
         overflow: auto;">
-          <app-paperitem
-          *ngFor="let onePaper of allPapers"
-          [onePaper]="onePaper"
-          ></app-paperitem>
+        <input [(ngModel)]="query" (ngModelChange)="filterList()">
+        <app-paperitem
+            *ngFor="let onePaper of currentPapers"
+            [onePaper]="onePaper"
+        ></app-paperitem>
         </div>
     </div>
     <div id="graphview">
