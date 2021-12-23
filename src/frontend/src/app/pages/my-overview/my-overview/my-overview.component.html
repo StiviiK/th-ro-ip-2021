@@ -1,17 +1,15 @@
 <div style="background-color: white; color: black; width: 100%; padding: 0 16px; margin-top: 10px; margin-bottom: 10px; overflow: hidden;" >
-  <span style="font-size: 20px;  line-height: 33px;">My Liked Papers</span>
+  <span style="font-size: 20px;  line-height: 33px;">My Liked Papers:</span>
+  <button style="margin-left: 10px; background-color: cornflowerblue; color: white; float: right;" mat-button (click)="like(Papers)">Like Paper</button>
   <button style="margin-left: 10px; background-color: cornflowerblue; color: white; float: right;" mat-button (click)="testList(Papers)">Bibtex export</button>
 </div>
 
-<mat-selection-list #Papers >
-  <mat-list-option id="list-option" *ngFor="let likedPaper of likedPapers" [value]="likedPaper">
-    <div>
-      <p>Paper URL:{{likedPaper.paperURL}}</p>
-      <p>Paper User:{{likedPaper.userID}} </p>
-      <p>{{likedPaper.liked}}</p>
-  </div>
+<mat-selection-list #Papers style="margin-left: 1%;">
+  <mat-list-option id="list-option" class="list-container" *ngFor="let likedPaper of likedPapers" [value]="likedPaper" style="width:31%; display: inline-block; margin: 1%;">
+    <div class="trim-info" >
+      <span>Title: {{likedPaper.title}}</span><br>
+      <span>URL: {{likedPaper.url}}</span><br>
+      <span>Authors: <span *ngFor="let author of likedPaper.authors">{{author.name}}; </span></span>
+    </div>
   </mat-list-option>
 </mat-selection-list>
-
-
-

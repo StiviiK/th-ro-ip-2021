@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
-import { likedPaper } from 'src/app/core/models/liked-paper-model';
+import { Paper } from 'src/app/core/models/paper-model';
 import { PaperService } from 'src/app/core/services/paper/paper.service';
 
 
@@ -11,30 +11,24 @@ import { PaperService } from 'src/app/core/services/paper/paper.service';
 })
 export class MyOverviewComponent implements OnInit {
 
-  likedPapers: likedPaper[] = [
-    {
-      paperURL: 'test',
-      userID: 'test',
-      liked: true
-    },
-    {
-      paperURL: 'test22',
-      userID: 'test123',
-      liked: true
-    },
-    {
-      paperURL: 'test4124',
-      userID: 'test124123',
-      liked: true
-    },
-  ];
+  likedPapers: Paper[] = [];
+
+  allLikedPapers: Paper[] = []
 
   constructor(private papersRestService: PaperService) {
 
   }
 
   ngOnInit(): void {
-    //this.papersRestService.getLikedPapers().subscribe(e => this.likedPapers = e);
+    this.getPapers();
+  }
+
+  getPapers(): void {
+    this.papersRestService.getPapers().subscribe(e => this.likedPapers = e);
+  }
+
+  getLikedPapers(): void {
+    this.papersRestService.getlikedPapers().subscribe(e => this.allLikedPapers = e);
   }
 
   testList(selectedPapers : MatSelectionList ): void {
@@ -42,5 +36,13 @@ export class MyOverviewComponent implements OnInit {
     selectedOptions.forEach(selectedOption => {
       console.log(selectedOption.value);
     });
+  }
+
+  like(selectedPapers : MatSelectionList ): void {
+    let selectedOptions = selectedPapers.selectedOptions.selected;
+    selectedOptions.forEach(async selectedOption => {
+      await this.papersRestService.addlikedPaper(selectedOption.value);
+    });
+    this.getLikedPapers();
   }
 }

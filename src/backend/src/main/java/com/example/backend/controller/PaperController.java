@@ -3,7 +3,9 @@ package com.example.backend.controller;
 import com.example.backend.exceptions.ArxivNotAvailableException;
 import com.example.backend.exceptions.KeywordServiceNotAvailableException;
 import com.example.backend.models.Paper;
+import com.example.backend.service.LocalUserDetailsService;
 import com.example.backend.service.PaperService;
+import com.example.backend.service.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -18,6 +20,9 @@ import java.util.List;
 public class PaperController {
     @Autowired
     private PaperService paperService;
+
+    @Autowired
+    private LocalUserDetailsService userDetailsService;
 
     @RequestMapping(value = "/papers", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
     public ResponseEntity<List<Paper>> getPapers() {

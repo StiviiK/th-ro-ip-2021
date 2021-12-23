@@ -3,6 +3,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -62,6 +63,4 @@ public class Paper {
         this.abstract_ = abstract_;
         this.keywords = keywords;
     }
-
-
 }

@@ -4,6 +4,10 @@ export interface Paper {
     id: string;
     url: string;
     keywords: Keyword[];
-    author: string;
+    authors: Author[];
     title: string;
+  }
+
+interface Author {
+    name: string;
   }
