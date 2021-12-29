@@ -4,14 +4,14 @@
 }
 
 #paperlist {
-  width: 20%;
+  width: 30%;
   float: left;
   border: 2px solid cornflowerblue;
   border-top: 0px;
 }
 
 #graphview {
-  width: 80%;
+  width: 70%;
   float: left;
   border: 2px solid cornflowerblue;
   border-top: 0px;
@@ -25,4 +25,8 @@
   color: white;
   padding: 1px;
   margin-bottom: 10px;
+}
+
+#searchbar {
+  width: 100%;
 }

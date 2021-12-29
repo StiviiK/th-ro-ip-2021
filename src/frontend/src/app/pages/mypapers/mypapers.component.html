@@ -1,16 +1,15 @@
 <div id="mainview" class="container-fluid">
     <div id="paperlist" >
         <button style="margin-left: 10px; margin-top: 10px;" mat-button (click)="openNewPapersDialog()">Add Paper</button>
+        <br>
+        <input id="searchbar" [(ngModel)]="query" (ngModelChange)="filterList()">
         <div style="max-height: 800px;
         overflow: auto;">
-        <input [(ngModel)]="query" (ngModelChange)="filterList()">
-        <app-paperitem
-            *ngFor="let onePaper of currentPapers"
-            [onePaper]="onePaper"
-        ></app-paperitem>
+            <app-paperitem
+                *ngFor="let onePaper of currentPapers"
+                [onePaper]="onePaper"
+            ></app-paperitem>
         </div>
     </div>
-    <div id="graphview" #graphview>
-        <app-graphview #agraphview [allPapers]="allPapers"></app-graphview>
-    </div>
+    <app-graphview id="graphview" #agraphview [allPapers]="allPapers"></app-graphview>
 </div>

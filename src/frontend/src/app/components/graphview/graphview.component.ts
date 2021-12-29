@@ -46,11 +46,27 @@ export class GraphviewComponent implements OnInit, OnChanges {
   calculateGraph(): void {
       this.calculateNodes();
       this.calculateLinks();
+      this.removeUnlinkedNodes();
 
-      this.center$.next(true);
-      this.zoomToFit$.next(true);
       this.update$.next(true);
+      this.zoomToFit$.next(true);
       
+  }
+
+  removeUnlinkedNodes(): void {
+    let updatedNodes: GraphNode[] = [];
+    this.nodes.forEach(n => {
+      let keep: boolean = true;
+      this.links.forEach(l => {
+        if(n.id == l.source || n.id == l.target) {
+          keep = false;
+        }
+      })
+      if(!keep) {
+        updatedNodes.push(n);
+      }
+    })
+    this.nodes = [...updatedNodes];
   }
 
   calculateNodes(): void {
@@ -89,6 +105,7 @@ export class GraphviewComponent implements OnInit, OnChanges {
             clink.source = n.id;
             clink.target = nt.id;
 
+            // Prevent duplicate link between two nodes
             let add = true;
             this.links.forEach(l => {
               if (l.source == clink.source && l.target == clink.target) {
