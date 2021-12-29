@@ -22,8 +22,16 @@ public class UserController {
     public Object addLikedPaper(Authentication authentication, @RequestBody Paper paper) {
         var paperToLike = paperService.getPaper(paper.getId());
         var user = userDetailsService.getUserByAuth(authentication);
-        var updatedUser = userDetailsService.addLikedPaper(user, paperToLike);;
-        return ResponseEntity.ok("Paper has been added to the User: " + updatedUser.getUsername());
+        userDetailsService.addLikedPaper(user, paperToLike);;
+        return ResponseEntity.ok(paperToLike);
+    }
+
+    @RequestMapping(value = "/removeLikedPaper", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
+    public Object removeLikedPaper(Authentication authentication, @RequestBody Paper paper) {
+        var paperToRemoveLike = paperService.getPaper(paper.getId());
+        var user = userDetailsService.getUserByAuth(authentication);
+        userDetailsService.removeLikedPaper(user, paperToRemoveLike);;
+        return ResponseEntity.ok(paperToRemoveLike);
     }
 
     @RequestMapping(value = "/getLikedPapers", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})

@@ -40,4 +40,8 @@ public class User {
     public void addLikedPaper(Paper likedPaper) {
         this.likedPapers.add(likedPaper);
     }
+
+    public void removeLikedPaper(Paper toRemove) {
+        this.likedPapers.remove(toRemove);
+    }
 }

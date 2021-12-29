@@ -12,20 +12,23 @@ export class PaperService {
 
   constructor(private http: HttpClient) { }
 
-  public getPapers(): Observable<Paper[]> {
+  public async getPapers(): Promise<Observable<Paper[]>> {
     return this.http.get<Paper[]>(`${environment.apiUrl}/papers`);
   }
 
   public addPaper(paperToAdd: DialogData): Observable<Paper> {
-    console.log(paperToAdd);
     return this.http.put<Paper>(`${environment.apiUrl}/papers`, paperToAdd);
   }
 
-  public async addlikedPaper(paperToLike: any): Promise<void> {
-    this.http.put<Paper>(`${environment.apiUrl}/addLikedPaper`, paperToLike).subscribe(e => (console.log(e)));
+  public addLikedPaper(paperToLike: any): Observable<Paper> {
+    return this.http.put<Paper>(`${environment.apiUrl}/addLikedPaper`, paperToLike);
   }
 
-  public getlikedPapers(): Observable<Paper[]> {
+  public removeLikedPaper(paperToRemove: any): void {
+    this.http.put<Paper>(`${environment.apiUrl}/removeLikedPaper`, paperToRemove).subscribe();
+  }
+
+  public async getlikedPapers(): Promise<Observable<Paper[]>> {
     return this.http.get<Paper[]>(`${environment.apiUrl}/getLikedPapers`);
   }
 

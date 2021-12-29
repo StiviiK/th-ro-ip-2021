@@ -18,9 +18,14 @@ public class LocalUserDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-    public User addLikedPaper(User user, Paper likedPaper) {
+    public void addLikedPaper(User user, Paper likedPaper) {
         user.addLikedPaper(likedPaper);
-        return userRepository.save((user));
+        userRepository.save((user));
+    }
+
+    public void removeLikedPaper(User user, Paper toRemove) {
+        user.removeLikedPaper(toRemove);
+        userRepository.save((user));
     }
 
     @Override
