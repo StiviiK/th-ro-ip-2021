@@ -2,7 +2,7 @@ FROM gradle:7.2.0-jdk16 as builder
 WORKDIR /home/gradle/src
 
 COPY --chown=gradle:gradle . .
-RUN gradle clean build -i --stacktrace
+RUN gradle clean build -i --stacktrace -x test
 
 WORKDIR /home/gradle/src/output
 ARG JAR_NAME=/home/gradle/src/build/libs/backend-0.0.1-SNAPSHOT.jar
