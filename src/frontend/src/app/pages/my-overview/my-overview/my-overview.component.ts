@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Paper } from 'src/app/core/models/paper-model';
-import { BibtexService } from 'src/app/core/services/bibtex/bibtex.service';
 import { PaperService } from 'src/app/core/services/paper/paper.service';
 
 @Component({
@@ -19,9 +17,7 @@ export class MyOverviewComponent implements OnInit {
   bibtex: string = "";
 
   constructor(
-    private papersRestService: PaperService,
-    private bibservice: BibtexService,
-    private sanitizer: DomSanitizer) {
+    private papersRestService: PaperService) {
   }
 
   ngOnInit(): void {
