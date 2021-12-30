@@ -1,70 +1,22 @@
 <ngx-graph
   class="chart-container"
-  [view]="[4000, 4000]"
-  [links]="[
-    {
-      id: 'a',
-      source: 'first',
-    target: 'second',
-      label: 'is parent of'
-    }, {
-      id: 'b',
-      source: 'first',
-      target: 'third',
-      label: 'custom label'
-    }, {
-      id: 'c',
-      source: 'first',
-      target: 'fifth',
-      label: 'custom label'
-    }, {
-      id: 'd',
-      source: 'eigth',
-      target: 'seventh',
-      label: 'custom label'
-    }, {
-      id: 'e',
-      source: 'seventh',
-      target: 'sixth',
-      label: 'custom label'
-    }, {
-      id: 'b',
-      source: 'fourth',
-      target: 'sixth',
-      label: 'custom label'
-    }, {
-      id: 'b',
-      source: 'fourth',
-      target: 'first',
-      label: 'custom label'
-    }
-  ]"
-  [nodes]="[
-    {
-      id: 'first',
-      label: 'A'
-    }, {
-      id: 'second',
-      label: 'B'
-    }, {
-      id: 'third',
-      label: 'C'
-    }, {
-      id: 'fourth',
-      label: 'D'
-    }, {
-      id: 'fifth',
-      label: 'E'
-    }, {
-      id: 'sixth',
-      label: 'F'
-    }, {
-      id: 'seventh',
-      label: 'G'
-    }, {
-      id: 'eigth',
-      label: 'H'
-    }
-  ]"
+  layout="dagre"
+  [links]="links"
+  [nodes]="nodes"
+  [update$]="update$"
+  [center$]="center$"
+  [zoomToFit$]="zoomToFit$"
 >
-</ngx-graph><p>graphview works!</p>
+<ng-template #nodeTemplate let-node>
+  <svg:g class="node">
+    <svg:rect
+      [attr.width]="node.dimension.width"
+      [attr.height]="node.dimension.height"
+      [attr.fill]="node.data.color"
+    />
+    <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.dimension.height / 2">
+      {{node.label}}
+    </svg:text>
+  </svg:g>
+</ng-template>
+</ngx-graph>

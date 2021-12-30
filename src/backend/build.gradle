@@ -26,8 +26,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security:2.5.6'
 	implementation 'org.springframework.boot:spring-boot-starter-web:2.5.6'
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
-	compileOnly 'org.projectlombok:lombok:1.18.22'
+    implementation group: 'org.json', name: 'json', version: '20201115'
+	implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.1.1'
+    
+    compileOnly 'org.projectlombok:lombok:1.18.22'
 	runtimeOnly 'mysql:mysql-connector-java:8.0.25'
+    //runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok:1.18.22'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.6'
 	testImplementation 'org.springframework.security:spring-security-test:5.5.1'

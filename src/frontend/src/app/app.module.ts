@@ -25,7 +25,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './core/interceptor/jwt-interceptor.interceptor';
 import { ErrorInterceptor } from './core/interceptor/error-interceptor.interceptor';
 import { ConfigService } from './core/services/config.service';
-import { BibtexService } from './core/services/bibtex/bibtex.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -54,10 +54,10 @@ import { BibtexService } from './core/services/bibtex/bibtex.service';
     MatCheckboxModule,
     MatRadioModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTooltipModule,
   ],
   providers: [
-    { provide: BibtexService, useClass: BibtexService, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     {

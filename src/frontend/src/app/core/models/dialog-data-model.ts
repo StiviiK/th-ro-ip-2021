@@ -1,7 +1,9 @@
+
+
 export interface DialogData {
-  paperURL: string;
-  genKeywords: boolean;
-  userKeywords: string;
-  bibtex: string;
-  confirm: boolean;
-}
+    id: string;
+    url: string;
+    keywords: string;
+    bibtex: string;
+    confirm: boolean;
+  }

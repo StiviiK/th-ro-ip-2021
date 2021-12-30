@@ -1,0 +1,23 @@
+#list-option {
+  color: black;
+  margin-bottom: 5px;
+  height: fit-content;
+}
+
+.trim-info {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.list-container {
+  margin-top: 15px;
+  margin-left: 5px;
+  line-height: 30px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-end
+}
