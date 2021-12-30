@@ -3,6 +3,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Bibtex } from '../../models/bibtex.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class BibtexService {
   constructor(private http: HttpClient) {
   }
 
-  getBibtex(url: string): Observable<Object> {
+  getBibtex(url: string): Observable<Bibtex> {
     let id: string;
     if (!url.includes('arxiv')) {
       throw new Error('Only arxiv is supported');
@@ -27,6 +28,6 @@ export class BibtexService {
 
     url = this.baseUrl + id;
 
-    return this.http.get<Object>(url);
+    return this.http.get<Bibtex>(url);
   }
 }

@@ -44,11 +44,10 @@ export class MypapersComponent implements OnInit, AfterViewInit {
   }
 
   getPapers(): void {
-    console.log('Getting Papers')
-    this.papersRestService.getPapers().subscribe(e => {
-      this.allPapers = e;
-      this.currentPapers = this.allPapers;
-    });
+    this.papersRestService.getPapers()
+    .then(response => {
+      response.subscribe(e => this.allPapers = e);
+     })
   }
 
   openNewPapersDialog(): void {

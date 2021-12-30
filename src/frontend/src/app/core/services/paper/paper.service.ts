@@ -10,17 +10,26 @@ import { environment } from 'src/environments/environment';
 })
 export class PaperService {
 
-  public item: Paper | undefined;
-
   constructor(private http: HttpClient) { }
 
-  public getPapers(): Observable<Paper[]> {
+  public async getPapers(): Promise<Observable<Paper[]>> {
     return this.http.get<Paper[]>(`${environment.apiUrl}/papers`);
   }
 
   public addPaper(paperToAdd: DialogData): Observable<Paper> {
-    console.log(paperToAdd);
     return this.http.put<Paper>(`${environment.apiUrl}/papers`, paperToAdd);
+  }
+
+  public addLikedPaper(paperToLike: any): Observable<Paper> {
+    return this.http.put<Paper>(`${environment.apiUrl}/addLikedPaper`, paperToLike);
+  }
+
+  public removeLikedPaper(paperToRemove: any): void {
+    this.http.put<Paper>(`${environment.apiUrl}/removeLikedPaper`, paperToRemove).subscribe();
+  }
+
+  public async getlikedPapers(): Promise<Observable<Paper[]>> {
+    return this.http.get<Paper[]>(`${environment.apiUrl}/getLikedPapers`);
   }
 
   public paperIdFromURL(url: string): string {

@@ -1,0 +1,51 @@
+#list-option {
+  color: black;
+  margin-bottom: 5px;
+  height: fit-content;
+}
+
+.flex-box-2 {
+  display: flex;
+  justify-content: flex-end;
+  outline: 2px deeppink dashed;
+}
+
+.trim-info {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.list-container {
+  margin-top: 15px;
+  line-height: 30px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-end;
+  border: 1px solid rgb(169, 169, 169);
+}
+
+button {
+  margin-left: 10px;
+  background-color: cornflowerblue;
+  color: white;
+  float: right;
+}
+
+button:disabled,
+button[disabled]{
+  background: grey;
+}
+
+.topbar-list {
+  background-color: white;
+  color: black;
+  width: 100%;
+  padding: 0 16px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
