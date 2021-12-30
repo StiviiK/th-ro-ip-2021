@@ -44,10 +44,7 @@ export class MypapersComponent implements OnInit, AfterViewInit {
   }
 
   getPapers(): void {
-    this.papersRestService.getPapers()
-    .then(response => {
-      response.subscribe(e => this.allPapers = e);
-     })
+    this.papersRestService.getPapers().subscribe(e => this.allPapers = e);
   }
 
   openNewPapersDialog(): void {

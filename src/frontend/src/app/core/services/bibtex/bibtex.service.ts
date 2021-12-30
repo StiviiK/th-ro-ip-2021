@@ -4,15 +4,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Bibtex } from '../../models/bibtex.model';
+import { ConfigService } from '../config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BibtexService {
-  private baseUrl: string = `${environment.apiUrl}/bibtex/`;
+  private baseUrl: string = `${this.config.getConfig('api_endpoint')}/bibtex/`;
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient, private config: ConfigService) { }
 
   getBibtex(url: string): Observable<Bibtex> {
     let id: string;

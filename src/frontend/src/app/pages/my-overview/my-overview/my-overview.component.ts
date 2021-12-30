@@ -31,8 +31,7 @@ export class MyOverviewComponent implements OnInit {
 
   async getPapers(): Promise<void> {
     await this.papersRestService.getPapers()
-      .then(response => {
-        response.subscribe(e => {
+        .subscribe(e => {
           this.allPapers = e;
           if (this.allLikedPapers) {
             this.allLikedPapers.forEach(likedpaper => {
@@ -45,7 +44,6 @@ export class MyOverviewComponent implements OnInit {
             })
           }
         });
-      })
   }
 
   async getLikedPapers(): Promise<void> {
