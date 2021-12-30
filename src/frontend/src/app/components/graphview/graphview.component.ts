@@ -4,7 +4,7 @@ import { GraphLink } from 'src/app/core/models/graph-links';
 import { GraphNode } from 'src/app/core/models/graph-node';
 import { Keyword } from 'src/app/core/models/keyword';
 import { Paper } from 'src/app/core/models/paper-model';
-import {MatSliderModule} from '@angular/material/slider';
+import * as uuid from 'uuid';
 
 @Component({
   selector: 'app-graphview',
@@ -12,7 +12,6 @@ import {MatSliderModule} from '@angular/material/slider';
   styleUrls: ['./graphview.component.css']
 })
 export class GraphviewComponent implements OnInit, OnChanges {
-  //@Input() allPapers: Paper[] = [];
 
   private _allPapers: Paper[] = [];
 
@@ -47,10 +46,27 @@ export class GraphviewComponent implements OnInit, OnChanges {
   calculateGraph(): void {
       this.calculateNodes();
       this.calculateLinks();
+      this.removeUnlinkedNodes();
 
-      this.center$.next(true);
-      this.zoomToFit$.next(true);
       this.update$.next(true);
+      this.zoomToFit$.next(true);
+      
+  }
+
+  removeUnlinkedNodes(): void {
+    let updatedNodes: GraphNode[] = [];
+    this.nodes.forEach(n => {
+      let keep: boolean = true;
+      this.links.forEach(l => {
+        if(n.id == l.source || n.id == l.target) {
+          keep = false;
+        }
+      })
+      if(!keep) {
+        updatedNodes.push(n);
+      }
+    })
+    this.nodes = [...updatedNodes];
   }
 
   calculateNodes(): void {
@@ -80,41 +96,32 @@ export class GraphviewComponent implements OnInit, OnChanges {
         if (n.id != nt.id) {
           let keywordsn = this.extractKeywords(n);
           let keywordsnt = this.extractKeywords(nt);
+
           let common = keywordsn.some(k => keywordsnt.includes(k));
           if (common) {
             let clink: GraphLink = {} as GraphLink;
-            clink.id = this.makeLinkId(n.keywords, nt.keywords);
+            clink.id = "\\3" + uuid.v4() + " ";
             clink.label = "";
             clink.source = n.id;
             clink.target = nt.id;
-            this.links.push(clink);
+
+            // Prevent duplicate link between two nodes
+            let add = true;
+            this.links.forEach(l => {
+              if (l.source == clink.source && l.target == clink.target) {
+                add = false;
+              }
+              if (l.source == clink.target && l.target == clink.source) {
+                add = false;
+              }
+            })
+            if (add) {
+              this.links.push(clink);
+            }
           }
         }
       })
     })
     this.links = [...this.links];
   }
-
-  makeLinkId(k1: Keyword[], k2: Keyword[]): string {
-    let kStr: string[] = [];
-    k1.forEach(k => kStr.push(k.keyword));
-    k2.forEach(k => kStr.push(k.keyword))
-    return kStr.join("");
-  }
-
-  makeString(): string {
-    let outString: string = '';
-    let inOptions: string = 'abcdefghijklmnopqrstuvwxyz0123456789';
-
-    for (let i = 0; i < 32; i++) {
-
-      outString += inOptions.charAt(Math.floor(Math.random() * inOptions.length));
-
-    }
-
-    return outString;
-  }
-
-  result: string = this.makeString();
-
 }

@@ -30,16 +30,25 @@ export class LoginComponent implements OnInit {
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+
+        // reset error message on each login attempt
+        this.loginForm.valueChanges.subscribe(_ => {
+            this.error = '';
+        });
     }
 
     // convenience getter for easy access to form fields
-    get f() { return this.loginForm.controls; }
+    get f() { 
+        return this.loginForm.controls; 
+    }
 
     onSubmit() {
         this.submitted = true;
 
         // stop here if form is invalid
         if (this.loginForm.invalid) {
+            this.error = 'Please enter a valid username and password';
+            this.loading = false;
             return;
         }
 
@@ -47,7 +56,7 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.f.username.value, this.f.password.value)
             .pipe(first())
             .subscribe(
-                data => {
+                _ => {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
