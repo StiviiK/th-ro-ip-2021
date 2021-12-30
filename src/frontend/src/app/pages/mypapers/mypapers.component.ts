@@ -12,7 +12,7 @@ import { ElementRef, ViewChild, AfterViewInit} from '@angular/core';
   templateUrl: './mypapers.component.html',
   styleUrls: ['./mypapers.component.css'],
 })
-export class MypapersComponent implements OnInit, AfterViewInit {
+export class MypapersComponent implements OnInit {
 
   @ViewChild('graphview') graphview: ElementRef;
   
@@ -27,10 +27,6 @@ export class MypapersComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.getPapers();
-  }
-
-  ngAfterViewInit() {
-    console.log(this.graphview.nativeElement.offsetHeight);
   }
 
   filterList(): void {
