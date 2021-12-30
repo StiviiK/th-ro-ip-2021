@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
 import { DomSanitizer } from '@angular/platform-browser';
-import { forkJoin } from 'rxjs';
 import { Paper } from 'src/app/core/models/paper-model';
 import { BibtexService } from 'src/app/core/services/bibtex/bibtex.service';
 import { PaperService } from 'src/app/core/services/paper/paper.service';
