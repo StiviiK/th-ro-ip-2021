@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
+import { DomSanitizer } from '@angular/platform-browser';
 import { forkJoin } from 'rxjs';
 import { Paper } from 'src/app/core/models/paper-model';
 import { BibtexService } from 'src/app/core/services/bibtex/bibtex.service';
@@ -20,7 +21,8 @@ export class MyOverviewComponent implements OnInit {
 
   constructor(
     private papersRestService: PaperService,
-    private bibservice: BibtexService) {
+    private bibservice: BibtexService,
+    private sanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
@@ -58,28 +60,24 @@ export class MyOverviewComponent implements OnInit {
       })
   }
 
-  // bibtexExport(selectedPapers: MatSelectionList, selectedLikedPapers: MatSelectionList): void {
-  //   if (selectedPapers) {
-  //     let selectedPaperOptions = selectedPapers.selectedOptions.selected;
-  //     selectedPaperOptions.forEach(selectedOption => {
-  //       this.bibservice.getBibtex(selectedOption.value.url).subscribe(e => {
-  //         this.bibtex = this.bibtex + e.bibtex + "\n";
-  //       });
-  //     });
-  //   }
-  //   if (selectedLikedPapers) {
-  //     let selectedLikedPaperOptions = selectedLikedPapers.selectedOptions.selected;
-  //     selectedLikedPaperOptions.forEach(selectedOption => {
-  //       this.bibservice.getBibtex(selectedOption.value.url).subscribe(e => {
-  //         this.bibtex = this.bibtex + e.bibtex + "\n";
-  //       });
-  //     });
-  //   }
-  //   const blob = new Blob([this.bibtex], {type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"})
-  //   const url = window.URL.createObjectURL(blob);
-  //   window.open(url);
-  //   this.bibtex = "";
-  // }
+  bibtexExport(selectedPapers: MatSelectionList, selectedLikedPapers: MatSelectionList): void {
+    if (selectedPapers) {
+      let selectedPaperOptions = selectedPapers.selectedOptions.selected;
+      selectedPaperOptions.forEach(selectedOption => {
+          this.bibtex = this.bibtex + selectedOption.value.bibtex + "\n\n";
+      });
+    }
+    if (selectedLikedPapers) {
+      let selectedLikedPaperOptions = selectedLikedPapers.selectedOptions.selected;
+      selectedLikedPaperOptions.forEach(selectedOption => {
+          this.bibtex = this.bibtex + selectedOption.value.bibtex + "\n\n";
+      });
+    }
+    const blob = new Blob([this.bibtex], {type: "text/plain"})
+    const url = window.URL.createObjectURL(blob);
+    window.open(url);
+    this.bibtex = "";
+  }
 
   like(selectedPapers: MatSelectionList): void {
     let selectedOptions = selectedPapers.selectedOptions.selected;

@@ -6,6 +6,7 @@ export interface Paper {
     keywords: Keyword[];
     authors: Author[];
     title: string;
+    bibtex: string;
   }
 
 interface Author {

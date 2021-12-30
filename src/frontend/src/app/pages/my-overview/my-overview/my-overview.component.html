@@ -1,6 +1,6 @@
 <div class="topbar-list" >
   <span style="font-size: 20px;  line-height: 33px;">My Liked Papers:</span>
-  <!-- <button mat-button [disabled]="(!likedPaperSelected && !paperSelected)" (click)="bibtexExport(Papers, likedPapers)">Bibtex export</button> -->
+  <button mat-button [disabled]="(!likedPaperSelected && !paperSelected)" (click)="bibtexExport(Papers, likedPapers)">Bibtex export</button>
   <button mat-button [disabled]="!likedPaperSelected" (click)="removeLike(likedPapers)">Remove Like</button>
 </div>
 <mat-selection-list #likedPapers style="margin-left: 1%;">
