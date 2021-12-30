@@ -4,7 +4,6 @@
     </header>
     <section id="dialog-body">
         <input class="input-text" placeholder="Add Paper URL only from arxiv.org" [(ngModel)]="data.url" (change)="onEntered()">
-        <input class="input-text" [(ngModel)]="data.keywords" placeholder="Add additional Keywords and seperate them with a ,">
         <textarea placeholder="Add bibtex manually or let it be extracted automatically" [(ngModel)]="data.bibtex"></textarea>
     </section>
 
