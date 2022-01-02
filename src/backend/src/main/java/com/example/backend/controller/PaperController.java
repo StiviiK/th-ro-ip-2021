@@ -34,6 +34,12 @@ public class PaperController {
         return ResponseEntity.ok(paperService.getPaper(paperId));
     }
 
+    @RequestMapping(value = "/papers/deletePaper/{paperId}", method = RequestMethod.DELETE, produces = {"application/json;charset=UTF-8"})
+    public ResponseEntity<String> deletePaper( @RequestBody @PathVariable("paperId")String paperId) {
+        paperService.deletePaper(paperId);
+        return ResponseEntity.ok("Paper with Id" + paperId + "has been deleted");
+    }
+
     @RequestMapping(value = "/papers", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
     public Object addPaper(Authentication authentication, @RequestBody Paper paper) throws ArxivNotAvailableException, KeywordServiceNotAvailableException {
         var principal = (UserDetails)authentication.getPrincipal();

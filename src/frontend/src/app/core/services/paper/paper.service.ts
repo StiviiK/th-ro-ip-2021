@@ -32,6 +32,11 @@ export class PaperService {
     this.http.put<Paper>(`${this.config.getConfig('api_endpoint')}/removeLikedPaper`, paperToRemove).subscribe();
   }
 
+  public deletePaper(paperIdToRemove: string): Observable<string> {
+    return this.http.delete<string>(`${this.config.getConfig('api_endpoint')}/deletePaper/{${paperIdToRemove}}`);
+  }
+
+
   public async getlikedPapers(): Promise<Observable<Paper[]>> {
     return this.http.get<Paper[]>(`${this.config.getConfig('api_endpoint')}/getLikedPapers`);
   }
