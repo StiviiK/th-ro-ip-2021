@@ -3,6 +3,10 @@
   flex-grow: grow;
 }
 
+#mainview {
+  height: 92%;
+}
+
 #paperlist {
   width: 30%;
   float: left;
