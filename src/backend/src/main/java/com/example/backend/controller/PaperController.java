@@ -35,8 +35,9 @@ public class PaperController {
     }
 
     @RequestMapping(value = "/papers/deletePaper/{paperId}", method = RequestMethod.DELETE, produces = {"application/json;charset=UTF-8"})
-    public ResponseEntity<String> deletePaper( @RequestBody @PathVariable("paperId")String paperId) {
-        paperService.deletePaper(paperId);
+    public ResponseEntity<String> deletePaper( @RequestBody @PathVariable("paperId") String paperId) {
+        var paperToDelete = paperService.getPaper(paperId);
+        paperService.deletePaper(paperToDelete);
         return ResponseEntity.ok("Paper with Id" + paperId + "has been deleted");
     }
 

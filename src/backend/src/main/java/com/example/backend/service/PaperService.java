@@ -34,7 +34,7 @@ public class PaperService {
         return paperRepository.findAll();
     }
 
-    public void deletePaper(String paperId) {paperRepository.deleteById(paperId);}
+    public void deletePaper(Paper paper) {paperRepository.delete(paper);}
 
     public Paper getPaper(String paperId) {
         Optional<Paper> optionalPaper = paperRepository.findById(paperId);

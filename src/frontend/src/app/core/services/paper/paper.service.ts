@@ -33,7 +33,7 @@ export class PaperService {
   }
 
   public deletePaper(paperIdToRemove: string): Observable<string> {
-    return this.http.delete<string>(`${this.config.getConfig('api_endpoint')}/deletePaper/{${paperIdToRemove}}`);
+    return this.http.delete<string>(`${this.config.getConfig('api_endpoint')}/papers/deletePaper/${paperIdToRemove}`);
   }
 
 
