@@ -3,7 +3,6 @@ import { AddpapersdialogComponent } from 'src/app/components/addpapersdialog/add
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { PaperService } from 'src/app/core/services/paper/paper.service';
 import { Paper } from 'src/app/core/models/paper-model';
-import { ElementRef, ViewChild, AfterViewInit} from '@angular/core';
 
 
 
@@ -13,8 +12,6 @@ import { ElementRef, ViewChild, AfterViewInit} from '@angular/core';
   styleUrls: ['./mypapers.component.css'],
 })
 export class MypapersComponent implements OnInit {
-
-  @ViewChild('graphview') graphview: ElementRef;
   
   currentPapers: Paper[] = [];
   allPapers: Paper[] = [];
@@ -40,7 +37,10 @@ export class MypapersComponent implements OnInit {
   }
 
   getPapers(): void {
-    this.papersRestService.getPapers().subscribe(e => this.allPapers = e);
+    this.papersRestService.getPapers().subscribe(e => {
+      this.allPapers = e;
+      this.currentPapers = e;
+    });
   }
 
   openNewPapersDialog(): void {
