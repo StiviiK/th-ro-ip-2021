@@ -67,6 +67,9 @@ public class User {
     }
 
     public void removePaper(Paper toRemove) {
+        if(this.likedPapers.contains(toRemove)){
+            this.likedPapers.remove(toRemove);
+        }
         this.papers.remove(toRemove);
     }
 }
