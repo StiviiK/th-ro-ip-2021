@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/self", produces = {"application/json;charset=UTF-8"})
-public class UserController {
+public class SelfController {
     private final PaperService paperService;
     private final LocalUserDetailsService userDetailsService;
 
-    public UserController(PaperService paperService, LocalUserDetailsService userDetailsService) {
+    public SelfController(PaperService paperService, LocalUserDetailsService userDetailsService) {
         this.paperService = paperService;
         this.userDetailsService = userDetailsService;
     }
