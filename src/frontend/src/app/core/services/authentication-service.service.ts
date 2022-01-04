@@ -5,6 +5,7 @@ import { catchError, map } from "rxjs/operators";
 import { ConfigService } from "./config.service";
 
 export class User {
+    id: string;
     username: string;
     token?: string;
 }

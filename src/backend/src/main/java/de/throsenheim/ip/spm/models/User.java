@@ -1,6 +1,8 @@
 package de.throsenheim.ip.spm.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,8 +16,9 @@ import java.util.UUID;
 @Table(name = "user")
 public class User {
     @Id
-    @GeneratedValue
-    @Column(name = "user_id")
+    @GeneratedValue()
+    @Column(name = "user_id", updatable = false, nullable = false)
+    @org.hibernate.annotations.Type(type="uuid-char")
     private UUID id;
 
     @Column(name = "username")
