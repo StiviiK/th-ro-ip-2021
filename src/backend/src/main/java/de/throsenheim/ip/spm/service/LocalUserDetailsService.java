@@ -27,6 +27,12 @@ public class LocalUserDetailsService implements UserDetailsService {
         user.removeLikedPaper(toRemove);
         userRepository.save(user);
     }
+
+    public void removeAddedPaper(User user, Paper toRemove) {
+        user.removePaper(toRemove);
+        userRepository.save(user);
+    }
+
     public void addPaper(User user, Paper paper) {
         user.addPaper(paper);
         userRepository.save(user);

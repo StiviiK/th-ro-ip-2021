@@ -35,7 +35,7 @@ public class PaperController {
         return ResponseEntity.ok("Paper with Id" + paperId + "has been deleted");
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT, produces = { "application/json;charset=UTF-8" })
+    @RequestMapping(value = "", method = RequestMethod.PUT, produces = { "application/json;charset=UTF-8" })
     public Object addPaper(Authentication authentication, @RequestBody Paper paper)
             throws ArxivNotAvailableException, KeywordServiceNotAvailableException {
         var principal = (UserDetails) authentication.getPrincipal();

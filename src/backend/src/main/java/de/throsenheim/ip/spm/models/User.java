@@ -6,6 +6,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Setter
@@ -34,7 +35,7 @@ public class User {
             name = "papers_user",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "paper_id"))
-    List<Paper> papers;
+    Set<Paper> papers;
 
     @Column(name = "liked_papers")
     @ManyToMany(cascade = { CascadeType.ALL })
@@ -42,14 +43,14 @@ public class User {
             name = "liked_papers",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "paper_id"))
-    List<Paper> likedPapers;
+    Set<Paper> likedPapers;
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public List<Paper> getPapers() {
+    public Set<Paper> getPapers() {
         return papers;
     }
 
@@ -63,5 +64,9 @@ public class User {
 
     public void removeLikedPaper(Paper toRemove) {
         this.likedPapers.remove(toRemove);
+    }
+
+    public void removePaper(Paper toRemove) {
+        this.papers.remove(toRemove);
     }
 }
