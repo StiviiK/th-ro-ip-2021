@@ -9,11 +9,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 import java.util.function.Function;
 
 @Configuration
 public class JWTUtil {
-    private final String SECRET_KEY = "UUID.randomUUID().toString()";
+    private final String SECRET_KEY = UUID.randomUUID().toString();
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
