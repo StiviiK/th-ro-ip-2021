@@ -14,7 +14,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/papers", produces = {"application/json;charset=UTF-8"})
+@RequestMapping(value = "/papers", produces = { "application/json;charset=UTF-8" })
 public class PaperController {
     private final PaperService paperService;
 
@@ -27,9 +27,18 @@ public class PaperController {
         return ResponseEntity.ok(paperService.getPapers());
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public Object addPaper(Authentication authentication, @RequestBody Paper paper) throws ArxivNotAvailableException, KeywordServiceNotAvailableException {
-        var principal = (UserDetails)authentication.getPrincipal();
+    @RequestMapping(value = "/{paperId}", method = RequestMethod.DELETE, produces = {
+            "application/json;charset=UTF-8" })
+    public ResponseEntity<String> deletePaper(@RequestBody @PathVariable("paperId") String paperId) {
+        var paperToDelete = paperService.getPaper(paperId);
+        paperService.deletePaper(paperToDelete);
+        return ResponseEntity.ok("Paper with Id" + paperId + "has been deleted");
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.PUT, produces = { "application/json;charset=UTF-8" })
+    public Object addPaper(Authentication authentication, @RequestBody Paper paper)
+            throws ArxivNotAvailableException, KeywordServiceNotAvailableException {
+        var principal = (UserDetails) authentication.getPrincipal();
         var username = principal.getUsername();
         try {
             paper = paperService.addPaper(paper, username);

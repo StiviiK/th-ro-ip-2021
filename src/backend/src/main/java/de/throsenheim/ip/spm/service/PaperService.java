@@ -40,6 +40,8 @@ public class PaperService {
         return paperRepository.findAll();
     }
 
+    public void deletePaper(Paper paper) {paperRepository.delete(paper);}
+
     public Paper getPaper(String paperId) {
         Optional<Paper> optionalPaper = paperRepository.findById(paperId);
         if (optionalPaper.isEmpty()) {
@@ -51,7 +53,7 @@ public class PaperService {
 
     public Paper addPaper(Paper paper, String username)
             throws KeywordServiceNotAvailableException, ArxivNotAvailableException, InterruptedException, IOException, URISyntaxException {
-        UserDetails user = myUserDetailsService.loadUserByUsername(username);
+        UserPrincipal user = (UserPrincipal) myUserDetailsService.loadUserByUsername(username);
         if (paper == null) {
             throw new NullPointerException("Paper was null");
         }
@@ -100,8 +102,8 @@ public class PaperService {
         keywords = keywordService.saveMultiple(keywords);
         paper.setKeywords(keywords);
 
-        // TODO add paper to user
         paper = paperRepository.save(paper);
+        myUserDetailsService.addPaper(user.getUser(), paper);
 
         return paper;
     }
