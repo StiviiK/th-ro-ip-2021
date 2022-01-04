@@ -5,6 +5,13 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
+/***
+ * Contains all relevant information for a paper
+ * to be stored in the database.
+ *
+ * @author Alessandro Soro
+ * @author Lukas Metzner
+ */
 @Setter
 @Getter
 @ToString

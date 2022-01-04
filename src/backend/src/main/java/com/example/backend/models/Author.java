@@ -6,9 +6,14 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 
+/**
+ * Instance of a single author, which is identified
+ * by his name itself.
+ *
+ * @author Lukas Metzner
+ */
 @Setter
 @Getter
 @ToString

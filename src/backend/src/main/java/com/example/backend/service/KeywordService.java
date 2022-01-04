@@ -10,15 +10,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Takes care of the CURD operations for the keywords.
+ *
+ * @author Lukas Metzner
+ */
 @Service
 public class KeywordService {
 
     @Autowired
     private KeywordRepository keywordRepository;
 
-    public List<Keyword> saveMultiple(List<Keyword> authorList) {
+    /**
+     * Save a list of keywords that is returned by the KeywordService.
+     * @param keywordList Keywords to store.
+     * @return Stored keywords.
+     */
+    public List<Keyword> saveMultiple(List<Keyword> keywordList) {
         List<Keyword> savedKeywords = new ArrayList<>();
-        for (Keyword keyword: authorList) {
+        for (Keyword keyword: keywordList) {
             savedKeywords.add(keywordRepository.save(keyword));
         }
         return savedKeywords;

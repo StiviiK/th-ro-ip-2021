@@ -14,9 +14,23 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+/***
+ * Helper functions to call the KeywordService and extract
+ * all keywords for a given text.
+ *
+ * @author Lukas Metzner
+ */
 public class KeywordsApi {
     private static final String BaseURL = System.getenv("KEYWORD_SERVICE_URL");
 
+    /***
+     * Call the KeywordService api and retrieve the keywords from text.
+     * @param text Text to extract the keywords from.
+     * @return JSON response from the KeywordsService.
+     * @throws URISyntaxException
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public static JSONObject getKeywords(String text) throws URISyntaxException, IOException, InterruptedException {
         String url = String.format("%s/extract?text=%s", BaseURL, URLEncoder.encode(text, StandardCharsets.UTF_8));
         HttpRequest request = HttpRequest
@@ -29,6 +43,11 @@ public class KeywordsApi {
         return new JSONObject(response.body());
     }
 
+    /***
+     * Extract keywords from the json response.
+     * @param response Response from the KeywordService.
+     * @return List of Keywords.
+     */
     public static List<Keyword> extractKeywords(JSONObject response) {
         var keywords = new ArrayList<Keyword>();
         var keywordsResponse = response.getJSONArray("keywords");

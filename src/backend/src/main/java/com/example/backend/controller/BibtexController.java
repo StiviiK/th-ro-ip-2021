@@ -12,9 +12,21 @@ import java.net.URISyntaxException;
 
 import static com.example.backend.util.ArxivApi.getBibtexById;
 
+/**
+ * Allows the frontend to retrieve Bibtex information for papers.
+ *
+ * @author Lukas Metzner
+ */
 @RestController
 public class BibtexController {
 
+    /**
+     * Retrieve the Bibtex of an arxiv.org paper by its id.
+     * This way the Bibtex can be shown in the frontend and edited by the user.
+     * @param id Arxiv.org id of the paper
+     * @return Bibtex wrapped in a BibtexResponse.
+     * @throws Exception
+     */
     @RequestMapping(value = "/bibtex/{id}", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
     public ResponseEntity<BibtexResponse> bibtex(@PathVariable("id") String id) throws Exception {
         try {

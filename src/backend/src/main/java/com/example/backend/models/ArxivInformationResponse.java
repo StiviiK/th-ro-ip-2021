@@ -5,6 +5,12 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * Response from arxiv.org, which contains the title, summary
+ * and authors. It also includes the status code of the response.
+ *
+ * @author Lukas Metzner
+ */
 @Getter
 @Setter
 public class ArxivInformationResponse {

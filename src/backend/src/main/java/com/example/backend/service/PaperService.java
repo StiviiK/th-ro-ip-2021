@@ -18,6 +18,12 @@ import java.util.*;
 
 import static com.example.backend.util.ArxivApi.getBibtexById;
 
+/***
+ * Takes care of the CRUD operations for a paper.
+ *
+ * @author Lukas Metzner
+ * @author Alessandro Soro
+ */
 @Service
 public class PaperService {
 
@@ -30,19 +36,42 @@ public class PaperService {
     @Autowired
     private AuthorService authorService;
 
+    /**
+     * Return all papers.
+     * @return List of papers.
+     */
     public List<Paper> getPapers() {
         return paperRepository.findAll();
     }
 
-    public Paper getPaper(String paperId) {
+    /***
+     * Retrieve a paper from the database.
+     * @param paperId Id of the target paper.
+     * @return Paper that was found in the database.
+     * @throws PaperNotFoundException
+     */
+    public Paper getPaper(String paperId) throws PaperNotFoundException {
         Optional<Paper> optionalPaper = paperRepository.findById(paperId);
         if (optionalPaper.isEmpty()) {
-            throw new PaperNotFoundException(String.format("User with id: '%s' not found", paperId));
+            throw new PaperNotFoundException(String.format("Paper with id: '%s' not found", paperId));
         }
         return optionalPaper.get();
 
     }
 
+    /***
+     * Add a new paper to the database or update one. First retrieve the bibtex
+     * if not provided by through the frontend. After this get additional information from arxiv.org
+     * (title, authors, summary). Finally extract the keywords using the KeywordsService and store the paper.
+     * @param paper Paper to process and store.
+     * @param username Username that is assocciated with the paper.
+     * @return
+     * @throws KeywordServiceNotAvailableException
+     * @throws ArxivNotAvailableException
+     * @throws InterruptedException
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public Paper addPaper(Paper paper, String username)
             throws KeywordServiceNotAvailableException, ArxivNotAvailableException, InterruptedException, IOException, URISyntaxException {
         UserDetails user = myUserDetailsService.loadUserByUsername(username);

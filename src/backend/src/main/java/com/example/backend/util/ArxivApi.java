@@ -2,11 +2,8 @@ package com.example.backend.util;
 
 import com.example.backend.models.ArxivInformationResponse;
 import com.example.backend.models.Author;
-import org.springframework.web.util.UriBuilder;
-import org.springframework.web.util.UriBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -24,11 +21,25 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+/***
+ * Different helper functions to retrieve informations
+ * from arxiv.org
+ *
+ * @author Lukas Metzner
+ */
 public class ArxivApi {
     private static String bibtexBaseURL = "https://arxiv.org/bibtex/";
     private static String BaseUrl = "https://export.arxiv.org/api/query?";
     private static DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 
+    /***
+     * Calls the arxiv.org api and tries to retrieve the bibtex of a paper.
+     * @param id arxiv.org id of the paper.
+     * @return Bibtex as string.
+     * @throws URISyntaxException
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public static String getBibtexById(String id) throws URISyntaxException, IOException, InterruptedException {
         String url = new StringBuilder()
                 .append(bibtexBaseURL)
@@ -44,6 +55,16 @@ public class ArxivApi {
         return response.body();
     }
 
+    /***
+     * Get additional information from arxiv.org like the titel, authors and the summary.
+     * @param id arxiv.org id of the paper.
+     * @return Response from the arxiv.org endpoint.
+     * @throws URISyntaxException
+     * @throws IOException
+     * @throws InterruptedException
+     * @throws ParserConfigurationException
+     * @throws SAXException
+     */
     public static ArxivInformationResponse getArxivInformation(String id) throws URISyntaxException, IOException, InterruptedException, ParserConfigurationException, SAXException {
         String url = new StringBuilder()
                 .append(BaseUrl)
@@ -70,6 +91,12 @@ public class ArxivApi {
         return new ArxivInformationResponse(title, summary, authors, response.statusCode());
     }
 
+    /***
+     * Get content of tag in the arxiv.org xml response.
+     * @param entry Arxiv.org XML.
+     * @param tagName Tag to retrieve content from.
+     * @return
+     */
     private static String parseFromEntryAsString(Element entry, String tagName) {
         NodeList nodes = entry.getElementsByTagName(tagName);
         for (int i = 0; i < nodes.getLength(); i++){
@@ -78,6 +105,11 @@ public class ArxivApi {
         return tagName + "_not_found";
     }
 
+    /***
+     * Parse authors from arxiv.org xml response.
+     * @param entry Arxiv.org XML.
+     * @return
+     */
     private static List<Author> parseAuthors(Element entry) {
         var items = new ArrayList<Author>();
         NodeList nodes = entry.getElementsByTagName("author");
