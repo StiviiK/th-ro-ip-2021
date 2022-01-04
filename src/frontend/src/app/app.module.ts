@@ -29,6 +29,7 @@ import { ErrorInterceptor } from './core/interceptor/error-interceptor.intercept
 import { ConfigService } from './core/services/config.service';
 import { MyOverviewComponent } from './pages/my-overview/my-overview/my-overview.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { UsersComponent } from './pages/users/users.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     LoginComponent,
     AddpapersdialogComponent,
     MyOverviewComponent,
+    UsersComponent,
   ],
   imports: [
     BrowserModule,

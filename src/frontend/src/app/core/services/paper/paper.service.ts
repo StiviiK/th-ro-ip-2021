@@ -15,11 +15,11 @@ export class PaperService {
   constructor(private http: HttpClient, private config: ConfigService) { }
 
   public getPapers(): Observable<Paper[]> {
-    return this.http.get<Paper[]>(`${this.config.getConfig('api_endpoint')}/papers`);
+    return this.http.get<Paper[]>(`${this.config.getConfig('api_endpoint')}/papers/`);
   }
 
   public getAddedPapers(): Observable<Paper[]> {
-    return this.http.get<Paper[]>(`${this.config.getConfig('api_endpoint')}/user/addedPapers`);
+    return this.http.get<Paper[]>(`${this.config.getConfig('api_endpoint')}/self/addedPapers`);
   }
 
   public addPaper(paperToAdd: DialogData): Observable<Paper> {
@@ -28,11 +28,11 @@ export class PaperService {
   }
 
   public addLikedPaper(paperToLike: any): Observable<Paper> {
-    return this.http.put<Paper>(`${this.config.getConfig('api_endpoint')}/user/likedPaper`, paperToLike);
+    return this.http.put<Paper>(`${this.config.getConfig('api_endpoint')}/self/likedPaper`, paperToLike);
   }
 
   public removeLikedPaper(paperToRemove: any): void {
-    this.http.post<Paper>(`${this.config.getConfig('api_endpoint')}/user/likedPaper`, paperToRemove).subscribe();
+    this.http.post<Paper>(`${this.config.getConfig('api_endpoint')}/self/likedPaper`, paperToRemove).subscribe();
   }
 
   public deletePaper(paperIdToRemove: string): Observable<string> {
@@ -40,7 +40,7 @@ export class PaperService {
   }
 
   public async getlikedPapers(): Promise<Observable<Paper[]>> {
-    return this.http.get<Paper[]>(`${this.config.getConfig('api_endpoint')}/user/likedPapers`);
+    return this.http.get<Paper[]>(`${this.config.getConfig('api_endpoint')}/self/likedPapers`);
   }
 
   public paperIdFromURL(url: string): string {

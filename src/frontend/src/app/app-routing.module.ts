@@ -6,6 +6,7 @@ import { AccountComponent } from './pages/account/account.component';
 import { MyOverviewComponent } from './pages/my-overview/my-overview/my-overview.component';
 import { MypapersComponent } from './pages/mypapers/mypapers.component';
 import { OverviewComponent } from './pages/overview/overview.component';
+import { UsersComponent } from './pages/users/users.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
       { path: "overview", component: OverviewComponent },
       { path: "account", component: AccountComponent },
       { path: "my-overview", component: MyOverviewComponent },
+      { path: "users", component: UsersComponent },
       { path: "**", redirectTo: "mypapers" }
     ],
     canActivate: [AuthGuard],
