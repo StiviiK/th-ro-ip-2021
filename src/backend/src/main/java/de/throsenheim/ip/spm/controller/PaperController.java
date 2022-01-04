@@ -22,12 +22,12 @@ public class PaperController {
         this.paperService = paperService;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Paper>> getPapers() {
         return ResponseEntity.ok(paperService.getPapers());
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT)
     public Object addPaper(Authentication authentication, @RequestBody Paper paper) throws ArxivNotAvailableException, KeywordServiceNotAvailableException {
         var principal = (UserDetails)authentication.getPrincipal();
         var username = principal.getUsername();

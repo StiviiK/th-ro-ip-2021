@@ -16,12 +16,12 @@ export class PaperService {
   constructor(private http: HttpClient, private config: ConfigService) { }
 
   public getPapers(): Observable<Paper[]> {
-    return this.http.get<Paper[]>(`${this.config.getConfig('api_endpoint')}/papers/`);
+    return this.http.get<Paper[]>(`${this.config.getConfig('api_endpoint')}/papers`);
   }
 
   public addPaper(paperToAdd: DialogData): Observable<Paper> {
     console.log(paperToAdd);
-    return this.http.put<Paper>(`${this.config.getConfig('api_endpoint')}/papers/`, paperToAdd);
+    return this.http.put<Paper>(`${this.config.getConfig('api_endpoint')}/papers`, paperToAdd);
   }
 
   public addLikedPaper(paperToLike: any): Observable<Paper> {
