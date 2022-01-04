@@ -20,14 +20,17 @@ public class LocalUserDetailsService implements UserDetailsService {
 
     public void addLikedPaper(User user, Paper likedPaper) {
         user.addLikedPaper(likedPaper);
-        userRepository.save((user));
+        userRepository.save(user);
     }
 
     public void removeLikedPaper(User user, Paper toRemove) {
         user.removeLikedPaper(toRemove);
-        userRepository.save((user));
+        userRepository.save(user);
     }
-
+    public void addPaper(User user, Paper paper) {
+        user.addPaper(paper);
+        userRepository.save(user);
+    }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var user = this.userRepository.getByUsername(username);

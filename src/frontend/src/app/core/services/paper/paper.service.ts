@@ -3,7 +3,6 @@ import { DialogData } from '../../models/dialog-data-model';
 import {HttpClient} from '@angular/common/http';
 import { Paper } from '../../models/paper-model';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { ConfigService } from '../config.service';
 
 @Injectable({
@@ -19,26 +18,29 @@ export class PaperService {
     return this.http.get<Paper[]>(`${this.config.getConfig('api_endpoint')}/papers`);
   }
 
+  public getAddedPapers(): Observable<Paper[]> {
+    return this.http.get<Paper[]>(`${this.config.getConfig('api_endpoint')}/user/addedPapers`);
+  }
+
   public addPaper(paperToAdd: DialogData): Observable<Paper> {
     console.log(paperToAdd);
     return this.http.put<Paper>(`${this.config.getConfig('api_endpoint')}/papers`, paperToAdd);
   }
 
   public addLikedPaper(paperToLike: any): Observable<Paper> {
-    return this.http.put<Paper>(`${this.config.getConfig('api_endpoint')}/addLikedPaper`, paperToLike);
+    return this.http.put<Paper>(`${this.config.getConfig('api_endpoint')}/user/likedPaper`, paperToLike);
   }
 
   public removeLikedPaper(paperToRemove: any): void {
-    this.http.put<Paper>(`${this.config.getConfig('api_endpoint')}/removeLikedPaper`, paperToRemove).subscribe();
+    this.http.post<Paper>(`${this.config.getConfig('api_endpoint')}/user/likedPaper`, paperToRemove).subscribe();
   }
 
   public deletePaper(paperIdToRemove: string): Observable<string> {
-    return this.http.delete<string>(`${this.config.getConfig('api_endpoint')}/papers/deletePaper/${paperIdToRemove}`);
+    return this.http.delete<string>(`${this.config.getConfig('api_endpoint')}/papers/${paperIdToRemove}`);
   }
 
-
   public async getlikedPapers(): Promise<Observable<Paper[]>> {
-    return this.http.get<Paper[]>(`${this.config.getConfig('api_endpoint')}/getLikedPapers`);
+    return this.http.get<Paper[]>(`${this.config.getConfig('api_endpoint')}/user/likedPapers`);
   }
 
   public paperIdFromURL(url: string): string {

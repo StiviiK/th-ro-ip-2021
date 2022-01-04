@@ -12,7 +12,7 @@ import { Paper } from 'src/app/core/models/paper-model';
   styleUrls: ['./mypapers.component.css'],
 })
 export class MypapersComponent implements OnInit {
-  
+
   currentPapers: Paper[] = [];
   allPapers: Paper[] = [];
   query: string = "";
@@ -37,7 +37,7 @@ export class MypapersComponent implements OnInit {
   }
 
   getPapers(): void {
-    this.papersRestService.getPapers().subscribe(e => {
+    this.papersRestService.getAddedPapers().subscribe(e => {
       this.allPapers = e;
       this.currentPapers = e;
     });

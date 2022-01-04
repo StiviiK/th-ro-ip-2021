@@ -30,27 +30,29 @@ export class MyOverviewComponent implements OnInit {
   }
 
   async getPapers(): Promise<void> {
-    await this.papersRestService.getPapers()
-        .subscribe(e => {
-          this.allPapers = e;
-          if (this.allLikedPapers) {
-            this.allLikedPapers.forEach(likedpaper => {
-              this.allPapers.forEach((paper, index = 0) => {
-                if (paper.id === likedpaper.id) {
-                  this.allPapers.splice(index, 1);
-                }
-                index++;
-              })
+    await this.papersRestService.getlikedPapers()
+    .then(response => {
+      response.subscribe(e => this.allLikedPapers = e);
+      this.papersRestService.getPapers()
+      .subscribe(e => {
+        this.allPapers = e;
+        if (this.allLikedPapers) {
+          this.allLikedPapers.forEach(likedpaper => {
+            this.allPapers.forEach((paper, index = 0) => {
+              if (paper.id === likedpaper.id) {
+                this.allPapers.splice(index, 1);
+              }
+              index++;
             })
-          }
-        });
+          })
+        }
+      });
+    })
+
   }
 
   async getLikedPapers(): Promise<void> {
-    await this.papersRestService.getlikedPapers()
-      .then(response => {
-        response.subscribe(e => this.allLikedPapers = e);
-      })
+
   }
 
   bibtexExport(selectedPapers: MatSelectionList, selectedLikedPapers: MatSelectionList): void {
