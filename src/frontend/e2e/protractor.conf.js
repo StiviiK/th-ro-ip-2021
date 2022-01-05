@@ -16,7 +16,7 @@ exports.config = {
     browserName: 'chrome',
     chromeOptions: {
     binary: process.env.CHROME_BIN,
-    args: ['--no-sandbox']
+    args: ['--headless','--no-sandbox']
     }
  },
   directConnect: true,
