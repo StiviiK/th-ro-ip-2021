@@ -1,8 +1,8 @@
 <div *ngIf="onePaper != null" class="list-container">
   <span matTooltipClass="list-tooltip" matTooltip="Title: {{onePaper.title}}" class="trim-info">{{onePaper.title}}</span>
-  <a style="float: right; font-size: medium;" class="material-icons" target="_blank" href={{onePaper.url}}>launch</a>
-  <span style="float: right; font-size: medium;" class="material-icons deleteIcon" (click)="deletePaper()">delete</span>
-  <span style="float: right; font-size: medium;" class="material-icons plagiarismIcon" (click)="copyBibtex()">plagiarism</span>
+  <a matTooltipClass="icon-tooltip" matTooltip="Navigate to: {{onePaper.url}}" style="float: right; font-size: medium;" style="float: right; font-size: medium;" class="material-icons" target="_blank" href={{onePaper.url}}>launch</a>
+  <span matTooltipClass="icon-tooltip" matTooltip="Delete Paper" style="float: right; font-size: medium;" style="float: right; font-size: medium;" class="material-icons deleteIcon" (click)="deletePaper()">delete</span>
+  <span matTooltipClass="icon-tooltip" matTooltip="Copy Bibtex" style="float: right; font-size: medium;" class="material-icons plagiarismIcon" (click)="copyBibtex()">plagiarism</span>
 </div>
 
 

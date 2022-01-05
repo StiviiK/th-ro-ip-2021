@@ -5,10 +5,11 @@
 </div>
 <mat-selection-list #likedPapers style="margin-left: 1%;">
   <mat-list-option id="list-option" class="list-container" *ngFor="let likedPaper of allLikedPapers" [value]="likedPaper" style="width:31%; display: inline-block; margin: 1%;" (click)="changedLikedList(likedPapers)">
-    <div class="trim-info" >
+    <div class="trim-info" matTooltipClass="list-tooltip" matTooltip="Title: {{likedPaper.title}}&#13;Keywords: &#13;{{convertKeywordsTooltip(likedPaper.keywords)}}">
       <span>Title: {{likedPaper.title}}</span><br>
-      <span>URL: {{likedPaper.url}}</span><br>
-      <span>Authors: <span *ngFor="let author of likedPaper.authors">{{author.name}}; </span></span>
+      <span>URL: <a target="_blank" href={{likedPaper.url}}>{{likedPaper.url}}</a></span><br>
+      <span>Authors: <span *ngFor="let author of likedPaper.authors">{{author.name}}; </span></span><br>
+      <span>Keywords: <span *ngFor="let keyword of likedPaper.keywords">{{keyword.keyword}}; </span></span>
     </div>
   </mat-list-option>
 </mat-selection-list>
@@ -20,10 +21,11 @@
 
 <mat-selection-list #Papers style="margin-left: 1%;" >
   <mat-list-option id="list-option" class="list-container" *ngFor="let Paper of allPapers" [value]="Paper" style="width:31%; display: inline-block; margin: 1%;" (click)="changedList(Papers)" >
-    <div class="trim-info" >
+    <div class="trim-info" matTooltipClass="list-tooltip" matTooltip="Title: {{Paper.title}}&#13;Keywords: &#13;{{convertKeywordsTooltip(Paper.keywords)}}">
       <span>Title: {{Paper.title}}</span><br>
-      <span>URL: {{Paper.url}}</span><br>
-      <span>Authors: <span *ngFor="let author of Paper.authors">{{author.name}}; </span></span>
+      <span>URL: <a target="_blank" href={{Paper.url}}>{{Paper.url}}</a></span><br>
+      <span>Authors: <span *ngFor="let author of Paper.authors">{{author.name}}; </span></span><br>
+      <span>Keywords: <span *ngFor="let keyword of Paper.keywords">{{keyword.keyword}}; </span></span>
     </div>
   </mat-list-option>
 </mat-selection-list>

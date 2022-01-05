@@ -13,7 +13,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { MypapersComponent } from './pages/mypapers/mypapers.component';
-import { OverviewComponent } from './pages/overview/overview.component';
 import { AccountComponent } from './pages/account/account.component';
 import { GraphviewComponent } from './components/graphview/graphview.component';
 import { PaperitemComponent } from './components/paperitem/paperitem.component';
@@ -36,7 +35,6 @@ import { UsersComponent } from './pages/users/users.component';
     AppComponent,
     NavbarComponent,
     MypapersComponent,
-    OverviewComponent,
     AccountComponent,
     GraphviewComponent,
     PaperitemComponent,

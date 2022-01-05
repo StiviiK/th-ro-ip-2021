@@ -116,4 +116,13 @@ export class MyOverviewComponent implements OnInit {
     }
   }
 
+  convertKeywordsTooltip(keywords: any): String {
+    const results = [];
+    Object.keys(keywords).reduce((sum, key) => {
+        sum.push(`${key}: ${keywords[key].keyword}`);
+        return sum;
+    }, results);
+    return results.join('\n');
+}
+
 }
