@@ -1,10 +1,10 @@
 <mat-toolbar color="primary">
   <span id="navbar-title">Scientific Paper Management</span>
   <div *ngIf="authenticationService.currentUser | async">
-    <a mat-button routerLink="/mypapers" routerLinkActive="active-list-item">My Papers</a>
+    <a id="mypapers-button" mat-button routerLink="/mypapers" routerLinkActive="active-list-item">My Papers</a>
     <a mat-button routerLink="/my-overview" routerLinkActive="active-list-item">My Overview</a>
     <a mat-button routerLink="/account" routerLinkActive="active-list-item">Account</a>
     <a mat-button routerLink="/users" routerLinkActive="active-list-item">Users</a>
-    <a mat-button (click)="logout()">Logout</a>
+    <a id="logout-button" mat-button (click)="logout()">Logout</a>
   </div>
 </mat-toolbar>
