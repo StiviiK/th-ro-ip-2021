@@ -1,16 +1,16 @@
 import { AppPage } from './app.po';
 import { browser, logging } from 'protractor';
 
-describe('workspace-project App', () => {
+describe('title', () => {
   let page: AppPage;
 
   beforeEach(() => {
     page = new AppPage();
   });
 
-  it('should display welcome message', async () => {
+  it('Should display navbar title.', async () => {
     await page.navigateTo();
-    expect(await page.getTitleText()).toEqual('frontend app is running!');
+    expect(await page.getTitleText()).toEqual('Scientific Paper Management');
   });
 
   afterEach(async () => {

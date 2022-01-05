@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <span>Scientific Paper Management</span>
+  <span id="navbar-title">Scientific Paper Management</span>
   <div *ngIf="authenticationService.currentUser | async">
     <a mat-button routerLink="/mypapers" routerLinkActive="active-list-item">My Papers</a>
     <a mat-button routerLink="/my-overview" routerLinkActive="active-list-item">My Overview</a>
