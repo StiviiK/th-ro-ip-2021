@@ -6,8 +6,10 @@
         <div style="max-height: 800px;
         overflow: auto;">
             <app-paperitem
-                *ngFor="let onePaper of currentPapers"
+                *ngFor="let onePaper of currentPapers; index as i"
+                [index]="i"
                 [onePaper]="onePaper"
+                (deleteRequest)="deletePaper($event)"
             ></app-paperitem>
         </div>
     </div>
