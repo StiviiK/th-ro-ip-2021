@@ -1,4 +1,4 @@
-import { browser, by, element, ElementArrayFinder, Key } from 'protractor';
+import { browser, by, element, ElementArrayFinder, ElementFinder, Key } from 'protractor';
 
 export class AppPage {
   paperUrl: string = "https://arxiv.org/pdf/1906.01502.pdf";
@@ -30,6 +30,15 @@ export class AppPage {
     await element(by.id("paper-url-input")).sendKeys(this.paperUrl);
     await element(by.id("submit-paper-button")).click();
     return setTimeout(() => {}, 10000);
+  }
+
+  async deletePaper(): Promise<unknown> {
+    await element
+    .all(by.css(".list-container"))
+    .get(0)
+    .element(by.css(".deleteIcon"))
+    .click();
+    return setTimeout(() => {}, 5000);
   }
 
   async getPaperCount(): Promise<number> {

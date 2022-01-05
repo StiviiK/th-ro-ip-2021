@@ -14,8 +14,17 @@ describe('Testing My Papers', () => {
     await page.performLogin();
     let beforeCount = await page.getPaperCount();
     await page.addPaper();
-    let newCount = await page.getPaperCount();
-    expect(newCount - beforeCount).toBe(1);
+    let afterCount = await page.getPaperCount();
+    expect(afterCount - beforeCount).toBe(1);
+  });
+
+  it("Should delete paper.", async () => {
+    await page.navigateTo();
+    await page.performLogin();
+    let beforeCount = await page.getPaperCount();
+    await page.deletePaper();
+    let afterCount = await page.getPaperCount();
+    expect(afterCount - beforeCount).toBe(-1);
   });
 
   afterEach(async () => {

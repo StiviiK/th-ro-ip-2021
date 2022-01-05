@@ -23,7 +23,6 @@ export class PaperitemComponent implements OnInit {
   deletePaper() {
     this.paperservice.removeAddedPaper(this.onePaper).subscribe(e => {
       this.onePaper = null;
-      alert("Paper has been deleted.");
     })
   }
 
