@@ -26,8 +26,13 @@ mat-dialog-container#new-paper-component {
 }
 
 .list-tooltip {
-  font-size: 16px !important;
+  font-size: 12px !important;
   width: 300px;
+  white-space: pre-line;
+}
+
+.icon-tooltip {
+  font-size: 12px !important;
 }
 
 .mat-icon {

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Paper } from 'src/app/core/models/paper-model';
 import { PaperService } from 'src/app/core/services/paper/paper.service';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-paperitem',
@@ -11,7 +12,10 @@ import { PaperService } from 'src/app/core/services/paper/paper.service';
 export class PaperitemComponent implements OnInit {
 
   @Input() onePaper: Paper;
-  constructor(private paperservice: PaperService) { }
+  constructor(
+    private paperservice: PaperService,
+    private clipboard: Clipboard
+  ) { }
 
   ngOnInit(): void {
   }
@@ -21,6 +25,10 @@ export class PaperitemComponent implements OnInit {
       this.onePaper = null;
       alert("Paper has been deleted.");
     })
+  }
+
+  copyBibtex(){
+    this.clipboard.copy(this.onePaper.bibtex);
   }
 
 }
