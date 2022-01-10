@@ -33,14 +33,14 @@ export class MypapersComponent implements OnInit {
     this.getPapers();
   }
 
-  /**
-   * Make full text search on all titles of the paper and adjust current list.
-   */
   deletePaper(index: number): void {
     this.currentPapers.splice(index, 1);
     this.ngOnInit();
   }
 
+  /**
+   * Make full text search on all titles of the paper and adjust current list.
+   */
   filterList(): void {
     this.currentPapers = [];
     this.allPapers.forEach(p => {
