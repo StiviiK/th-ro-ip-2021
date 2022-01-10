@@ -1,3 +1,7 @@
 {
-    "api_endpoint": "http://localhost:8080"
+    "api_endpoint": "http://localhost:8080",
+    "github": {
+        "client_id": "0ae270f0721411e98584",
+        "callback_url": "http://localhost:4200/login"
+    }
 }

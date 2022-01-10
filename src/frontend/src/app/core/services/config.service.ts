@@ -5,6 +5,10 @@ import { catchError } from 'rxjs/operators';
 
 interface Config {
   api_endpoint: string;
+  github: {
+    client_id: string;
+    callback_url: string;
+  }
 }
 
 @Injectable({ providedIn: 'root' })

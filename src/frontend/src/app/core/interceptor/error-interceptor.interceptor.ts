@@ -23,6 +23,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 catchError((err: HttpErrorResponse & { error?: BackendErrorResponse }) => {
                     if (req.url.startsWith(this.config.getConfig('api_endpoint')) && // Only intercept errors from the API
                         !req.url.endsWith('/authenticate') && // don't intercept authenticate requests
+                        !req.url.endsWith('/authenticate/github') && // don't intercept authenticate requests
                         err.status === 403) // API currently returns 403 instead of 401
                     {
                         // auto logout if 401 response returned from api

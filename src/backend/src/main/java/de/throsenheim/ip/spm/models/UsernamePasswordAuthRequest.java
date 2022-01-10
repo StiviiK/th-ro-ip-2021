@@ -3,7 +3,7 @@ package de.throsenheim.ip.spm.models;
 import lombok.Getter;
 import lombok.Setter;
 
-public class AuthenticationRequest {
+public class UsernamePasswordAuthRequest {
     @Getter
     @Setter
     private String username;
@@ -12,10 +12,10 @@ public class AuthenticationRequest {
     @Setter
     private String password;
 
-    public AuthenticationRequest() {
+    public UsernamePasswordAuthRequest() {
     }
 
-    public AuthenticationRequest(String username, String password) {
+    public UsernamePasswordAuthRequest(String username, String password) {
         this.username = username;
         this.password = password;
     }
