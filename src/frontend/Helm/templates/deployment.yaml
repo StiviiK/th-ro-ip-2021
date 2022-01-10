@@ -46,9 +46,9 @@ spec:
             - name: API_ENDPOINT
               value: "{{ .Values.apiEndpoint }}"
             - name: GITHUB_CLIENT_ID
-              value: "{{ .Values.github.clientID }}"
+              value: "{{ .Values.github.clientId }}"
             - name: GITHUB_CALLBACK_URL
-              value: "{{ .Values.github.callbackURL }}"
+              value: "{{ .Values.github.callbackUrl }}"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
