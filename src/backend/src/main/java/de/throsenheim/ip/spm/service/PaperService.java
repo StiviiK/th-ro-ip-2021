@@ -48,8 +48,17 @@ public class PaperService {
         return paperRepository.findAll();
     }
 
+    /**
+     * Deletes paper.
+     * @param paper Paper to delete.
+     */
     public void deletePaper(Paper paper) {paperRepository.delete(paper);}
 
+    /**
+     * Returns paper with the paperId, if found.
+     * @param paperId PaperId of paper.
+     * @return List of papers.
+     */
     public Paper getPaper(String paperId) {
         Optional<Paper> optionalPaper = paperRepository.findById(paperId);
         if (optionalPaper.isEmpty()) {

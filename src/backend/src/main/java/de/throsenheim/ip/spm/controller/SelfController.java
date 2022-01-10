@@ -12,7 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Set;
-
+/**
+ * Controller that takes care of adding, retrieving and deleting papers from a user.
+ *
+ * @author Alessandro Soro
+ */
 @RestController
 @RequestMapping(value = "/self", produces = { "application/json;charset=UTF-8" })
 public class SelfController {
@@ -24,6 +28,12 @@ public class SelfController {
         this.userDetailsService = userDetailsService;
     }
 
+    /**
+     * Adds a paper to the liked list of a user
+     * @param authentication User authentication to append the paper to the liked list of a user
+     * @param paper Paper that needs to be added to the list
+     * @return added Paper.
+     */
     @RequestMapping(value = "/likedPaper", method = RequestMethod.PUT)
     public Object addLikedPaper(Authentication authentication, @RequestBody Paper paper) {
         var paperToLike = paperService.getPaper(paper.getId());
@@ -32,6 +42,12 @@ public class SelfController {
         return ResponseEntity.ok(paperToLike);
     }
 
+    /**
+     * Removes a liked paper from the liked list of the user.
+     * @param authentication User authentication to remove the paper from the liked list of a user
+     * @param paper Paper that needs to be removed from the list
+     * @return removed Paper.
+     */
     @RequestMapping(value = "/likedPaper", method = RequestMethod.POST)
     public Object removeLikedPaper(Authentication authentication, @RequestBody Paper paper) {
         var paperToRemoveLike = paperService.getPaper(paper.getId());
@@ -40,6 +56,11 @@ public class SelfController {
         return ResponseEntity.ok(paperToRemoveLike);
     }
 
+    /**
+     * Getter of liked paper list from a user.
+     * @param authentication User authentication to get the liked list of the user.
+     * @return list of Papers.
+     */
     @RequestMapping(value = "/likedPapers", method = RequestMethod.GET)
     public Object getLikedPapers(Authentication authentication) {
         var user = userDetailsService.getUserByAuth(authentication);
@@ -47,6 +68,11 @@ public class SelfController {
         return ResponseEntity.ok(likedPapers);
     }
 
+    /**
+     * Getter of list of papers added by the user.
+     * @param authentication User authentication to get the added papers list of the user.
+     * @return list of Papers.
+     */
     @RequestMapping(value = "/addedPapers", method = RequestMethod.GET)
     public Object getAddedPapers(Authentication authentication) {
         var user = userDetailsService.getUserByAuth(authentication);
@@ -54,6 +80,12 @@ public class SelfController {
         return ResponseEntity.ok(addedPapers);
     }
 
+    /**
+     * Removes paper from the list of added papers by the user.
+     * @param authentication User authentication to get the added papers list of the user.
+     * @param paper Paper that needs to be removed from the list
+     * @return removed Paper.
+     */
     @RequestMapping(value = "/addedPapers", method = RequestMethod.POST)
     public Object removeAddedPapers(Authentication authentication, @RequestBody Paper paper) {
         var paperToRemove = paperService.getPaper(paper.getId());

@@ -5,7 +5,7 @@ import { AuthenticationService } from 'src/app/core/services/authentication-serv
  * Navbar at the top of the screen.
  * @author Lukas Metzner
  * @author Stefan Kürzeder
- * @author Alessandro Sorro
+ * @author Alessandro Soro
  */
 @Component({
   selector: 'app-navbar',

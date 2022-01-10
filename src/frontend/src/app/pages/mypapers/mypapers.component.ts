@@ -8,7 +8,7 @@ import { Paper } from 'src/app/core/models/paper-model';
 /**
  * Displays the papers of a user in a list next to the graph.
  * @author Lukas Metzner
- * @author Alessandro Sorro
+ * @author Alessandro Soro
  */
 @Component({
   selector: 'app-mypapers',
@@ -50,6 +50,9 @@ export class MypapersComponent implements OnInit {
     })
   }
 
+  /**
+   * Getter for all Papers from a user.
+   */
   getPapers(): void {
     this.papersRestService.getAddedPapers().subscribe(e => {
       this.allPapers = e;
@@ -57,6 +60,11 @@ export class MypapersComponent implements OnInit {
     });
   }
 
+
+  /**
+   * Opens a Dialog to add a new Paper.
+   * If dialog is confirmed the Paper is added to the database.
+   */
   openNewPapersDialog(): void {
     const dialogConfig = new MatDialogConfig();
 
