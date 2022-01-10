@@ -1,11 +1,12 @@
 <div class="topbar-list" >
   <span style="font-size: 20px;  line-height: 33px;">My Liked Papers:</span>
   <button mat-button [disabled]="(!likedPaperSelected && !paperSelected)" (click)="bibtexExport(Papers, likedPapers)">Bibtex export</button>
-  <button mat-button [disabled]="!likedPaperSelected" (click)="removeLike(likedPapers)">Remove Like</button>
+  <button id="remove-liked-paper-button" mat-button [disabled]="!likedPaperSelected" (click)="removeLike(likedPapers)">Remove Like</button>
 </div>
-<mat-selection-list #likedPapers style="margin-left: 1%;">
-  <mat-list-option id="list-option" class="list-container" *ngFor="let likedPaper of allLikedPapers" [value]="likedPaper" style="width:31%; display: inline-block; margin: 1%;" (click)="changedLikedList(likedPapers)">
-    <div class="trim-info" matTooltipClass="list-tooltip" matTooltip="Title: {{likedPaper.title}}&#13;Keywords: &#13;{{convertKeywordsTooltip(likedPaper.keywords)}}">
+
+<mat-selection-list id="liked-papers-list" #likedPapers style="margin-left: 1%;">
+  <mat-list-option id="list-option" class="liked-list-container" *ngFor="let likedPaper of allLikedPapers" [value]="likedPaper" style="width:31%; display: inline-block; margin: 1%;" (click)="changedLikedList(likedPapers)">
+    <div id="liked-list-option" class="trim-info" matTooltipClass="list-tooltip" matTooltip="Title: {{likedPaper.title}}&#13;Keywords: &#13;{{convertKeywordsTooltip(likedPaper.keywords)}}">
       <span>Title: {{likedPaper.title}}</span><br>
       <span>URL: <a target="_blank" href={{likedPaper.url}}>{{likedPaper.url}}</a></span><br>
       <span>Authors: <span *ngFor="let author of likedPaper.authors">{{author.name}}; </span></span><br>
@@ -16,12 +17,12 @@
 
 <div class="topbar-list" >
   <span style="font-size: 20px;  line-height: 33px;">All Papers:</span>
-  <button mat-button [disabled]="!paperSelected"  (click)="like(Papers)">Like Paper</button>
+  <button id="like-paper-button" mat-button [disabled]="!paperSelected"  (click)="like(Papers)">Like Paper</button>
 </div>
 
 <mat-selection-list #Papers style="margin-left: 1%;" >
-  <mat-list-option id="list-option" class="list-container" *ngFor="let Paper of allPapers" [value]="Paper" style="width:31%; display: inline-block; margin: 1%;" (click)="changedList(Papers)" >
-    <div class="trim-info" matTooltipClass="list-tooltip" matTooltip="Title: {{Paper.title}}&#13;Keywords: &#13;{{convertKeywordsTooltip(Paper.keywords)}}">
+  <mat-list-option id="list-option"  class="likeable-list-container" *ngFor="let Paper of allPapers" [value]="Paper" style="width:31%; display: inline-block; margin: 1%;" (click)="changedList(Papers)" >
+    <div id="likeable-list-option" class="trim-info" matTooltipClass="list-tooltip" matTooltip="Title: {{Paper.title}}&#13;Keywords: &#13;{{convertKeywordsTooltip(Paper.keywords)}}">
       <span>Title: {{Paper.title}}</span><br>
       <span>URL: <a target="_blank" href={{Paper.url}}>{{Paper.url}}</a></span><br>
       <span>Authors: <span *ngFor="let author of Paper.authors">{{author.name}}; </span></span><br>
