@@ -5,7 +5,11 @@ import { PaperService } from 'src/app/core/services/paper/paper.service';
 import { Paper } from 'src/app/core/models/paper-model';
 
 
-
+/**
+ * Displays the papers of a user in a list next to the graph.
+ * @author Lukas Metzner
+ * @author Alessandro Sorro
+ */
 @Component({
   selector: 'app-mypapers',
   templateUrl: './mypapers.component.html',
@@ -22,10 +26,16 @@ export class MypapersComponent implements OnInit {
     private papersRestService: PaperService
   ) {}
 
+  /**
+   * Retrieve all papers of an user at initialization time.
+   */
   ngOnInit(): void {
     this.getPapers();
   }
 
+  /**
+   * Make full text search on all titles of the paper and adjust current list.
+   */
   filterList(): void {
     console.log(this.query);
     this.currentPapers = [];
