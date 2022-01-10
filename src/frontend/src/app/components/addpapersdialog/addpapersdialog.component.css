@@ -24,6 +24,7 @@
 #dialog-cancel-button {
   background-color: cornflowerblue;
   color: white;
+  margin-right: 30px;
 }
 
 #radio-button-key {

@@ -17,7 +17,7 @@
   white-space: nowrap;
 }
 
-.list-container {
+.liked-list-container, .likeable-list-container {
   margin-top: 15px;
   line-height: 30px;
   position: relative;

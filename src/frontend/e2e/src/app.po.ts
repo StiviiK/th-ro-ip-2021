@@ -1,10 +1,17 @@
-import { browser, by, element, ElementArrayFinder, ElementFinder, Key } from 'protractor';
-
+import { browser, by, element } from 'protractor';
 export class AppPage {
   paperUrl: string = "https://arxiv.org/pdf/1906.01502.pdf";
 
   async navigateTo(): Promise<unknown> {
     return browser.get(browser.baseUrl);
+  }
+
+  async navigateToMyOverview(): Promise<unknown> {
+    return element(by.id("my-overview-button")).click();
+  }
+
+  async navigateToMyPapers(): Promise<unknown> {
+    return element(by.id("mypapers-button")).click();
   }
 
   async getTitleText(): Promise<string> {
@@ -32,6 +39,24 @@ export class AppPage {
     return setTimeout(() => {}, 10000);
   }
 
+  async likePaper(): Promise<unknown> {
+    await element
+    .all(by.css(".likeable-list-container"))
+    .get(0)
+    .click();
+    await element(by.id("like-paper-button")).click();
+    return setTimeout(() => {}, 10000);
+  }
+
+  async removeLikedPaper(): Promise<unknown> {
+    await element
+    .all(by.css(".liked-list-container"))
+    .get(0)
+    .click();
+    await element(by.id("remove-liked-paper-button")).click();
+    return setTimeout(() => {}, 10000);
+  }
+
   async deletePaper(): Promise<unknown> {
     await element
     .all(by.css(".list-container"))
@@ -43,5 +68,13 @@ export class AppPage {
 
   async getPaperCount(): Promise<number> {
     return element.all(by.css(".list-container")).count();
+  }
+
+  async getLikedPapersCount(): Promise<number> {
+    return element.all(by.css(".liked-list-container")).count();
+  }
+
+  async getLikeablePapersCount(): Promise<number> {
+    return element.all(by.css(".likeable-list-container")).count();
   }
 }
