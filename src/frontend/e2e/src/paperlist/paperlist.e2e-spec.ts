@@ -3,20 +3,20 @@ import { browser, logging } from 'protractor';
 
 describe('Testing My Papers', () => {
   let page: AppPage;
-  beforeAll (async () => {
+  beforeAll(async () => {
     page = new AppPage();
     await page.navigateTo();
     await page.performLogin();
   });
 
-  it("Should add paper.", async () => {
+  it('Should add paper.', async () => {
     let beforeCount = await page.getPaperCount();
     await page.addPaper();
     let afterCount = await page.getPaperCount();
     expect(afterCount - beforeCount).toBe(1);
   });
 
-  it("Should delete paper.", async () => {
+  it('Should delete paper.', async () => {
     let beforeCount = await page.getPaperCount();
     await page.deletePaper();
     let afterCount = await page.getPaperCount();
@@ -24,14 +24,15 @@ describe('Testing My Papers', () => {
   });
 
   afterEach(async () => {
-    // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER);
-    expect(logs).not.toContain(jasmine.objectContaining({
-      level: logging.Level.SEVERE,
-    } as logging.Entry));
+    expect(logs).not.toContain(
+      jasmine.objectContaining({
+        level: logging.Level.SEVERE,
+      } as logging.Entry)
+    );
   });
 
-  afterAll (async () =>{
+  afterAll(async () => {
     await page.performLogout();
   });
 });
