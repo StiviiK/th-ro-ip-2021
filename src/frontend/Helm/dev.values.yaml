@@ -4,6 +4,9 @@ image:
   tag: "master"
 
 apiEndpoint: "https://api.ip.mirix.io"
+github:
+  clientId: "0ae270f0721411e98584"
+  callbackUrl: "https://ip.mirix.io/login"
 
 ingress:
   enabled: true
