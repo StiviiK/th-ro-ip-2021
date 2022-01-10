@@ -8,6 +8,10 @@ import lombok.Setter;
 public class BibtexResponse {
     private String bibtex;
 
+    /**
+     * Wrapper for bibtex entry that is retrieved from the arxiv.org api.
+     * @param bibtex Bibtex as string. Contains newlines.
+     */
     public BibtexResponse(String bibtex) {
         this.bibtex = bibtex;
     }

@@ -25,6 +25,10 @@ public class Keyword {
     @Column(name = "keyword_id")
     private String keyword;
 
+    /**
+     *
+     * @param keyword A single keywords, where the id is the keyword itself.
+     */
     public Keyword(String keyword) {
         this.keyword = keyword;
     }

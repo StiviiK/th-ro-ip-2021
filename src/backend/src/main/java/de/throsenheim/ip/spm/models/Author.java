@@ -26,6 +26,9 @@ public class Author {
     @Column(name = "author_id")
     private String name;
 
+    /**
+     * @param name Name of the author, where the name is the id.
+     */
     public Author (String name) {
         this.name = name;
     }

@@ -57,7 +57,7 @@ public class ArxivApiTest {
         ArxivInformationResponse expected = new ArxivInformationResponse(title, summary, authors, statusCode);
         ArxivInformationResponse response = ArxivApi.getArxivInformation(arxivId);
         assertEquals(expected.getTitle(), response.getTitle());
-        assertEquals(expected.getSummary(), response.getSummary());
+        assertEquals(expected.getAbstract_(), response.getAbstract_());
         assertEquals(expected.getAuthors(), response.getAuthors());
         assertEquals(expected.getStatusCode(), response.getStatusCode());
     }

@@ -11,8 +11,6 @@ import de.throsenheim.ip.spm.repository.PaperRepository;
 import de.throsenheim.ip.spm.util.ArxivApi;
 import de.throsenheim.ip.spm.util.KeywordsApi;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -100,7 +98,7 @@ public class PaperService {
         paper.setTitle(arxivInformation.getTitle());
 
         // Abstract
-        paper.setAbstract_(arxivInformation.getSummary());
+        paper.setAbstract_(arxivInformation.getAbstract_());
 
         // Extract Keywords
         // If keywords entered by user
