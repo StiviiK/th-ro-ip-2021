@@ -8,10 +8,8 @@ rm ${CONFIG_PATH}
 
 echo ${CONFIG} | \
     jq --arg data "${API_ENDPOINT}" '.api_endpoint |= $data' | \
-#    jq --arg data "${AUTH_DOMAIN}" '.authConfig.domain |= $data' | \
-#    jq --arg data "${AUTH_CLIENTID}" '.authConfig.clientId |= $data' | \
-#    jq --arg data "${AUTH_AUDIENCE}" '.authConfig.audience |= $data' | \
-#    jq --arg data "${AUTH_REDIRECT_URI}" '.authConfig.redirectUri |= $data' | \
+    jq --arg data "${GITHUB_CLIENT_ID}" '.github.client_id |= $data' | \
+    jq --arg data "${GITHUB_CALLBACK_URL}" '.github.callback_url |= $data' | \
     cat >> ${CONFIG_PATH}
 
 echo "${SCRIPT_NAME}: info: Config updated"
