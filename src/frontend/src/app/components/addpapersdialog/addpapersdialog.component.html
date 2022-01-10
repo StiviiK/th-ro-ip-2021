@@ -3,16 +3,16 @@
         <h1 id="dialog-title">Add New Paper</h1>
     </header>
     <section id="dialog-body">
-        <input class="input-text" placeholder="Add Paper URL only from arxiv.org" [(ngModel)]="data.url" (change)="onEntered()">
+        <input id="paper-url-input" class="input-text" placeholder="Add Paper URL only from arxiv.org" [(ngModel)]="data.url" (change)="onEntered()">
         <textarea placeholder="Add bibtex manually or let it be extracted automatically" [(ngModel)]="data.bibtex"></textarea>
     </section>
 
     <footer id="dialog-footer">
-        <button mat-raised-button id="dialog-action-button" (click)="confirm()">
-            Do it
-        </button>
-        <button mat-raised-button id="dialog-cancel-button" (click)="closedialog()">
+        <button id="dialog-cancel-button" mat-raised-button (click)="closedialog()">
             Go back
+        </button>
+        <button id="submit-paper-button" mat-raised-button (click)="confirm()">
+            Submit
         </button>
     </footer>
 </div>

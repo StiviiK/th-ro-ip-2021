@@ -8,13 +8,17 @@ const { SpecReporter, StacktraceOption } = require('jasmine-spec-reporter');
  * @type { import("protractor").Config }
  */
 exports.config = {
-  allScriptsTimeout: 11000,
+  allScriptsTimeout: 110000,
   specs: [
     './src/**/*.e2e-spec.ts'
   ],
   capabilities: {
-    browserName: 'chrome'
-  },
+    browserName: 'chrome',
+    chromeOptions: {
+    binary: process.env.CHROME_BIN,
+    args: ['--headless','--no-sandbox']
+    }
+ },
   directConnect: true,
   SELENIUM_PROMISE_MANAGER: false,
   baseUrl: 'http://localhost:4200/',

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Paper } from 'src/app/core/models/paper-model';
 import { PaperService } from 'src/app/core/services/paper/paper.service';
 import { Clipboard } from '@angular/cdk/clipboard';
@@ -12,6 +12,8 @@ import { Clipboard } from '@angular/cdk/clipboard';
 export class PaperitemComponent implements OnInit {
 
   @Input() onePaper: Paper;
+  @Input() index: number;
+  @Output() deleteRequest = new EventEmitter<number>();
   constructor(
     private paperservice: PaperService,
     private clipboard: Clipboard
@@ -22,8 +24,7 @@ export class PaperitemComponent implements OnInit {
 
   deletePaper() {
     this.paperservice.removeAddedPaper(this.onePaper).subscribe(e => {
-      this.onePaper = null;
-      alert("Paper has been deleted.");
+      this.deleteRequest.emit(this.index);
     })
   }
 

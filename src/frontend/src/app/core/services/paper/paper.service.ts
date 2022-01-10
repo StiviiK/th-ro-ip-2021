@@ -23,7 +23,6 @@ export class PaperService {
   }
 
   public addPaper(paperToAdd: DialogData): Observable<Paper> {
-    console.log(paperToAdd);
     return this.http.put<Paper>(`${this.config.getConfig('api_endpoint')}/papers`, paperToAdd);
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { AddpapersdialogComponent } from 'src/app/components/addpapersdialog/addpapersdialog.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { PaperService } from 'src/app/core/services/paper/paper.service';
@@ -36,8 +36,12 @@ export class MypapersComponent implements OnInit {
   /**
    * Make full text search on all titles of the paper and adjust current list.
    */
+  deletePaper(index: number): void {
+    this.currentPapers.splice(index, 1);
+    this.ngOnInit();
+  }
+
   filterList(): void {
-    console.log(this.query);
     this.currentPapers = [];
     this.allPapers.forEach(p => {
       if (p.title.toLowerCase().includes(this.query.toLowerCase())) {
@@ -74,7 +78,6 @@ export class MypapersComponent implements OnInit {
         this.papersRestService.addPaper(data).subscribe((e) => {
           this.allPapers.push(e);
           this.ngOnInit();
-          console.log(this.allPapers);
         });
       }
     });
