@@ -8,9 +8,9 @@ describe('PaperitemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PaperitemComponent ]
+      declarations: [ PaperitemComponent ],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

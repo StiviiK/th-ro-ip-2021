@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DialogData } from '../../models/dialog-data-model';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Paper } from '../../models/paper-model';
 import { Observable } from 'rxjs';
 import { ConfigService } from '../config.service';
@@ -11,7 +11,7 @@ import { ConfigService } from '../config.service';
  * @author Lukas Metzner
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PaperService {
 
@@ -59,7 +59,7 @@ export class PaperService {
     this.http.post<Paper>(`${this.config.getConfig('api_endpoint')}/self/likedPaper`, paperToRemove).subscribe();
   }
 
-    /**
+  /**
    * Deletes paper from the list of added papers of the user.
    * @param paperToRemove Paper to delete.
    */

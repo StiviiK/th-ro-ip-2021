@@ -1,4 +1,4 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AddpapersdialogComponent } from 'src/app/components/addpapersdialog/addpapersdialog.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { PaperService } from 'src/app/core/services/paper/paper.service';
@@ -19,11 +19,11 @@ export class MypapersComponent implements OnInit {
 
   currentPapers: Paper[] = [];
   allPapers: Paper[] = [];
-  query: string = "";
+  query: string = '';
 
   constructor(
     public matDialog: MatDialog,
-    private papersRestService: PaperService
+    private papersRestService: PaperService,
   ) {}
 
   /**
@@ -47,7 +47,7 @@ export class MypapersComponent implements OnInit {
       if (p.title.toLowerCase().includes(this.query.toLowerCase())) {
         this.currentPapers.push(p);
       }
-    })
+    });
   }
 
   /**
@@ -78,7 +78,7 @@ export class MypapersComponent implements OnInit {
 
     const newPapersDialog = this.matDialog.open(
       AddpapersdialogComponent,
-      dialogConfig
+      dialogConfig,
     );
 
     newPapersDialog.afterClosed().subscribe((data) => {

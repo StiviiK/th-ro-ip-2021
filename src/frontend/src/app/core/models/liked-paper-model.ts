@@ -1,4 +1,4 @@
-export interface likedPaper {
+export interface LikedPaper {
   paperURL: string;
   userID: string;
   liked: boolean;

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData } from 'src/app/core/models/dialog-data-model';
 import { BibtexService } from 'src/app/core/services/bibtex/bibtex.service';
@@ -11,19 +11,16 @@ import { PaperService } from 'src/app/core/services/paper/paper.service';
 @Component({
   selector: 'app-addpapersdialog',
   templateUrl: './addpapersdialog.component.html',
-  styleUrls: ['./addpapersdialog.component.css']
+  styleUrls: ['./addpapersdialog.component.css'],
 })
-export class AddpapersdialogComponent implements OnInit {
+export class AddpapersdialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<AddpapersdialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private bibservice: BibtexService,
-    private paperservice: PaperService
+    private paperservice: PaperService,
   ) { }
-
-  ngOnInit(): void {
-  }
 
   /**
    * If Dialog is confirmed, entered data is returned to MypapersComponent
@@ -49,6 +46,6 @@ export class AddpapersdialogComponent implements OnInit {
    */
   onEntered() {
     this.data.id = this.paperservice.paperIdFromURL(this.data.url);
-    this.bibservice.getBibtex(this.data.url).subscribe(e => this.data.bibtex = e['bibtex']);
+    this.bibservice.getBibtex(this.data.url).subscribe(e => this.data.bibtex = e.bibtex);
   }
 }

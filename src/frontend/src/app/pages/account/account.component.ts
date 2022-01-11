@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { JwtHelperService } from 'src/app/core/services/jwt-helper.service';
@@ -12,7 +11,7 @@ import { AuthenticationService, User } from 'src/app/core/services/authenticatio
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css']
+  styleUrls: ['./account.component.css'],
 })
 export class AccountComponent implements OnInit {
 

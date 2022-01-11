@@ -2,7 +2,6 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { Subject } from 'rxjs';
 import { GraphLink } from 'src/app/core/models/graph-links';
 import { GraphNode } from 'src/app/core/models/graph-node';
-import { Keyword } from 'src/app/core/models/keyword';
 import { Paper } from 'src/app/core/models/paper-model';
 import * as uuid from 'uuid';
 
@@ -15,7 +14,7 @@ import * as uuid from 'uuid';
 @Component({
   selector: 'app-graphview',
   templateUrl: './graphview.component.html',
-  styleUrls: ['./graphview.component.css']
+  styleUrls: ['./graphview.component.css'],
 })
 export class GraphviewComponent implements OnInit, OnChanges {
 
@@ -38,9 +37,6 @@ export class GraphviewComponent implements OnInit, OnChanges {
   center$: Subject<boolean> = new Subject();
   zoomToFit$: Subject<boolean> = new Subject();
 
-  constructor(
-  ) { }
-
   ngOnChanges(changes: SimpleChanges): void {
     this._allPapers = changes.allPapers.currentValue;
   }
@@ -57,12 +53,12 @@ export class GraphviewComponent implements OnInit, OnChanges {
    * Afterwards adjust the zoom of the graph to fit the viewport.
    */
   calculateGraph(): void {
-      this.calculateNodes();
-      this.calculateLinks();
-      this.removeUnlinkedNodes();
+    this.calculateNodes();
+    this.calculateLinks();
+    this.removeUnlinkedNodes();
 
-      this.update$.next(true);
-      this.zoomToFit$.next(true);
+    this.update$.next(true);
+    this.zoomToFit$.next(true);
       
   }
 
@@ -74,14 +70,14 @@ export class GraphviewComponent implements OnInit, OnChanges {
     this.nodes.forEach(n => {
       let keep: boolean = true;
       this.links.forEach(l => {
-        if(n.id == l.source || n.id == l.target) {
+        if (n.id == l.source || n.id == l.target) {
           keep = false;
         }
-      })
-      if(!keep) {
+      });
+      if (!keep) {
         updatedNodes.push(n);
       }
-    })
+    });
     this.nodes = [...updatedNodes];
   }
 
@@ -92,11 +88,11 @@ export class GraphviewComponent implements OnInit, OnChanges {
     this.nodes = [];
     this.allPapers.forEach(p => {
       let node: GraphNode = {} as GraphNode;
-      node.id = p.id.replace(".", "");
+      node.id = p.id.replace('.', '');
       node.label = p.title;
       node.keywords = p.keywords;
       this.nodes.push(node);
-    })
+    });
     this.nodes = [...this.nodes];
   }
 
@@ -108,9 +104,9 @@ export class GraphviewComponent implements OnInit, OnChanges {
   extractKeywords(node: GraphNode): string[] {
     let keywords: string[] = [];
     node.keywords.forEach(k => {
-      keywords.push(k["keyword"]);
-    })
-    return keywords
+      keywords.push(k.keyword);
+    });
+    return keywords;
   }
 
   /**
@@ -128,8 +124,8 @@ export class GraphviewComponent implements OnInit, OnChanges {
           let common = keywordsn.some(k => keywordsnt.includes(k));
           if (common) {
             let clink: GraphLink = {} as GraphLink;
-            clink.id = "\\3" + uuid.v4() + " ";
-            clink.label = "";
+            clink.id = '\\3' + uuid.v4() + ' ';
+            clink.label = '';
             clink.source = n.id;
             clink.target = nt.id;
 
@@ -142,14 +138,14 @@ export class GraphviewComponent implements OnInit, OnChanges {
               if (l.source == clink.target && l.target == clink.source) {
                 add = false;
               }
-            })
+            });
             if (add) {
               this.links.push(clink);
             }
           }
         }
-      })
-    })
+      });
+    });
     this.links = [...this.links];
   }
 }

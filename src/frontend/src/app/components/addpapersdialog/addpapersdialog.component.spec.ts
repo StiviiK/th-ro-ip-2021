@@ -8,9 +8,9 @@ describe('AddpapersdialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddpapersdialogComponent ]
+      declarations: [ AddpapersdialogComponent ],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

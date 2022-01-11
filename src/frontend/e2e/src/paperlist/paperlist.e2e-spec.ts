@@ -28,7 +28,7 @@ describe('Testing My Papers', () => {
     expect(logs).not.toContain(
       jasmine.objectContaining({
         level: logging.Level.SEVERE,
-      } as logging.Entry)
+      } as logging.Entry),
     );
   });
 

@@ -8,16 +8,16 @@ import { MypapersComponent } from './pages/mypapers/mypapers.component';
 import { UsersComponent } from './pages/users/users.component';
 
 const routes: Routes = [
-  { path: "login", component: LoginComponent },
-  { path: "", redirectTo: "mypapers", pathMatch: "full" },
+  { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: 'mypapers', pathMatch: 'full' },
   {
-    path: "",
+    path: '',
     children: [
-      { path: "mypapers", component: MypapersComponent },
-      { path: "account", component: AccountComponent },
-      { path: "my-overview", component: MyOverviewComponent },
-      { path: "users", component: UsersComponent },
-      { path: "**", redirectTo: "mypapers" }
+      { path: 'mypapers', component: MypapersComponent },
+      { path: 'account', component: AccountComponent },
+      { path: 'my-overview', component: MyOverviewComponent },
+      { path: 'users', component: UsersComponent },
+      { path: '**', redirectTo: 'mypapers' },
     ],
     canActivate: [AuthGuard],
   },
@@ -25,6 +25,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

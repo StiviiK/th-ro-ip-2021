@@ -1,15 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { JwtHelperService } from 'src/app/core/services/jwt-helper.service';
-import { AuthenticationService, User } from 'src/app/core/services/authentication-service.service';
+import { User } from 'src/app/core/services/authentication-service.service';
 import { ConfigService } from 'src/app/core/services/config.service';
 import { MatSelectionList } from '@angular/material/list';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
 
@@ -27,12 +26,12 @@ export class UsersComponent implements OnInit {
       (ele) => {
         var user = ele.value as User;
         this.http.post(`${this.config.getConfig('api_endpoint')}/users/delete`, user)
-        .subscribe(
-          () => {
-            this.users$ = this.http.get<User[]>(`${this.config.getConfig('api_endpoint')}/users`);
-          }
-        );
-      }
+          .subscribe(
+            () => {
+              this.users$ = this.http.get<User[]>(`${this.config.getConfig('api_endpoint')}/users`);
+            },
+          );
+      },
     );
   }
 

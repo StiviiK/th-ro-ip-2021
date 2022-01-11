@@ -1,3 +1,3 @@
 export interface Keyword {
-    keyword: string
-  }
+  keyword: string
+}

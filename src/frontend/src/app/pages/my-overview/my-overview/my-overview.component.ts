@@ -63,7 +63,7 @@ export class MyOverviewComponent implements OnInit {
    */
   bibtexExport(
     selectedPapers: MatSelectionList,
-    selectedLikedPapers: MatSelectionList
+    selectedLikedPapers: MatSelectionList,
   ): void {
     if (selectedPapers) {
       let selectedPaperOptions = selectedPapers.selectedOptions.selected;

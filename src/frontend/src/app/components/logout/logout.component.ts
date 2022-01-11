@@ -9,7 +9,7 @@ import { AuthenticationService } from 'src/app/core/services/authentication-serv
 @Component({
   selector: 'app-logout',
   templateUrl: './logout.component.html',
-  styleUrls: ['./logout.component.css']
+  styleUrls: ['./logout.component.css'],
 })
 export class LogoutComponent implements OnInit {
 

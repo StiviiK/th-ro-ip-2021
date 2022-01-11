@@ -8,10 +8,10 @@ describe('Testing Login', () => {
     page = new AppPage();
   });
 
-  it("Should login.", async () => {
+  it('Should login.', async () => {
     await page.navigateTo();
     await page.performLogin();
-    expect(await page.getMyPapersButton()).toEqual("My Papers");
+    expect(await page.getMyPapersButton()).toEqual('My Papers');
   });
 
   afterEach(async () => {

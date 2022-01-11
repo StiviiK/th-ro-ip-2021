@@ -8,9 +8,9 @@ describe('GraphviewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GraphviewComponent ]
+      declarations: [ GraphviewComponent ],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
