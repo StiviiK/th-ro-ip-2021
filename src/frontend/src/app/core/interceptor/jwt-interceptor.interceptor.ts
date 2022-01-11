@@ -3,6 +3,11 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { AuthenticationService } from "../services/authentication-service.service";
 
+/**
+ * Interceptor, which injects the JWT token into the request header
+ * 
+ * @author Stefan Kürzeder
+ */
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
     constructor(private authenticationService: AuthenticationService) { }

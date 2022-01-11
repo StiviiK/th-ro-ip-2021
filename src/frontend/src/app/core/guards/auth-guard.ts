@@ -4,6 +4,11 @@ import { Observable } from "rxjs";
 import { JwtHelperService } from "../services/jwt-helper.service";
 import { AuthenticationService } from "../services/authentication-service.service";
 
+/**
+ * AuthGuard, which checks if the user is logged in
+ * 
+ * @author Stefan Kürzeder
+ */
 @Injectable({ providedIn: "root" })
 export class AuthGuard implements CanActivate {
     constructor(

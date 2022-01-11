@@ -4,6 +4,11 @@ import { Observable } from 'rxjs';
 import { JwtHelperService } from 'src/app/core/services/jwt-helper.service';
 import { AuthenticationService, User } from 'src/app/core/services/authentication-service.service';
 
+/**
+ * Component which displays basic information about the user
+ * 
+ * @author Stefan Kürzeder
+ */
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',

@@ -5,6 +5,11 @@ import { first } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/core/services/authentication-service.service';
 import { ConfigService } from 'src/app/core/services/config.service';
 
+/**
+ * Login component, which handles all types of login
+ * 
+ * @author Stefan Kürzeder
+ */
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
@@ -24,6 +29,10 @@ export class LoginComponent implements OnInit {
         private config: ConfigService
     ) { }
 
+    /**
+     * Initialize the component
+     * Initiates the GitHub login process if the auth code is present
+     */
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
             username: ['', Validators.required],
@@ -65,6 +74,10 @@ export class LoginComponent implements OnInit {
         return this.loginForm.controls; 
     }
 
+    /**
+     * Initiates the login process
+     * @returns true if the form is valid
+     */
     onSubmit() {
         this.submitted = true;
 
