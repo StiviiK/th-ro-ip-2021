@@ -2,4 +2,4 @@
 
 ## Public Demo
 
-Public Demo available at: <https://ip.mirix.dev/>
+Public Demo available at: <https://ip.mirix.io/>
