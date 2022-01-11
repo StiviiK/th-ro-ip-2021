@@ -2,6 +2,11 @@ package de.throsenheim.ip.spm.models;
 
 import lombok.Getter;
 
+/**
+ * Response containing the Username and a signed JWT Token after authentication.
+ *
+ * @author Stefan Kürzeder
+ */
 public class AuthenticationResponse {
     @Getter
     private final String username;

@@ -6,6 +6,11 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
+/**
+ * Populates the database with demo data if empty
+ *
+ * @author Stefan Kürzeder
+ */
 @Component
 public class DemoData {
 
@@ -19,6 +24,7 @@ public class DemoData {
     public void InitData() {
         var userCheck = userRepository.count();
         if (userCheck == 0) {
+            // Username: foo, Password: foo
             var user = new User("foo", "$2a$12$oHiElt236IvY9s3O3acC9eFplNwQ62HyJ6paFjeYSsN/MRkIY9r3i");
             userRepository.save(user);
         }

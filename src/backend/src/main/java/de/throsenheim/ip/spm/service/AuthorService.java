@@ -15,8 +15,11 @@ import java.util.List;
  */
 @Service
 public class AuthorService {
-    @Autowired
-    private AuthorRepository authorRepository;
+    private final AuthorRepository authorRepository;
+
+    public AuthorService(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
+    }
 
     /**
      * Save a list of authors that is returned by the arxiv.org api.

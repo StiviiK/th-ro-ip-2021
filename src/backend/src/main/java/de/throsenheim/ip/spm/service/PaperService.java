@@ -7,6 +7,7 @@ import de.throsenheim.ip.spm.models.ArxivInformationResponse;
 import de.throsenheim.ip.spm.models.Author;
 import de.throsenheim.ip.spm.models.Keyword;
 import de.throsenheim.ip.spm.models.Paper;
+import de.throsenheim.ip.spm.models.UserPrincipal;
 import de.throsenheim.ip.spm.repository.PaperRepository;
 import de.throsenheim.ip.spm.util.ArxivApi;
 import de.throsenheim.ip.spm.util.KeywordsApi;

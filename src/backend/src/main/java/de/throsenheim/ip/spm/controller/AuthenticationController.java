@@ -1,21 +1,19 @@
 package de.throsenheim.ip.spm.controller;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import de.throsenheim.ip.spm.models.GitHubAuthRequest;
-import de.throsenheim.ip.spm.models.User;
-import de.throsenheim.ip.spm.models.UsernamePasswordAuthRequest;
-import de.throsenheim.ip.spm.models.AuthenticationResponse;
+import de.throsenheim.ip.spm.models.*;
 import de.throsenheim.ip.spm.repository.UserRepository;
 import de.throsenheim.ip.spm.service.LocalUserDetailsService;
-import de.throsenheim.ip.spm.service.UserPrincipal;
+import de.throsenheim.ip.spm.models.UserPrincipal;
 import de.throsenheim.ip.spm.util.JWTUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,24 +26,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * Controller that handles all types of authentication.
+ * Including Username & Password and GitHub
+ *
+ * @author Stefan Kürzeder
+ */
 @RestController
 public class AuthenticationController {
-
-    private static class TokenResponse {
-        @JsonProperty("access_token")
-        String Token;
-
-        @JsonProperty("scope")
-        String Scope;
-
-        @JsonProperty("token_type")
-        String Type;
-    }
-
-    private static class UserResponse {
-        @JsonProperty("login")
-        String Username;
-    }
 
     @Value("${github.client_id}")
     private String ClientId;
@@ -67,6 +55,13 @@ public class AuthenticationController {
         this.userRepository = userRepository;
     }
 
+    /**
+     * Looks up if the given user exists and signs an JWT for him.
+     * @param username The username to sign the JWT for.
+     * @param createIfNotExists Create the User if it doesn't exist yet. Used for GitHub authentication only.
+     * @return The signed JWT as a String.
+     * @throws UsernameNotFoundException Will be thrown if the given user does not exist.
+     */
     private String signJWTFor(String username, Boolean createIfNotExists) throws UsernameNotFoundException {
         UserPrincipal userDetails;
 
@@ -93,24 +88,33 @@ public class AuthenticationController {
         return jwtTokenUtil.generateToken(userDetails, claims);
     }
 
+    /**
+     * Handles the Username & Password authentication.
+     * @param authenticationRequest The Username & Password as the body.
+     * @return A successful response containing the signed JWT and the Username.
+     * @throws BadCredentialsException If the provided credentials are invalid.
+     * @throws UsernameNotFoundException If the provided User cannot be found.
+     */
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
-    public ResponseEntity<?> authenticate(@RequestBody UsernamePasswordAuthRequest authenticationRequest) throws Exception {
-        try {
-            // validate username and password
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            authenticationRequest.getUsername(),
-                            authenticationRequest.getPassword()));
-        } catch (BadCredentialsException e) {
-            throw new Exception("Incorrect username or password", e);
-        }
+    public ResponseEntity<?> authenticate(@RequestBody UsernamePasswordAuthRequest authenticationRequest) throws BadCredentialsException, UsernameNotFoundException {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        authenticationRequest.getUsername(),
+                        authenticationRequest.getPassword()));
 
         final String jwt = signJWTFor(authenticationRequest.getUsername(), false);
         return ResponseEntity.ok(new AuthenticationResponse(authenticationRequest.getUsername(), jwt));
     }
 
+    /**
+     * Handles the GitHub authentication using the provided auth code.
+     * @param authenticationRequest The auth code as the body.
+     * @return A successful response containing the signed JWT and the Username.
+     * @throws BadCredentialsException If the provided auth code was invalid or GitHub rejected our request.
+     */
     @RequestMapping(value = "/authenticate/github", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
-    public ResponseEntity<?> authenticateWithGitHub(@RequestBody GitHubAuthRequest authenticationRequest) throws Exception {
+    public ResponseEntity<?> authenticateWithGitHub(@RequestBody GitHubAuthRequest authenticationRequest) throws BadCredentialsException {
+        // prepare the access_token request
         var values = new HashMap<String, String>() {{
             put("client_id", ClientId);
             put("client_secret", ClientSecret);
@@ -118,20 +122,22 @@ public class AuthenticationController {
         }};
 
         // validate and request the final auth token
-        final TokenResponse response = this.restTemplate.postForObject("https://github.com/login/oauth/access_token", values, TokenResponse.class);
+        final GitHubApiResponses.TokenResponse response = this.restTemplate.postForObject("https://github.com/login/oauth/access_token", values, GitHubApiResponses.TokenResponse.class);
         if (response == null) {
-            throw new Exception("Invalid response from GitHub");
+            throw new BadCredentialsException("Invalid response from GitHub");
         }
 
         // read the user data
         var headers = new HttpHeaders() {{
             set("Authorization", "token " + response.Token);
         }};
-        final ResponseEntity<UserResponse> userEntity = this.restTemplate.exchange("https://api.github.com/user", HttpMethod.GET, new HttpEntity<String>(headers), UserResponse.class);
+
+        final ResponseEntity<GitHubApiResponses.UserResponse> userEntity = this.restTemplate.exchange("https://api.github.com/user", HttpMethod.GET, new HttpEntity<String>(headers), GitHubApiResponses.UserResponse.class);
         if (userEntity.getBody() == null) {
-            throw new Exception("Invalid authentication");
+            throw new BadCredentialsException("Invalid authentication");
         }
 
+        // user authentication has been successfully validated, sign the jwt
         final String jwt = signJWTFor(userEntity.getBody().Username, true);
         return ResponseEntity.ok(new AuthenticationResponse(userEntity.getBody().Username, jwt));
     }

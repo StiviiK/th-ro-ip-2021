@@ -1,6 +1,5 @@
-package de.throsenheim.ip.spm.service;
+package de.throsenheim.ip.spm.models;
 
-import de.throsenheim.ip.spm.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,13 +7,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
-public class UserPrincipal implements UserDetails {
-
-    private final User user;
-
-    public UserPrincipal(User user) {
-        this.user = user;
-    }
+/**
+ * Record that represents our implementation of the UserDetails
+ *
+ * @author Stefan Kürzeder
+ */
+public record UserPrincipal(User user) implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -31,7 +29,9 @@ public class UserPrincipal implements UserDetails {
         return user.getUsername();
     }
 
-    public User getUser() {return user;}
+    public User getUser() {
+        return user;
+    }
 
     public UUID getId() {
         return user.getId();

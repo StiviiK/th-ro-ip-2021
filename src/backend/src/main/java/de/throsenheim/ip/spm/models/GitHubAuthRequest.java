@@ -3,6 +3,11 @@ package de.throsenheim.ip.spm.models;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Request used for authentication using the GitHub auth code.
+ *
+ * @author Stefan Kürzeder
+ */
 public class GitHubAuthRequest {
     @Getter
     @Setter
