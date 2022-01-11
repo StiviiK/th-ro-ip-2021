@@ -13,10 +13,18 @@ class BackendErrorResponse {
     path: string;
 }
 
+/**
+ * Error interceptor, which handles all errors
+ * 
+ * @author Stefan Kürzeder
+ */
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
     constructor(private authenticationService: AuthenticationService, private config: ConfigService) { }
 
+    /**
+     * Intercepts all http errors and navigates to the login page if the error is 403
+     */
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req)
             .pipe(
@@ -24,9 +32,9 @@ export class ErrorInterceptor implements HttpInterceptor {
                     if (req.url.startsWith(this.config.getConfig('api_endpoint')) && // Only intercept errors from the API
                         !req.url.endsWith('/authenticate') && // don't intercept authenticate requests
                         !req.url.endsWith('/authenticate/github') && // don't intercept authenticate requests
-                        err.status === 403) // API currently returns 403 instead of 401
+                        err.status === 403) // API returns 403 if the user is not authenticated
                     {
-                        // auto logout if 401 response returned from api
+                        // auto logout
                         this.authenticationService.logout();
                         location.reload();
                     }

@@ -3,6 +3,11 @@ package de.throsenheim.ip.spm.models;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Request used for authentication using username & password.
+ *
+ * @author Stefan Kürzeder
+ */
 public class UsernamePasswordAuthRequest {
     @Getter
     @Setter

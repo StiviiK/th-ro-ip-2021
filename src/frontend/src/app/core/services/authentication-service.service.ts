@@ -10,6 +10,11 @@ export class User {
     token?: string;
 }
 
+/**
+ * Service which helps to manage the authentication
+ * 
+ * @author Stefan Kürzeder
+ */
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
@@ -24,6 +29,12 @@ export class AuthenticationService {
         return this.currentUserSubject.value;
     }
 
+    /**
+     * Login in the user with the given username and password
+     * @param username Username
+     * @param password Password
+     * @returns User if successful, otherwise null
+     */
     login(username: string, password: string): Observable<User> {
         return this.http.post<User>(`${this.config.getConfig('api_endpoint')}/authenticate`, { username, password })
             .pipe(
@@ -41,6 +52,11 @@ export class AuthenticationService {
             );
     }
 
+    /**
+     * Login in the user with the given auth code
+     * @param code github auth code
+     * @returns User if successful, otherwise null
+     */
     loginWithGithub(code: string): Observable<User> {
         return this.http.post<User>(`${this.config.getConfig('api_endpoint')}/authenticate/github`, { code })
         .pipe(
@@ -58,6 +74,9 @@ export class AuthenticationService {
         );
     }
 
+    /**
+     * Destroy the active user session
+     */
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');

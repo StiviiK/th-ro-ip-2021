@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/core/services/authentication-service.service';
 
+/**
+ * Navbar at the top of the screen.
+ * @author Lukas Metzner
+ * @author Stefan Kürzeder
+ * @author Alessandro Soro
+ */
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',

@@ -8,6 +8,12 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * Instance of a single author, which is identified
+ * by his name itself.
+ *
+ * @author Lukas Metzner
+ */
 @Setter
 @Getter
 @ToString
@@ -20,6 +26,9 @@ public class Author {
     @Column(name = "author_id")
     private String name;
 
+    /**
+     * @param name Name of the author, where the name is the id.
+     */
     public Author (String name) {
         this.name = name;
     }

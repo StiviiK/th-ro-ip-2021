@@ -4,6 +4,13 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
+/***
+ * Contains all relevant information for a paper
+ * to be stored in the database.
+ *
+ * @author Alessandro Soro
+ * @author Lukas Metzner
+ */
 @Setter
 @Getter
 @ToString
@@ -54,6 +61,15 @@ public class Paper {
     )
     private List<Keyword> keywords;
 
+    /**
+     * Model of a paper from arxiv.org.
+     * @param url URL to the arxiv.org paper. Entered by the user.
+     * @param title Title of the paper. Retrieved using the arxiv.org api.
+     * @param authors Authors of the paper. Retrieved using the arxiv.org api.
+     * @param bibtex Bibtex entry for the paper. Retrieved using the arxiv.org api.
+     * @param abstract_ Abstract of the paper. Retrieved using the arxiv.org api.
+     * @param keywords Extract keywords from the abstract using NLP methods.
+     */
     public Paper(String url, String title, List<Author> authors, String bibtex, String abstract_, List<Keyword> keywords){
         this.url = url;
         this.title = title;

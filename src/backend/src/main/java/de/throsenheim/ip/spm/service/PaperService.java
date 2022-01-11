@@ -7,12 +7,11 @@ import de.throsenheim.ip.spm.models.ArxivInformationResponse;
 import de.throsenheim.ip.spm.models.Author;
 import de.throsenheim.ip.spm.models.Keyword;
 import de.throsenheim.ip.spm.models.Paper;
+import de.throsenheim.ip.spm.models.UserPrincipal;
 import de.throsenheim.ip.spm.repository.PaperRepository;
 import de.throsenheim.ip.spm.util.ArxivApi;
 import de.throsenheim.ip.spm.util.KeywordsApi;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -21,6 +20,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/***
+ * Takes care of the CRUD operations for a paper.
+ *
+ * @author Lukas Metzner
+ * @author Alessandro Soro
+ */
 @Service
 public class PaperService {
 
@@ -36,21 +41,47 @@ public class PaperService {
         this.authorService = authorService;
     }
 
+    /**
+     * Return all papers.
+     * @return List of papers.
+     */
     public List<Paper> getPapers() {
         return paperRepository.findAll();
     }
 
+    /**
+     * Deletes paper.
+     * @param paper Paper to delete.
+     */
     public void deletePaper(Paper paper) {paperRepository.delete(paper);}
 
+    /**
+     * Returns paper with the paperId, if found.
+     * @param paperId PaperId of paper.
+     * @return List of papers.
+     */
     public Paper getPaper(String paperId) {
         Optional<Paper> optionalPaper = paperRepository.findById(paperId);
         if (optionalPaper.isEmpty()) {
-            throw new PaperNotFoundException(String.format("User with id: '%s' not found", paperId));
+            throw new PaperNotFoundException(String.format("Paper with id: '%s' not found", paperId));
         }
         return optionalPaper.get();
 
     }
 
+    /***
+     * Add a new paper to the database or update one. First retrieve the bibtex
+     * if not provided by through the frontend. After this get additional information from arxiv.org
+     * (title, authors, summary). Finally extract the keywords using the KeywordsService and store the paper.
+     * @param paper Paper to process and store.
+     * @param username Username that is assocciated with the paper.
+     * @return
+     * @throws KeywordServiceNotAvailableException
+     * @throws ArxivNotAvailableException
+     * @throws InterruptedException
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public Paper addPaper(Paper paper, String username)
             throws KeywordServiceNotAvailableException, ArxivNotAvailableException, InterruptedException, IOException, URISyntaxException {
         UserPrincipal user = (UserPrincipal) myUserDetailsService.loadUserByUsername(username);
@@ -77,7 +108,7 @@ public class PaperService {
         paper.setTitle(arxivInformation.getTitle());
 
         // Abstract
-        paper.setAbstract_(arxivInformation.getSummary());
+        paper.setAbstract_(arxivInformation.getAbstract_());
 
         // Extract Keywords
         // If keywords entered by user

@@ -6,6 +6,12 @@ import { Keyword } from 'src/app/core/models/keyword';
 import { Paper } from 'src/app/core/models/paper-model';
 import * as uuid from 'uuid';
 
+/**
+ * Creates the graph that shows a connection between two nodes if they
+ * share at least one keyword with each other.
+ * 
+ * @author Lukas Metzner
+ */
 @Component({
   selector: 'app-graphview',
   templateUrl: './graphview.component.html',
@@ -39,10 +45,17 @@ export class GraphviewComponent implements OnInit, OnChanges {
     this._allPapers = changes.allPapers.currentValue;
   }
 
+  /**
+   * Calculate graph when component is initialized.
+   */
   ngOnInit(): void {
     this.calculateGraph();
   }
 
+  /**
+   * Calculate all data and update the graph.
+   * Afterwards adjust the zoom of the graph to fit the viewport.
+   */
   calculateGraph(): void {
       this.calculateNodes();
       this.calculateLinks();
@@ -53,6 +66,9 @@ export class GraphviewComponent implements OnInit, OnChanges {
       
   }
 
+  /**
+   * Remove nodes that have no link to any other node.
+   */
   removeUnlinkedNodes(): void {
     let updatedNodes: GraphNode[] = [];
     this.nodes.forEach(n => {
@@ -69,6 +85,9 @@ export class GraphviewComponent implements OnInit, OnChanges {
     this.nodes = [...updatedNodes];
   }
 
+  /**
+   * Convert papers to nodes object.
+   */
   calculateNodes(): void {
     this.nodes = [];
     this.allPapers.forEach(p => {
@@ -81,6 +100,11 @@ export class GraphviewComponent implements OnInit, OnChanges {
     this.nodes = [...this.nodes];
   }
 
+  /**
+   * Convert list of keyword objects to list of strings.
+   * @param node Holds the list to convert.
+   * @returns String list of keywords.
+   */
   extractKeywords(node: GraphNode): string[] {
     let keywords: string[] = [];
     node.keywords.forEach(k => {
@@ -89,6 +113,10 @@ export class GraphviewComponent implements OnInit, OnChanges {
     return keywords
   }
 
+  /**
+   * Calculate links between the nodes in the graph.
+   * Additionally checks if connection between two nodes already exists.
+   */
   calculateLinks(): void {
     this.links = [];
     this.nodes.forEach(n => {

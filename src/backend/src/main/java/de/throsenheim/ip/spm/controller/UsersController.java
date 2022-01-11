@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Controller that handles all requests for information about the Users.
+ *
+ * @author Stefan Kürzeder
+ */
 @RestController
 @RequestMapping(value = "/users", produces = {"application/json;charset=UTF-8"})
 public class UsersController {

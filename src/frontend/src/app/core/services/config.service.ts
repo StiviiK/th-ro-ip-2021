@@ -11,6 +11,11 @@ interface Config {
   }
 }
 
+/**
+ * Services which provides the configuration for the application
+ * 
+ * @author Stefan Kürzeder
+ */
 @Injectable({ providedIn: 'root' })
 export class ConfigService {
   private config: Config = null;
@@ -23,6 +28,9 @@ export class ConfigService {
     return this.config[key];
   }
 
+  /**
+   * Load the configuration from the server
+   */
   public load() {
     return new Promise(
       (resolve, reject) => {
