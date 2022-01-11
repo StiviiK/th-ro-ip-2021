@@ -7,4 +7,9 @@ import { JwtHelperService as _JwtHelperService } from '@auth0/angular-jwt';
  * @author Stefan Kürzeder
  */
 @Injectable({ providedIn: 'root' })
-export class JwtHelperService extends _JwtHelperService { }
+export class JwtHelperService extends _JwtHelperService {     
+  // do not remove consturctor
+  public constructor(){
+    super();
+  }
+}
