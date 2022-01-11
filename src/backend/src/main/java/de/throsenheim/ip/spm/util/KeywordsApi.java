@@ -21,7 +21,11 @@ import java.util.List;
  * @author Lukas Metzner
  */
 public class KeywordsApi {
-    private static final String BaseURL = System.getenv("KEYWORD_SERVICE_URL");
+    private static final String BASE_URL = System.getenv("KEYWORD_SERVICE_URL");
+
+    private KeywordsApi() {
+
+    }
 
     /***
      * Call the KeywordService api and retrieve the keywords from text.
@@ -32,7 +36,7 @@ public class KeywordsApi {
      * @throws InterruptedException
      */
     public static JSONObject getKeywords(String text) throws URISyntaxException, IOException, InterruptedException {
-        String url = String.format("%s/extract?text=%s", BaseURL, URLEncoder.encode(text, StandardCharsets.UTF_8));
+        String url = String.format("%s/extract?text=%s", BASE_URL, URLEncoder.encode(text, StandardCharsets.UTF_8));
         HttpRequest request = HttpRequest
                 .newBuilder(new URI(url))
                 .GET()

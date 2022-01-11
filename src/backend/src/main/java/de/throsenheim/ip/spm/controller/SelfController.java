@@ -5,13 +5,8 @@ import de.throsenheim.ip.spm.service.LocalUserDetailsService;
 import de.throsenheim.ip.spm.service.PaperService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Set;
 /**
  * Controller that takes care of adding, retrieving and deleting papers from a user.
  *
@@ -34,7 +29,7 @@ public class SelfController {
      * @param paper Paper that needs to be added to the list
      * @return added Paper.
      */
-    @RequestMapping(value = "/likedPaper", method = RequestMethod.PUT)
+    @PutMapping(value = "/likedPaper")
     public Object addLikedPaper(Authentication authentication, @RequestBody Paper paper) {
         var paperToLike = paperService.getPaper(paper.getId());
         var user = userDetailsService.getUserByAuth(authentication);
@@ -48,7 +43,7 @@ public class SelfController {
      * @param paper Paper that needs to be removed from the list
      * @return removed Paper.
      */
-    @RequestMapping(value = "/likedPaper", method = RequestMethod.POST)
+    @PostMapping(value = "/likedPaper")
     public Object removeLikedPaper(Authentication authentication, @RequestBody Paper paper) {
         var paperToRemoveLike = paperService.getPaper(paper.getId());
         var user = userDetailsService.getUserByAuth(authentication);
@@ -61,7 +56,7 @@ public class SelfController {
      * @param authentication User authentication to get the liked list of the user.
      * @return list of Papers.
      */
-    @RequestMapping(value = "/likedPapers", method = RequestMethod.GET)
+    @GetMapping(value = "/likedPapers")
     public Object getLikedPapers(Authentication authentication) {
         var user = userDetailsService.getUserByAuth(authentication);
         var likedPapers = user.getLikedPapers();
@@ -73,7 +68,7 @@ public class SelfController {
      * @param authentication User authentication to get the added papers list of the user.
      * @return list of Papers.
      */
-    @RequestMapping(value = "/addedPapers", method = RequestMethod.GET)
+    @GetMapping(value = "/addedPapers")
     public Object getAddedPapers(Authentication authentication) {
         var user = userDetailsService.getUserByAuth(authentication);
         var addedPapers = user.getPapers();
@@ -86,7 +81,7 @@ public class SelfController {
      * @param paper Paper that needs to be removed from the list
      * @return removed Paper.
      */
-    @RequestMapping(value = "/addedPapers", method = RequestMethod.POST)
+    @PostMapping(value = "/addedPapers")
     public Object removeAddedPapers(Authentication authentication, @RequestBody Paper paper) {
         var paperToRemove = paperService.getPaper(paper.getId());
         var user = userDetailsService.getUserByAuth(authentication);

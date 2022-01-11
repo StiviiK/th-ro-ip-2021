@@ -46,7 +46,7 @@ public class Paper {
 
     // https://arxiv.org/help/prep -> "abstracts longer than 1920 characters will not be accepted;"
     @Column(name = "abstract_", length = 1920)
-    private String abstract_;
+    private String abstractString;
 
     @Column(name = "keywords")
     @ManyToMany(cascade = { CascadeType.ALL })
@@ -59,6 +59,7 @@ public class Paper {
             @JoinColumn(name = "keyword_id")
         }
     )
+
     private List<Keyword> keywords;
 
     /**
@@ -67,15 +68,15 @@ public class Paper {
      * @param title Title of the paper. Retrieved using the arxiv.org api.
      * @param authors Authors of the paper. Retrieved using the arxiv.org api.
      * @param bibtex Bibtex entry for the paper. Retrieved using the arxiv.org api.
-     * @param abstract_ Abstract of the paper. Retrieved using the arxiv.org api.
+     * @param abstractString Abstract of the paper. Retrieved using the arxiv.org api.
      * @param keywords Extract keywords from the abstract using NLP methods.
      */
-    public Paper(String url, String title, List<Author> authors, String bibtex, String abstract_, List<Keyword> keywords){
+    public Paper(String url, String title, List<Author> authors, String bibtex, String abstractString, List<Keyword> keywords){
         this.url = url;
         this.title = title;
         this.authors = authors;
         this.bibtex = bibtex;
-        this.abstract_ = abstract_;
+        this.abstractString = abstractString;
         this.keywords = keywords;
     }
 }

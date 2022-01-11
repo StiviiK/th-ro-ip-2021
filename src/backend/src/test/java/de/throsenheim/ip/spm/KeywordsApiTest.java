@@ -9,10 +9,10 @@ import java.net.URISyntaxException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class KeywordsApiTest {
+class KeywordsApiTest {
 
     @Test
-    public void testKeywordsApi() throws InterruptedException, IOException, URISyntaxException {
+    void testKeywordsApi() throws InterruptedException, IOException, URISyntaxException {
         JSONObject extracted = KeywordsApi.getKeywords("Google just released a new software project.");
         var keywords = extracted.getJSONArray("keywords");
         var keyword = keywords.getJSONArray(2);

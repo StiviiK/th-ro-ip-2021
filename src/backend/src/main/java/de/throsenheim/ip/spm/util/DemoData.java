@@ -21,7 +21,7 @@ public class DemoData {
     }
 
     @PostConstruct
-    public void InitData() {
+    public void initData() {
         var userCheck = userRepository.count();
         if (userCheck == 0) {
             // Username: foo, Password: foo

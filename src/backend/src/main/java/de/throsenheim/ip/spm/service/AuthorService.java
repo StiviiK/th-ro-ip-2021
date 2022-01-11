@@ -2,7 +2,6 @@ package de.throsenheim.ip.spm.service;
 
 import de.throsenheim.ip.spm.models.Author;
 import de.throsenheim.ip.spm.repository.AuthorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

@@ -14,12 +14,12 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ArxivApiTest {
+class ArxivApiTest {
 
     private static String arxivId = "1906.01502";
 
     @Test
-    public void testGetBibtex() throws InterruptedException, IOException, URISyntaxException {
+    void testGetBibtex() throws InterruptedException, IOException, URISyntaxException {
         var expected_bibtex = "@misc{pires2019multilingual,\n" +
                 "      title={How multilingual is Multilingual BERT?}, \n" +
                 "      author={Telmo Pires and Eva Schlinger and Dan Garrette},\n" +
@@ -33,7 +33,7 @@ public class ArxivApiTest {
     }
 
     @Test
-    public void testGetArxivInformation() throws InterruptedException, IOException, ParserConfigurationException, SAXException, URISyntaxException {
+    void testGetArxivInformation() throws InterruptedException, IOException, ParserConfigurationException, SAXException, URISyntaxException {
         String title = "How multilingual is Multilingual BERT?";
         String summary = "In this paper, we show that Multilingual BERT (M-BERT), released by Devlin et\n" +
                 "al. (2018) as a single language model pre-trained from monolingual corpora in\n" +
@@ -57,7 +57,7 @@ public class ArxivApiTest {
         ArxivInformationResponse expected = new ArxivInformationResponse(title, summary, authors, statusCode);
         ArxivInformationResponse response = ArxivApi.getArxivInformation(arxivId);
         assertEquals(expected.getTitle(), response.getTitle());
-        assertEquals(expected.getAbstract_(), response.getAbstract_());
+        assertEquals(expected.getAbstractString(), response.getAbstractString());
         assertEquals(expected.getAuthors(), response.getAuthors());
         assertEquals(expected.getStatusCode(), response.getStatusCode());
     }

@@ -20,7 +20,7 @@ import java.util.function.Function;
  */
 @Configuration
 public class JWTUtil {
-    private final String SECRET_KEY = UUID.randomUUID().toString();
+    private final String secretKey = UUID.randomUUID().toString();
 
     /**
      * Extracts the username from the given token.
@@ -51,7 +51,7 @@ public class JWTUtil {
      * @return The extracted data.
      */
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
     }
 
     /**
@@ -86,7 +86,7 @@ public class JWTUtil {
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setNotBefore(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10h
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
+                .signWith(SignatureAlgorithm.HS256, secretKey).compact();
     }
 
     /**

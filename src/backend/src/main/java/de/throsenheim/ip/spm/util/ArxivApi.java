@@ -8,6 +8,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -28,9 +29,10 @@ import java.util.List;
  * @author Lukas Metzner
  */
 public class ArxivApi {
-    private static String bibtexBaseURL = "https://arxiv.org/bibtex/";
-    private static String BaseUrl = "https://export.arxiv.org/api/query?";
-    private static DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+
+    private ArxivApi() {
+
+    }
 
     /***
      * Calls the arxiv.org api and tries to retrieve the bibtex of a paper.
@@ -40,13 +42,10 @@ public class ArxivApi {
      * @throws IOException
      * @throws InterruptedException
      */
-    public static String getBibtexById(String id) throws URISyntaxException, IOException, InterruptedException {
-        String url = new StringBuilder()
-                .append(bibtexBaseURL)
-                .append(id)
-                .toString();
+    public static String getBibtexById(String id) throws IOException, InterruptedException {
+        String bibtexBaseURL = "https://arxiv.org/bibtex/";
         HttpRequest request = HttpRequest
-                .newBuilder(new URI(url))
+                .newBuilder(URI.create(bibtexBaseURL + id))
                 .GET()
                 .build();
         HttpResponse<String> response = HttpClient.newBuilder()
@@ -66,8 +65,9 @@ public class ArxivApi {
      * @throws SAXException
      */
     public static ArxivInformationResponse getArxivInformation(String id) throws URISyntaxException, IOException, InterruptedException, ParserConfigurationException, SAXException {
+        String baseUrl = "https://export.arxiv.org/api/query?";
         String url = new StringBuilder()
-                .append(BaseUrl)
+                .append(baseUrl)
                 .append("id_list=")
                 .append(id)
                 .append("&start=0")
@@ -81,6 +81,11 @@ public class ArxivApi {
                 .build()
                 .send(request, HttpResponse.BodyHandlers.ofString());
         String rawXML = response.body();
+
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        documentBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        documentBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+
         DocumentBuilder parser = documentBuilderFactory.newDocumentBuilder();
         Document document = parser.parse(new InputSource(new StringReader(rawXML)));
         Element entry = (Element) document.getElementsByTagName("entry").item(0);

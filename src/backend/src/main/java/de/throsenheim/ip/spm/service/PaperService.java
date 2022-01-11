@@ -13,7 +13,9 @@ import de.throsenheim.ip.spm.util.ArxivApi;
 import de.throsenheim.ip.spm.util.KeywordsApi;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -81,9 +83,11 @@ public class PaperService {
      * @throws InterruptedException
      * @throws IOException
      * @throws URISyntaxException
+     * @throws ParserConfigurationException
+     * @throws SAXException
      */
     public Paper addPaper(Paper paper, String username)
-            throws KeywordServiceNotAvailableException, ArxivNotAvailableException, InterruptedException, IOException, URISyntaxException {
+            throws KeywordServiceNotAvailableException, ArxivNotAvailableException, InterruptedException, IOException, URISyntaxException, ParserConfigurationException, SAXException {
         UserPrincipal user = (UserPrincipal) myUserDetailsService.loadUserByUsername(username);
         if (paper == null) {
             throw new NullPointerException("Paper was null");
@@ -94,12 +98,7 @@ public class PaperService {
         }
 
         // Retrieve paper information
-        ArxivInformationResponse arxivInformation = null;
-        try {
-            arxivInformation = ArxivApi.getArxivInformation(paper.getId());
-        } catch (Exception exception) {
-            throw new ArxivNotAvailableException("Arxiv.org API could not be reached.");
-        }
+        ArxivInformationResponse arxivInformation = ArxivApi.getArxivInformation(paper.getId());
 
         // Authors
         List<Author> authors = arxivInformation.getAuthors();
@@ -108,21 +107,17 @@ public class PaperService {
         paper.setTitle(arxivInformation.getTitle());
 
         // Abstract
-        paper.setAbstract_(arxivInformation.getAbstract_());
+        paper.setAbstractString(arxivInformation.getAbstractString());
 
         // Extract Keywords
         // If keywords entered by user
         List<Keyword> keywords = new ArrayList<>();
-        if (paper.getKeywords() != null && paper.getKeywords().size() > 0)
+        if (paper.getKeywords() != null && !paper.getKeywords().isEmpty())
             keywords.addAll(paper.getKeywords());
 
         // Automatic keyword extraction
-        try {
-            JSONObject keywordsResponse = KeywordsApi.getKeywords(paper.getAbstract_());
-            keywords.addAll(KeywordsApi.extractKeywords(keywordsResponse));
-        } catch (Exception exception) {
-            throw new KeywordServiceNotAvailableException("Keyword service could not be reached.");
-        }
+        JSONObject keywordsResponse = KeywordsApi.getKeywords(paper.getAbstractString());
+        keywords.addAll(KeywordsApi.extractKeywords(keywordsResponse));
 
         // Store for relation purpose
         paper = paperRepository.save(paper);

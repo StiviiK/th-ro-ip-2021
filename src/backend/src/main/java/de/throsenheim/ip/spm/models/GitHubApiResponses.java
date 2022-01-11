@@ -8,18 +8,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Stefan Kürzeder
  */
 public class GitHubApiResponses {
+
+    private GitHubApiResponses() {
+
+    }
+
     /**
      * Indicating the response from https://github.com/login/oauth/access_token
      */
     public static class TokenResponse {
         @JsonProperty("access_token")
-        public String Token;
+        public String token;
 
         @JsonProperty("scope")
-        public String Scope;
+        public String scope;
 
         @JsonProperty("token_type")
-        public String Type;
+        public String type;
     }
 
     /**
@@ -27,6 +32,6 @@ public class GitHubApiResponses {
      */
     public static class UserResponse {
         @JsonProperty("login")
-        public String Username;
+        public String username;
     }
 }

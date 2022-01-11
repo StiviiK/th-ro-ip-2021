@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -28,7 +30,7 @@ public class PaperController {
         this.paperService = paperService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping()
     public ResponseEntity<List<Paper>> getPapers() {
         return ResponseEntity.ok(paperService.getPapers());
     }
@@ -38,8 +40,7 @@ public class PaperController {
      * @param paperId Id of the paper to delete.
      * @return Deleted paper.
      */
-    @RequestMapping(value = "/{paperId}", method = RequestMethod.DELETE, produces = {
-            "application/json;charset=UTF-8" })
+    @DeleteMapping(value = "/{paperId}")
     public ResponseEntity<String> deletePaper(@RequestBody @PathVariable("paperId") String paperId) {
         var paperToDelete = paperService.getPaper(paperId);
         paperService.deletePaper(paperToDelete);
@@ -54,21 +55,18 @@ public class PaperController {
      * @return The processed and stored paper.
      * @throws ArxivNotAvailableException
      * @throws KeywordServiceNotAvailableException
+     * @throws IOException
+     * @throws URISyntaxException
+     * @throws InterruptedException
+     * @throws ParserConfigurationException
+     * @throws SAXException
      */
-    @RequestMapping(value = "", method = RequestMethod.PUT, produces = { "application/json;charset=UTF-8" })
+    @PutMapping(value = "")
     public Object addPaper(Authentication authentication, @RequestBody Paper paper)
-            throws ArxivNotAvailableException, KeywordServiceNotAvailableException {
+            throws ArxivNotAvailableException, KeywordServiceNotAvailableException, IOException, URISyntaxException, InterruptedException, ParserConfigurationException, SAXException {
         var principal = (UserDetails) authentication.getPrincipal();
         var username = principal.getUsername();
-        try {
-            paper = paperService.addPaper(paper, username);
-        } catch (ArxivNotAvailableException | KeywordServiceNotAvailableException exception) {
-            System.out.println("Keyword service could not be reached.");
-            return ResponseEntity.internalServerError();
-        } catch (InterruptedException | IOException | URISyntaxException e) {
-            System.out.println("Arxiv.org could not be reached.");
-            return ResponseEntity.internalServerError();
-        }
+        paper = paperService.addPaper(paper, username);
         return ResponseEntity.ok(paper);
     }
 
@@ -77,7 +75,7 @@ public class PaperController {
      * @param paperId Id of the paper in the database.
      * @return Paper from the database.
      */
-    @RequestMapping(value = "/{paperId}", method = RequestMethod.GET)
+    @GetMapping(value = "/{paperId}")
     public ResponseEntity<Paper> getPaper(@RequestBody @PathVariable("paperId") String paperId) {
         return ResponseEntity.ok(paperService.getPaper(paperId));
     }

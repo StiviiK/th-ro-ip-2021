@@ -1,11 +1,12 @@
 package de.throsenheim.ip.spm.models;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -26,7 +27,7 @@ public class User {
     @Id
     @GeneratedValue()
     @Column(name = "user_id", updatable = false, nullable = false)
-    @org.hibernate.annotations.Type(type="uuid-char")
+    @org.hibernate.annotations.Type(type="uuid-char") // NOTE: does not work without it
     private UUID id;
 
     @Column(name = "username")

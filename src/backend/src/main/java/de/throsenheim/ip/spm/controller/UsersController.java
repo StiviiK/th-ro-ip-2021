@@ -5,10 +5,9 @@ import de.throsenheim.ip.spm.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Controller that handles all requests for information about the Users.
@@ -24,15 +23,15 @@ public class UsersController {
         this.userRepository = userRepository;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity<?> GetAll(Authentication authentication) {
+    @GetMapping(value = "")
+    public ResponseEntity<List<User>> getAll(Authentication authentication) {
         return ResponseEntity.ok(this.userRepository.findAll());
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public ResponseEntity<?> DeleteUser(@RequestBody User user) {
+    @PostMapping(value = "/delete")
+    public ResponseEntity<Void> deleteUser(@RequestBody User user) {
         var userEntity = this.userRepository.getByUsername(user.getUsername());
         this.userRepository.delete(userEntity);
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
