@@ -1,3 +1,4 @@
+# @author Stefan Kürzeder
 FROM node:15 as build
 WORKDIR /app
 
