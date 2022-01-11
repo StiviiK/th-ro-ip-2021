@@ -104,9 +104,10 @@ public class ArxivApi {
      */
     private static String parseFromEntryAsString(Element entry, String tagName) {
         NodeList nodes = entry.getElementsByTagName(tagName);
-        for (int i = 0; i < nodes.getLength(); i++){
-            return nodes.item(i).getTextContent().strip();
+        if (nodes.getLength() > 0) {
+            return nodes.item(0).getTextContent().strip();
         }
+
         return tagName + "_not_found";
     }
 
