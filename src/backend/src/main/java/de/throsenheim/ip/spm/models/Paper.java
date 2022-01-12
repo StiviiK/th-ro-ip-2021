@@ -63,6 +63,16 @@ public class Paper {
     private List<Keyword> keywords;
 
     /**
+     * Mapping from add paper request to paper object.
+     * @param addPaperRequest Request object with the information.
+     */
+    public Paper(AddPaperRequest addPaperRequest) {
+        this.id = addPaperRequest.getId();
+        this.url = addPaperRequest.getUrl();
+        this.bibtex = addPaperRequest.getBibtex();
+    }
+
+    /**
      * Model of a paper from arxiv.org.
      * @param url URL to the arxiv.org paper. Entered by the user.
      * @param title Title of the paper. Retrieved using the arxiv.org api.
@@ -71,7 +81,8 @@ public class Paper {
      * @param abstractString Abstract of the paper. Retrieved using the arxiv.org api.
      * @param keywords Extract keywords from the abstract using NLP methods.
      */
-    public Paper(String url, String title, List<Author> authors, String bibtex, String abstractString, List<Keyword> keywords){
+    public Paper(String id, String url, String title, List<Author> authors, String bibtex, String abstractString, List<Keyword> keywords){
+        this.id = id;
         this.url = url;
         this.title = title;
         this.authors = authors;

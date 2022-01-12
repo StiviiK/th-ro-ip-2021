@@ -83,8 +83,6 @@ public class ArxivApi {
         String rawXML = response.body();
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        documentBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-        documentBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
 
         DocumentBuilder parser = documentBuilderFactory.newDocumentBuilder();
         Document document = parser.parse(new InputSource(new StringReader(rawXML)));
