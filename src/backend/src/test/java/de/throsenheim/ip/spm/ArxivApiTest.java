@@ -14,6 +14,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test arxiv api
+ * @author Lukas Metzner
+ */
 class ArxivApiTest {
 
     private static String arxivId = "1906.01502";
