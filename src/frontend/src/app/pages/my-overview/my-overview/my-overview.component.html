@@ -10,7 +10,7 @@
       <span>Title: {{likedPaper.title}}</span><br>
       <span>URL: <a target="_blank" href={{likedPaper.url}}>{{likedPaper.url}}</a></span><br>
       <span>Authors: <span *ngFor="let author of likedPaper.authors">{{author.name}}; </span></span><br>
-      <span>Keywords: <span *ngFor="let keyword of likedPaper.keywords">{{keyword.keyword}}; </span></span>
+      <span>Keywords: {{ likedPaper.keywords.length }}</span>
     </div>
   </mat-list-option>
 </mat-selection-list>
