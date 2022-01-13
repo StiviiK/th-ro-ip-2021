@@ -24,7 +24,7 @@
           <span>Title: {{Paper.title}}</span><br>
           <span>URL: <a target="_blank" href={{Paper.url}}>{{Paper.url}}</a></span><br>
           <span>Authors: <span *ngFor="let author of Paper.authors">{{author.name}}; </span></span><br>
-          <span>Keywords: <span *ngFor="let keyword of Paper.keywords">{{keyword.keyword}}; </span></span>
+          <span>Keywords: {{ Paper.keywords.length }}</span>
         </div>
       </mat-list-option>
     </mat-selection-list>
