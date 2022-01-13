@@ -1,6 +1,6 @@
 package de.throsenheim.ip.spm.controller;
 
-import de.throsenheim.ip.spm.models.Paper;
+import de.throsenheim.ip.spm.models.PaperRequest;
 import de.throsenheim.ip.spm.service.LocalUserDetailsService;
 import de.throsenheim.ip.spm.service.PaperService;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +30,7 @@ public class SelfController {
      * @return added Paper.
      */
     @PutMapping(value = "/likedPaper")
-    public Object addLikedPaper(Authentication authentication, @RequestBody Paper paper) {
+    public Object addLikedPaper(Authentication authentication, @RequestBody PaperRequest paper) {
         var paperToLike = paperService.getPaper(paper.getId());
         var user = userDetailsService.getUserByAuth(authentication);
         userDetailsService.addLikedPaper(user, paperToLike);
@@ -44,7 +44,7 @@ public class SelfController {
      * @return removed Paper.
      */
     @PostMapping(value = "/likedPaper")
-    public Object removeLikedPaper(Authentication authentication, @RequestBody Paper paper) {
+    public Object removeLikedPaper(Authentication authentication, @RequestBody PaperRequest paper) {
         var paperToRemoveLike = paperService.getPaper(paper.getId());
         var user = userDetailsService.getUserByAuth(authentication);
         userDetailsService.removeLikedPaper(user, paperToRemoveLike);
@@ -82,7 +82,7 @@ public class SelfController {
      * @return removed Paper.
      */
     @PostMapping(value = "/addedPapers")
-    public Object removeAddedPapers(Authentication authentication, @RequestBody Paper paper) {
+    public Object removeAddedPapers(Authentication authentication, @RequestBody PaperRequest paper) {
         var paperToRemove = paperService.getPaper(paper.getId());
         var user = userDetailsService.getUserByAuth(authentication);
         userDetailsService.removeAddedPaper(user, paperToRemove);

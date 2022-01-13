@@ -8,7 +8,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -84,7 +83,9 @@ public class ArxivApi {
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 
+        // Note: access to external entities is required
         DocumentBuilder parser = documentBuilderFactory.newDocumentBuilder();
+
         Document document = parser.parse(new InputSource(new StringReader(rawXML)));
         Element entry = (Element) document.getElementsByTagName("entry").item(0);
         String title = parseFromEntryAsString(entry, "title");

@@ -19,12 +19,16 @@
   </div>
   <div *ngIf="selectedUser.papers as papers">
     <mat-selection-list #Papers style="margin-left: 1%;" [multiple]="false">
-      <mat-list-option id="list-option"  class="all-list-container" *ngFor="let Paper of papers" [value]="Paper" style="width:31%; display: inline-block; margin: 1%;" (click)="changedList(Papers)" >
+      <mat-list-option id="list-option"  class="all-list-container" *ngFor="let Paper of papers" [value]="Paper" style="width:31%; display: inline-block; margin: 1%;" >
         <div id="all-list-option" class="trim-info" matTooltipClass="list-tooltip">
           <span>Title: {{Paper.title}}</span><br>
           <span>URL: <a target="_blank" href={{Paper.url}}>{{Paper.url}}</a></span><br>
           <span>Authors: <span *ngFor="let author of Paper.authors">{{author.name}}; </span></span><br>
+<<<<<<< HEAD
           <span>Keywords: <span *ngFor="let keyword of Paper.keywords">{{keyword.name}}; </span></span>
+=======
+          <span>Keywords: {{ Paper.keywords.length }}</span>
+>>>>>>> 947fddd6c425184eb7112b4ece4760c8927bd776
         </div>
       </mat-list-option>
     </mat-selection-list>

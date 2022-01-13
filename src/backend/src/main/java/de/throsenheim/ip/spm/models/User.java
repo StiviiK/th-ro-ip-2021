@@ -27,7 +27,8 @@ public class User {
     @Id
     @GeneratedValue()
     @Column(name = "user_id", updatable = false, nullable = false)
-    @org.hibernate.annotations.Type(type="uuid-char") // NOTE: does not work without it
+    // NOTE: Type is required, even tho it is deprecated it does not work without it
+    @org.hibernate.annotations.Type(type="uuid-char")
     private UUID id;
 
     @Column(name = "username")
@@ -100,9 +101,7 @@ public class User {
      * @param toRemove Paper to remove.
      */
     public void removePaper(Paper toRemove) {
-        if(this.likedPapers.contains(toRemove)){
-            this.likedPapers.remove(toRemove);
-        }
+        this.likedPapers.remove(toRemove);
         this.papers.remove(toRemove);
     }
 }

@@ -9,6 +9,10 @@ import java.net.URISyntaxException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test Keyword service
+ * @author Lukas Metzner
+ */
 class KeywordsApiTest {
 
     @Test
