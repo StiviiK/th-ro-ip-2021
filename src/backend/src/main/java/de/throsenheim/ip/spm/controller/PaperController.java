@@ -2,6 +2,7 @@ package de.throsenheim.ip.spm.controller;
 
 import de.throsenheim.ip.spm.exceptions.ArxivNotAvailableException;
 import de.throsenheim.ip.spm.exceptions.KeywordServiceNotAvailableException;
+import de.throsenheim.ip.spm.models.AddPaperRequest;
 import de.throsenheim.ip.spm.models.Paper;
 import de.throsenheim.ip.spm.service.PaperService;
 import org.springframework.http.ResponseEntity;
@@ -51,7 +52,7 @@ public class PaperController {
      * Adds a new paper to the database and retrieves the keywords and arxiv.org information
      * about the title, authors and the summary.
      * @param authentication User authentication to append the paper to an users paper list.
-     * @param paper The paper to preprocess and add to the database.
+     * @param addPaperRequest The paper to preprocess and add to the database, wrapped in a AddPaperRequest.
      * @return The processed and stored paper.
      * @throws ArxivNotAvailableException
      * @throws KeywordServiceNotAvailableException
@@ -62,10 +63,11 @@ public class PaperController {
      * @throws SAXException
      */
     @PutMapping(value = "")
-    public Object addPaper(Authentication authentication, @RequestBody Paper paper)
+    public Object addPaper(Authentication authentication, @RequestBody AddPaperRequest addPaperRequest)
             throws ArxivNotAvailableException, KeywordServiceNotAvailableException, IOException, URISyntaxException, InterruptedException, ParserConfigurationException, SAXException {
         var principal = (UserDetails) authentication.getPrincipal();
         var username = principal.getUsername();
+        var paper = new Paper(addPaperRequest);
         paper = paperService.addPaper(paper, username);
         return ResponseEntity.ok(paper);
     }
