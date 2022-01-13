@@ -1,5 +1,10 @@
 package de.throsenheim.ip.spm.models;
 
+/**
+ * Wrapper for the add paper request.
+ *
+ * @author Lukas Metzner
+ */
 public class AddPaperRequest {
 
     private String id;
@@ -18,23 +23,11 @@ public class AddPaperRequest {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     public String getBibtex() {
         return bibtex;
-    }
-
-    public void setBibtex(String bibtex) {
-        this.bibtex = bibtex;
     }
 }
