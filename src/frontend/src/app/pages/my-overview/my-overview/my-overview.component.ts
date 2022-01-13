@@ -63,7 +63,7 @@ export class MyOverviewComponent implements OnInit {
    */
   bibtexExport(
     selectedPapers: MatSelectionList,
-    selectedLikedPapers: MatSelectionList,
+    selectedLikedPapers: MatSelectionList
   ): void {
     if (selectedPapers) {
       let selectedPaperOptions = selectedPapers.selectedOptions.selected;
@@ -162,7 +162,7 @@ export class MyOverviewComponent implements OnInit {
   convertKeywordsTooltip(keywords: any): String {
     const results = [];
     Object.keys(keywords).reduce((sum, key) => {
-      sum.push(`${key}: ${keywords[key].keyword}`);
+      sum.push(`${key}: ${keywords[key].name}`);
       return sum;
     }, results);
     return results.join('\n');

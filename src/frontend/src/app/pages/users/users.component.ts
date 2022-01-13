@@ -23,18 +23,19 @@ interface UserResponse {
   styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
-
   users$: Observable<UserResponse[]>;
 
   selectedUser: UserResponse;
 
-  constructor(private http: HttpClient, private config: ConfigService) { }
+  constructor(private http: HttpClient, private config: ConfigService) {}
 
   /**
    * Retrieves all users from the database.
    */
   ngOnInit(): void {
-    this.users$ = this.http.get<UserResponse[]>(`${this.config.getConfig('api_endpoint')}/users`);
+    this.users$ = this.http.get<UserResponse[]>(
+      `${this.config.getConfig('api_endpoint')}/users`
+    );
   }
 
   /**
@@ -58,7 +59,7 @@ export class UsersComponent implements OnInit {
   convertKeywordsTooltip(keywords: any): String {
     const results = [];
     Object.keys(keywords).reduce((sum, key) => {
-      sum.push(`${key}: ${keywords[key].keyword}`);
+      sum.push(`${key}: ${keywords[key].name}`);
       return sum;
     }, results);
     return results.join('\n');
