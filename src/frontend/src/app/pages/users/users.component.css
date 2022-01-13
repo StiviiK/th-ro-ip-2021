@@ -49,3 +49,14 @@ button[disabled] {
   margin-bottom: 10px;
   overflow: hidden;
 }
+
+.all-list-container {
+  margin-top: 15px;
+  line-height: 30px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-end;
+  border: 1px solid rgb(169, 169, 169);
+}

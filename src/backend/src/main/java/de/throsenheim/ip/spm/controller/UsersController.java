@@ -27,11 +27,4 @@ public class UsersController {
     public ResponseEntity<List<User>> getAll(Authentication authentication) {
         return ResponseEntity.ok(this.userRepository.findAll());
     }
-
-    @PostMapping(value = "/delete")
-    public ResponseEntity<Void> deleteUser(@RequestBody User user) {
-        var userEntity = this.userRepository.getByUsername(user.getUsername());
-        this.userRepository.delete(userEntity);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 }

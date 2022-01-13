@@ -1,15 +1,32 @@
+<div class="topbar-list" >
+  <span style="font-size: 20px;  line-height: 33px;">All Users:</span>
+</div>
 <div *ngIf="users$ | async as users">
-  <div class="topbar-list" >
-    <span style="font-size: 20px;  line-height: 33px;">All Users:</span>
-    <button mat-button [disabled]="!userSelected" (click)="delete(Users)">Delete User</button>
-  </div>
-
-  <mat-selection-list #Users style="margin-left: 1%;" >
+  <mat-selection-list #Users style="margin-left: 1%;" [multiple]="false">
     <mat-list-option id="list-option" class="list-container" *ngFor="let user of users" [value]="user" style="width:31%; display: inline-block; margin: 1%;" (click)="changedList(Users)">
       <div class="trim-info">
         <span>ID: {{user.id}}</span><br>
         <span>Name: {{user.username}}</span><br>
+        <span>Papers: {{user.papers.length}}</span><br>
       </div>
     </mat-list-option>
   </mat-selection-list>
+</div>
+
+<div *ngIf="selectedUser">
+  <div class="topbar-list" >
+    <span style="font-size: 20px;  line-height: 33px;">Papers of {{ selectedUser.username }}:</span>
+  </div>
+  <div *ngIf="selectedUser.papers as papers">
+    <mat-selection-list #Papers style="margin-left: 1%;" [multiple]="false">
+      <mat-list-option id="list-option"  class="all-list-container" *ngFor="let Paper of papers" [value]="Paper" style="width:31%; display: inline-block; margin: 1%;" (click)="changedList(Papers)" >
+        <div id="all-list-option" class="trim-info" matTooltipClass="list-tooltip">
+          <span>Title: {{Paper.title}}</span><br>
+          <span>URL: <a target="_blank" href={{Paper.url}}>{{Paper.url}}</a></span><br>
+          <span>Authors: <span *ngFor="let author of Paper.authors">{{author.name}}; </span></span><br>
+          <span>Keywords: <span *ngFor="let keyword of Paper.keywords">{{keyword.keyword}}; </span></span>
+        </div>
+      </mat-list-option>
+    </mat-selection-list>
+  </div>
 </div>

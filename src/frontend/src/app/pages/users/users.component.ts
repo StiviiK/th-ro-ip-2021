@@ -1,10 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from 'src/app/core/services/authentication-service.service';
 import { ConfigService } from 'src/app/core/services/config.service';
 import { MatSelectionList } from '@angular/material/list';
+import { LikedPaper } from 'src/app/core/models/liked-paper-model';
+import { Paper } from 'src/app/core/models/paper-model';
 
+interface UserResponse {
+  id: string;
+  username: string;
+  papers: Paper[];
+  likedPapers: LikedPaper[];
+}
+
+/**
+ * Displays the list of users and their papers.
+ * @author Stefan Kürzeder
+ */
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -12,35 +24,43 @@ import { MatSelectionList } from '@angular/material/list';
 })
 export class UsersComponent implements OnInit {
 
-  users$: Observable<User[]>;
-  userSelected: boolean = false;
+  users$: Observable<UserResponse[]>;
+
+  selectedUser: UserResponse;
 
   constructor(private http: HttpClient, private config: ConfigService) { }
 
+  /**
+   * Retrieves all users from the database.
+   */
   ngOnInit(): void {
-    this.users$ = this.http.get<User[]>(`${this.config.getConfig('api_endpoint')}/users`);
+    this.users$ = this.http.get<UserResponse[]>(`${this.config.getConfig('api_endpoint')}/users`);
   }
 
-  delete(selectedUser: MatSelectionList): void {
-    selectedUser.selectedOptions.selected.forEach(
-      (ele) => {
-        var user = ele.value as User;
-        this.http.post(`${this.config.getConfig('api_endpoint')}/users/delete`, user)
-          .subscribe(
-            () => {
-              this.users$ = this.http.get<User[]>(`${this.config.getConfig('api_endpoint')}/users`);
-            },
-          );
-      },
-    );
-  }
-
+  /**
+   * Specifies the user that is selected.
+   * @param selectedUser Selected user
+   */
   changedList(selectedUser: MatSelectionList): void {
     if (selectedUser.selectedOptions.selected.length > 0) {
-      this.userSelected = true;
+      this.selectedUser = selectedUser.selectedOptions.selected[0].value;
     } else {
-      this.userSelected = false;
+      this.selectedUser = null;
     }
   }
 
+  /**
+   * Converter for the Object of keywords into a string
+   * so it can be displayed in the tooltip.
+   * @param keywords Keywords
+   * @returns String of all keywords
+   */
+  convertKeywordsTooltip(keywords: any): String {
+    const results = [];
+    Object.keys(keywords).reduce((sum, key) => {
+      sum.push(`${key}: ${keywords[key].keyword}`);
+      return sum;
+    }, results);
+    return results.join('\n');
+  }
 }
