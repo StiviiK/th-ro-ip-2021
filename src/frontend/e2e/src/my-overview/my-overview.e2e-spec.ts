@@ -51,15 +51,12 @@ describe('Testing My Overview', () => {
     expect(afterCountLiked - beforeCountLiked).toBe(-1);
   });
 
-  /**
-   * Logger for after every test.
-   */
   afterEach(async () => {
     const logs = await browser.manage().logs().get(logging.Type.BROWSER);
     expect(logs).not.toContain(
       jasmine.objectContaining({
         level: logging.Level.SEVERE,
-      } as logging.Entry),
+      } as logging.Entry)
     );
   });
 
