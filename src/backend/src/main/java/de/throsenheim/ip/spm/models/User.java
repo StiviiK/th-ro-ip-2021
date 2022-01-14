@@ -72,18 +72,20 @@ public class User {
 
     /**
      * Adds the liked paper to the list of a user.
+     * @return False if paper was in list
      * @param likedPaper Liked paper.
      */
-    public void addLikedPaper(Paper likedPaper) {
-        this.likedPapers.add(likedPaper);
+    public boolean addLikedPaper(Paper likedPaper) {
+        return this.likedPapers.add(likedPaper);
     }
 
     /**
      * Adds the paper to the added papers list of a user.
+     * @return False if paper was in list
      * @param paper Added paper.
      */
-    public void addPaper(Paper paper) {
-        this.papers.add(paper);
+    public boolean addPaper(Paper paper) {
+        return this.papers.add(paper);
     }
 
     /**

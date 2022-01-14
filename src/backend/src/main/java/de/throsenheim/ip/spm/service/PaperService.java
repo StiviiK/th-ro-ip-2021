@@ -55,7 +55,9 @@ public class PaperService {
      * Deletes paper.
      * @param paper Paper to delete.
      */
-    public void deletePaper(Paper paper) {paperRepository.delete(paper);}
+    public void deletePaper(Paper paper) {
+        paperRepository.deleteById(paper.getId());
+    }
 
     /**
      * Returns paper with the paperId, if found.
@@ -76,8 +78,8 @@ public class PaperService {
      * if not provided by through the frontend. After this get additional information from arxiv.org
      * (title, authors, summary). Finally extract the keywords using the KeywordsService and store the paper.
      * @param paper Paper to process and store.
-     * @param username Username that is assocciated with the paper.
-     * @return
+     * @param username Username that is associated with the paper.
+     * @return Paper that got created.
      * @throws KeywordServiceNotAvailableException
      * @throws ArxivNotAvailableException
      * @throws InterruptedException

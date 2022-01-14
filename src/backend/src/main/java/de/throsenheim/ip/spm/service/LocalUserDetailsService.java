@@ -32,8 +32,9 @@ public class LocalUserDetailsService implements UserDetailsService {
      * @author Alessandro Soro
      */
     public void addLikedPaper(User user, Paper likedPaper) {
-        user.addLikedPaper(likedPaper);
-        userRepository.save(user);
+        if(user.addLikedPaper(likedPaper)) {
+            userRepository.save(user);
+        }
     }
 
     /**
@@ -49,13 +50,15 @@ public class LocalUserDetailsService implements UserDetailsService {
 
     /**
      * Adds the paper to the papers of the given user.
+     * Saves Repository. if paper was not already in the list.
      * @param user The user to add the paper to.
      * @param paper The paper to add to the user.
      * @author Alessandro Soro
      */
     public void addPaper(User user, Paper paper) {
-        user.addPaper(paper);
-        userRepository.save(user);
+        if(user.addPaper(paper)) {
+            userRepository.save(user);
+        }
     }
 
     /**
