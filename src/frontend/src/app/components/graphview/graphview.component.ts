@@ -114,7 +114,6 @@ export class GraphviewComponent implements OnInit, OnChanges {
 
   /**
    * Calculate links between the nodes in the graph.
-   * Additionally checks if connection between two nodes already exists.
    */
   calculateLinks(): void {
     this.links = [];
@@ -126,29 +125,39 @@ export class GraphviewComponent implements OnInit, OnChanges {
 
           let common = keywordsn.some((k) => keywordsnt.includes(k));
           if (common) {
-            let clink: GraphLink = {} as GraphLink;
-            clink.id = '\\3' + uuid.v4() + ' ';
-            clink.label = '';
-            clink.source = n.id;
-            clink.target = nt.id;
-
-            // Prevent duplicate link between two nodes
-            let add = true;
-            this.links.forEach((l) => {
-              if (l.source == clink.source && l.target == clink.target) {
-                add = false;
-              }
-              if (l.source == clink.target && l.target == clink.source) {
-                add = false;
-              }
-            });
-            if (add) {
-              this.links.push(clink);
-            }
+            this.createLink(n, nt);
           }
         }
       });
     });
     this.links = [...this.links];
+  }
+  
+  /**
+   * Check if link already exists. 
+   * If not append to links list.
+   * @param source Source node of the link.
+   * @param target Target node of the link.
+   */
+  createLink(source, target) {
+    let clink: GraphLink = {} as GraphLink;
+    clink.id = '\\3' + uuid.v4() + ' ';
+    clink.label = '';
+    clink.source = source.id;
+    clink.target = target.id;
+  
+    // Prevent duplicate link between two nodes
+    let add = true;
+    this.links.forEach((l) => {
+      if (l.source == clink.source && l.target == clink.target) {
+        add = false;
+      }
+      if (l.source == clink.target && l.target == clink.source) {
+        add = false;
+      }
+    });
+    if (add) {
+      this.links.push(clink);
+    }
   }
 }
