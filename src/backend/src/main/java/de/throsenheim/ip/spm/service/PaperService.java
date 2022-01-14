@@ -55,7 +55,9 @@ public class PaperService {
      * Deletes paper.
      * @param paper Paper to delete.
      */
-    public void deletePaper(Paper paper) {paperRepository.delete(paper);}
+    public void deletePaper(Paper paper) {
+        paperRepository.deleteById(paper.getId());
+    }
 
     /**
      * Returns paper with the paperId, if found.
