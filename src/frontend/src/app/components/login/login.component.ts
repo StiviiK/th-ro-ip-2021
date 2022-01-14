@@ -10,7 +10,9 @@ import { ConfigService } from 'src/app/core/services/config.service';
  * 
  * @author Stefan Kürzeder
  */
-@Component({ templateUrl: 'login.component.html' })
+@Component({ 
+  templateUrl: 'login.component.html',
+})
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;

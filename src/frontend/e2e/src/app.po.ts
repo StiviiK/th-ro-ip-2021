@@ -70,7 +70,9 @@ export class AppPage {
     await element(by.id('add-paper-button')).click();
     await element(by.id('paper-url-input')).sendKeys(this.paperUrl);
     await element(by.id('submit-paper-button')).click();
-    return setTimeout(() => {}, 10000);
+    return setTimeout(function () {
+      // This is intentional
+    }, 10000);
   }
 
   /**
@@ -81,7 +83,9 @@ export class AppPage {
   async likePaper(): Promise<unknown> {
     await element.all(by.css('.likeable-list-container')).get(0).click();
     await element(by.id('like-paper-button')).click();
-    return setTimeout(() => {}, 10000);
+    return setTimeout(function () {
+      // This is intentional
+    }, 10000);
   }
 
   /**
@@ -92,7 +96,9 @@ export class AppPage {
   async removeLikedPaper(): Promise<unknown> {
     await element.all(by.css('.liked-list-container')).get(0).click();
     await element(by.id('remove-liked-paper-button')).click();
-    return setTimeout(() => {}, 10000);
+    return setTimeout(function () {
+      // This is intentional
+    }, 10000);
   }
 
   /**
@@ -106,7 +112,9 @@ export class AppPage {
       .get(0)
       .element(by.css('.deleteIcon'))
       .click();
-    return setTimeout(() => {}, 5000);
+    return setTimeout(function () {
+      // This is intentional
+    }, 5000);
   }
 
   /**

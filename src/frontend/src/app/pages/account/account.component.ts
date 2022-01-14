@@ -11,7 +11,6 @@ import { AuthenticationService, User } from 'src/app/core/services/authenticatio
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css'],
 })
 export class AccountComponent implements OnInit {
 

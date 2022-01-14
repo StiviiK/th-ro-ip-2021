@@ -56,12 +56,10 @@ export class UsersComponent implements OnInit {
    * @param keywords Keywords
    * @returns String of all keywords
    */
-  convertKeywordsTooltip(keywords: any): String {
-    const results = [];
-    Object.keys(keywords).reduce((sum, key) => {
+  convertKeywordsTooltip(keywords: any): string {
+    return Object.keys(keywords).reduce((sum, key) => {
       sum.push(`${key}: ${keywords[key].name}`);
       return sum;
-    }, results);
-    return results.join('\n');
+    }, []).join('\n');
   }
 }

@@ -29,6 +29,17 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
+  private authenticationHandler(user: User): User {
+    // login successful if there's a jwt token in the response
+    if (user && user.token) {
+      // store user details and jwt token in local storage to keep user logged in between page refreshes
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      this.currentUserSubject.next(user);
+    }
+
+    return user;
+  }
+
   /**
      * Login in the user with the given username and password
      * @param username Username
@@ -38,17 +49,7 @@ export class AuthenticationService {
   login(username: string, password: string): Observable<User> {
     return this.http.post<User>(`${this.config.getConfig('api_endpoint')}/authenticate`, { username, password })
       .pipe(
-        map(user => {
-          // login successful if there's a jwt token in the response
-          if (user && user.token) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            this.currentUserSubject.next(user);
-          }
-
-          return user;
-        },
-        ),
+        map(this.authenticationHandler.bind(this)),
       );
   }
 
@@ -60,17 +61,7 @@ export class AuthenticationService {
   loginWithGithub(code: string): Observable<User> {
     return this.http.post<User>(`${this.config.getConfig('api_endpoint')}/authenticate/github`, { code })
       .pipe(
-        map(user => {
-          // login successful if there's a jwt token in the response
-          if (user && user.token) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            this.currentUserSubject.next(user);
-          }
-
-          return user;
-        },
-        ),
+        map(this.authenticationHandler.bind(this)),
       );
   }
 

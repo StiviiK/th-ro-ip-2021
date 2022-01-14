@@ -19,7 +19,7 @@ export class MyOverviewComponent implements OnInit {
   likedPaperSelected: boolean = false;
   bibtex: string = '';
 
-  constructor(private papersRestService: PaperService) {}
+  constructor(private papersRestService: PaperService) { }
 
   /**
    * Retrieves all papers of an user at initialization time.
@@ -45,7 +45,6 @@ export class MyOverviewComponent implements OnInit {
               if (paper.id === likedpaper.id) {
                 this.allPapers.splice(index, 1);
               }
-              index++;
             });
           });
         }
@@ -100,7 +99,6 @@ export class MyOverviewComponent implements OnInit {
             if (paper.id === e.id) {
               this.allPapers.splice(index, 1);
             }
-            index++;
           });
         });
     });
@@ -121,7 +119,6 @@ export class MyOverviewComponent implements OnInit {
         if (paper.id === selectedOption.value.id) {
           this.allLikedPapers.splice(index, 1);
         }
-        index++;
       });
     });
     this.likedPaperSelected = false;
@@ -159,12 +156,10 @@ export class MyOverviewComponent implements OnInit {
    * @param keywords Keywords
    * @returns String of all keywords
    */
-  convertKeywordsTooltip(keywords: any): String {
-    const results = [];
-    Object.keys(keywords).reduce((sum, key) => {
+  convertKeywordsTooltip(keywords: any): string {
+    return Object.keys(keywords).reduce((sum, key) => {
       sum.push(`${key}: ${keywords[key].name}`);
       return sum;
-    }, results);
-    return results.join('\n');
+    }, []).join('\n');
   }
 }

@@ -8,7 +8,7 @@
   <mat-list-option id="list-option" class="liked-list-container" *ngFor="let likedPaper of allLikedPapers" [value]="likedPaper" style="width:31%; display: inline-block; margin: 1%;" (click)="changedLikedList(likedPapers)">
     <div id="liked-list-option" class="trim-info" matTooltipClass="list-tooltip" matTooltip="Title: {{likedPaper.title}}&#13;Keywords: &#13;{{convertKeywordsTooltip(likedPaper.keywords)}}">
       <span>Title: {{likedPaper.title}}</span><br>
-      <span>URL: <a target="_blank" href={{likedPaper.url}}>{{likedPaper.url}}</a></span><br>
+      <span>URL: <a target="_blank" rel=noopener href={{likedPaper.url}}>{{likedPaper.url}}</a></span><br>
       <span>Authors: <span *ngFor="let author of likedPaper.authors">{{author.name}}; </span></span><br>
     </div>
   </mat-list-option>
@@ -23,7 +23,7 @@
   <mat-list-option id="list-option"  class="likeable-list-container" *ngFor="let Paper of allPapers" [value]="Paper" style="width:31%; display: inline-block; margin: 1%;" (click)="changedList(Papers)" >
     <div id="likeable-list-option" class="trim-info" matTooltipClass="list-tooltip" matTooltip="Title: {{Paper.title}}&#13;Keywords: &#13;{{convertKeywordsTooltip(Paper.keywords)}}">
       <span>Title: {{Paper.title}}</span><br>
-      <span>URL: <a target="_blank" href={{Paper.url}}>{{Paper.url}}</a></span><br>
+      <span>URL: <a target="_blank" rel=noopener href={{Paper.url}}>{{Paper.url}}</a></span><br>
       <span>Authors: <span *ngFor="let author of Paper.authors">{{author.name}}; </span></span><br>
     </div>
   </mat-list-option>

@@ -1,9 +1,6 @@
 #mainview {
   display: flex;
   flex-grow: grow;
-}
-
-#mainview {
   height: 92%;
 }
 
