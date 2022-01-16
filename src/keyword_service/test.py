@@ -1,5 +1,11 @@
+#!/usr/bin/env python
+
+""" Simple test for the keyword extraction service. """
+__author__ = "Lukas Metzner"
+
 import json
 import requests
+
 
 TEXT = "Sources tell us that Google is acquiring Kaggle, a platform that hosts data science and machine learning "\
 "competitions. Details about the transaction remain somewhat vague, but given that Google is hosting its Cloud "\
