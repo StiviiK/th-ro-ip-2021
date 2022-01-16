@@ -13,13 +13,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { MypapersComponent } from './pages/mypapers/mypapers.component';
-import { AccountComponent } from './pages/account/account.component';
 import { GraphviewComponent } from './components/graphview/graphview.component';
 import { PaperitemComponent } from './components/paperitem/paperitem.component';
 import { AddpapersdialogComponent } from './components/addpapersdialog/addpapersdialog.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatListModule } from '@angular/material/list';
-
 
 import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -35,7 +33,6 @@ import { UsersComponent } from './pages/users/users.component';
     AppComponent,
     NavbarComponent,
     MypapersComponent,
-    AccountComponent,
     GraphviewComponent,
     PaperitemComponent,
     AddpapersdialogComponent,
@@ -75,4 +72,4 @@ import { UsersComponent } from './pages/users/users.component';
   bootstrap: [AppComponent],
   entryComponents: [AddpapersdialogComponent],
 })
-export class AppModule { }
+export class AppModule {}

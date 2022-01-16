@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './core/guards/auth-guard';
-import { AccountComponent } from './pages/account/account.component';
 import { MyOverviewComponent } from './pages/my-overview/my-overview/my-overview.component';
 import { MypapersComponent } from './pages/mypapers/mypapers.component';
 import { UsersComponent } from './pages/users/users.component';
@@ -14,7 +13,6 @@ const routes: Routes = [
     path: '',
     children: [
       { path: 'mypapers', component: MypapersComponent },
-      { path: 'account', component: AccountComponent },
       { path: 'my-overview', component: MyOverviewComponent },
       { path: 'users', component: UsersComponent },
       { path: '**', redirectTo: 'mypapers' },
@@ -27,4 +25,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

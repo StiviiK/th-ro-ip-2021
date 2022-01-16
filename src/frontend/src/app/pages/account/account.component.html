@@ -1,5 +1,0 @@
-<div *ngIf="user | async as u">
-    <p>Username: <span>{{ u.username }}</span>
-    <p>Token: <span>{{ u.token }}</span></p>
-    <p>Parsed Token: <span>{{ jwtHelperService.decodeToken(u.token) | json }}</span></p>
-</div>
