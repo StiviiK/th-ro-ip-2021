@@ -95,44 +95,47 @@ public class PaperService {
             throw new NullPointerException("Paper was null");
         }
 
-        if (paper.getBibtex() == null || paper.getBibtex().isEmpty()) {
-            paper.setBibtex(ArxivApi.getBibtexById(paper.getId()));
+        if (!paperRepository.existsById(paper.getId())) {
+            if (paper.getBibtex() == null || paper.getBibtex().isEmpty()) {
+                paper.setBibtex(ArxivApi.getBibtexById(paper.getId()));
+            }
+
+            // Retrieve paper information
+            ArxivInformationResponse arxivInformation = ArxivApi.getArxivInformation(paper.getId());
+
+            // Authors
+            List<Author> authors = arxivInformation.getAuthors();
+
+            // Title
+            paper.setTitle(arxivInformation.getTitle());
+
+            // Abstract
+            paper.setAbstractString(arxivInformation.getAbstractString());
+
+            // Extract Keywords
+            // If keywords entered by user
+            List<Keyword> keywords = new ArrayList<>();
+            if (paper.getKeywords() != null && !paper.getKeywords().isEmpty())
+                keywords.addAll(paper.getKeywords());
+
+            // Automatic keyword extraction
+            JSONObject keywordsResponse = KeywordsApi.getKeywords(paper.getAbstractString());
+            keywords.addAll(KeywordsApi.extractKeywords(keywordsResponse));
+
+            // Store for relation purpose
+            paper = paperRepository.save(paper);
+
+            authors = authorService.saveMultiple(authors);
+            paper.setAuthors(authors);
+
+            keywords = keywordService.saveMultiple(keywords);
+            paper.setKeywords(keywords);
+
+            paper = paperRepository.save(paper);
+        } else {
+            paper = getPaper(paper.getId());
         }
-
-        // Retrieve paper information
-        ArxivInformationResponse arxivInformation = ArxivApi.getArxivInformation(paper.getId());
-
-        // Authors
-        List<Author> authors = arxivInformation.getAuthors();
-
-        // Title
-        paper.setTitle(arxivInformation.getTitle());
-
-        // Abstract
-        paper.setAbstractString(arxivInformation.getAbstractString());
-
-        // Extract Keywords
-        // If keywords entered by user
-        List<Keyword> keywords = new ArrayList<>();
-        if (paper.getKeywords() != null && !paper.getKeywords().isEmpty())
-            keywords.addAll(paper.getKeywords());
-
-        // Automatic keyword extraction
-        JSONObject keywordsResponse = KeywordsApi.getKeywords(paper.getAbstractString());
-        keywords.addAll(KeywordsApi.extractKeywords(keywordsResponse));
-
-        // Store for relation purpose
-        paper = paperRepository.save(paper);
-
-        authors = authorService.saveMultiple(authors);
-        paper.setAuthors(authors);
-
-        keywords = keywordService.saveMultiple(keywords);
-        paper.setKeywords(keywords);
-
-        paper = paperRepository.save(paper);
         myUserDetailsService.addPaper(user.getUser(), paper);
-
         return paper;
     }
 }
