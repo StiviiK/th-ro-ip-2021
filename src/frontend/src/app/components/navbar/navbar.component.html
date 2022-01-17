@@ -3,7 +3,6 @@
   <div *ngIf="authenticationService.currentUser | async">
     <a id="mypapers-button" mat-button routerLink="/mypapers" routerLinkActive="active-list-item">My Papers</a>
     <a id="my-overview-button" mat-button routerLink="/my-overview" routerLinkActive="active-list-item">My Overview</a>
-    <a mat-button routerLink="/account" routerLinkActive="active-list-item">Account</a>
     <a mat-button routerLink="/users" routerLinkActive="active-list-item">Users</a>
     <a id="logout-button" mat-button (click)="logout()">Logout</a>
   </div>
