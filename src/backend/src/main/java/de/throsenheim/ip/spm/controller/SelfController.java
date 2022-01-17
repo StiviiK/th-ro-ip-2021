@@ -33,6 +33,9 @@ public class SelfController {
     public Object addLikedPaper(Authentication authentication, @RequestBody PaperRequest paper) {
         var paperToLike = paperService.getPaper(paper.getId());
         var user = userDetailsService.getUserByAuth(authentication);
+        if(user.getLikedPapers().contains(paperToLike)) {
+            return ResponseEntity.ok(paperToLike);
+        }
         userDetailsService.addLikedPaper(user, paperToLike);
         return ResponseEntity.ok(paperToLike);
     }
